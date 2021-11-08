@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mysql = require ('mysql2');
-
+const Sequelize  = require('sequelize');
 
 /*const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
@@ -10,44 +10,31 @@ const commentRoutes = require('./routes/comment')*/
 
 
 
-//connection
-const connexion = mysql.createConnection({
+// connexion à DB mySQL avec l'ORM sequelize
+const sequelize = new Sequelize(
+  'groupomania',
+  'root', 
+  'shogun99', { 
+    dialect: "mysql",  
     host :'localhost',
-    user : 'root',
-    password : 'shogun99',
-    database : 'groupomania',
+  });
 
-});
 
-connexion.connect((err) => {
-  if(err)
-  console.log(err); 
-  else
-  console.log('connexion à MySQL réussie!');
-});
+//test connexion mySQL
+  try {
+    sequelize.authenticate();
+    console.log('Connecté à la base de données MySQL!');
+    sequelize.query('SELECT * FROM User').then(([results, metadata]) => {
+      console.log(results);
+    })
+  } 
+  catch (error) {
+    console.error('Impossible de se connecter, erreur suivante :', error);
+  }
 
 
 const app = express ();
 
-
-//test connexion
-app.get('/user', (req, res) => {
-  connexion.query ('SELECT * FROM user', (err, result) => {
-    if (err)
-    console.log(err);
-    else 
-    console.log(result);
-  });
-});
-
-app.get('/user/:id', (req, res) => {
-  connexion.query ('SELECT * FROM user WHERE ID =3', (err, result) => {
-    if (err)
-    console.log(err);
-    else 
-    console.log(result);
-  });
-});
 
 
 
@@ -76,6 +63,23 @@ app.use('/api/comments', commentRoutes);*/
 module.exports = app;
 
 
+
+
+//connection mysql
+/*const connexion = mysql.createConnection({
+    host :'localhost',
+    user : 'root',
+    password : 'shogun99',
+    database : 'groupomania',
+});*/
+
+
+/*connexion.connect((err) => {
+  if(err)
+  console.log(err); 
+  else
+  console.log('connexion à MySQL réussie!');
+});*/
 
 
 
