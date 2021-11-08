@@ -11,12 +11,13 @@ const commentRoutes = require('./routes/comment')*/
 
 
 // connexion à DB mySQL avec l'ORM sequelize
-const sequelize = new Sequelize(
-  'groupomania',
-  'root', 
-  'shogun99', { 
-    dialect: "mysql",  
-    host :'localhost',
+const sequelize = new Sequelize({ 
+  username: "root",
+  password: "shogun99",
+  database: "groupomania",
+  host :'localhost',
+  dialect: "mysql",  
+  
   });
 
 
