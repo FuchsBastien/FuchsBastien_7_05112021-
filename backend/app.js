@@ -3,10 +3,10 @@ const path = require('path');
 const mysql = require ('mysql2');
 
 
-const authRoutes = require('./routes/auth')
+/*const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const articleRoutes = require('./routes/article')
-const commentRoutes = require('./routes/comment')
+const commentRoutes = require('./routes/comment')*/
 
 
 
@@ -65,11 +65,11 @@ app.use(express.json());
 
 
 //Enregistrement des routeurs
-app.use('/images', express.static(path.join(__dirname, 'images')));
+/*app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/articles', articleRoutes);
-app.use('/api/comments', commentRoutes);
+app.use('/api/comments', commentRoutes);*/
 
 
 // export de notre app

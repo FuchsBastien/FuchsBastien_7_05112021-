@@ -21,4 +21,4 @@ module.exports = router;
 
 //api/user/
 //api/user/:id
-//api/user/:id/articles
+//api/user/:id/article
