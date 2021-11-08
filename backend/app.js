@@ -1,16 +1,16 @@
 const express = require('express');
-/*const path = require('path');*/
+const path = require('path');
 const mysql = require ('mysql2');
 
 
-/*const authRoutes = require('./routes/auth')
+const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const articleRoutes = require('./routes/article')
-const commentRoutes = require('./routes/comment')*/
+const commentRoutes = require('./routes/comment')
 
 
 
-//créer connection
+//connection
 const connexion = mysql.createConnection({
     host :'localhost',
     user : 'root',
@@ -19,7 +19,6 @@ const connexion = mysql.createConnection({
 
 });
 
-//connexion
 connexion.connect((err) => {
   if(err)
   console.log(err); 
@@ -31,7 +30,7 @@ connexion.connect((err) => {
 const app = express ();
 
 
-
+//test connexion
 app.get('/user', (req, res) => {
   connexion.query ('SELECT * FROM user', (err, result) => {
     if (err)
@@ -41,7 +40,6 @@ app.get('/user', (req, res) => {
   });
 });
 
-
 app.get('/user/:id', (req, res) => {
   connexion.query ('SELECT * FROM user WHERE ID =3', (err, result) => {
     if (err)
@@ -50,7 +48,6 @@ app.get('/user/:id', (req, res) => {
     console.log(result);
   });
 });
-
 
 
 
@@ -67,12 +64,12 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 
-/*Enregistrement des routeurs
+//Enregistrement des routeurs
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/articles', articleRoutes);
-app.use('/api/comments', commentRoutes);*/
+app.use('/api/comments', commentRoutes);
 
 
 // export de notre app
