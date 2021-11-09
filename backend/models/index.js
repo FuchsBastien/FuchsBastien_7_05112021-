@@ -36,7 +36,6 @@ db.Sequelize = Sequelize;
 
 //Liens models pour controllers
 db.users = require('./user.js')(sequelize, Sequelize);
-db.articles = require('./article.js')(sequelize, Sequelize);
 
 
 module.exports = db;
