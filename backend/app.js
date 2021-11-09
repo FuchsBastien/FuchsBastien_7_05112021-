@@ -1,41 +1,18 @@
 const express = require('express');
 const path = require('path');
-const mysql = require ('mysql2');
-const Sequelize  = require('sequelize');
+/*const cors = require("cors");*/
 
-/*const authRoutes = require('./routes/auth')
+/*const mysql = require ('mysql2');
+const Sequelize  = require('sequelize');*/
+
+const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
-const articleRoutes = require('./routes/article')
+/*const articleRoutes = require('./routes/article')
 const commentRoutes = require('./routes/comment')*/
 
 
 
-// connexion à DB mySQL avec l'ORM sequelize
-const sequelize = new Sequelize({ 
-  username: "root",
-  password: "shogun99",
-  database: "groupomania",
-  host :'localhost',
-  dialect: "mysql",  
-  
-  });
-
-
-//test connexion mySQL
-  try {
-    sequelize.authenticate();
-    console.log('Connecté à la base de données MySQL!');
-    sequelize.query('SELECT * FROM User').then(([results, metadata]) => {
-      console.log(results);
-    })
-  } 
-  catch (error) {
-    console.error('Impossible de se connecter, erreur suivante :', error);
-  }
-
-
 const app = express ();
-
 
 
 
@@ -52,36 +29,28 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 
+
+// appel des models pour créer les tables dans la DB
+const db = require("./models");
+db.sequelize.sync();
+
+
+// exemple route
+app.get("/api/", (req, res) => {
+  console.log("Welcome bastien's application.");
+});
+
+
 //Enregistrement des routeurs
 /*app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/comments', commentRoutes);*/
+app.use('/api/user', userRoutes);
 
 
 // export de notre app
 module.exports = app;
-
-
-
-
-//connection mysql
-/*const connexion = mysql.createConnection({
-    host :'localhost',
-    user : 'root',
-    password : 'shogun99',
-    database : 'groupomania',
-});*/
-
-
-/*connexion.connect((err) => {
-  if(err)
-  console.log(err); 
-  else
-  console.log('connexion à MySQL réussie!');
-});*/
-
 
 
 
