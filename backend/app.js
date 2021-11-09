@@ -2,18 +2,14 @@ const express = require('express');
 const path = require('path');
 /*const cors = require("cors");*/
 
-/*const mysql = require ('mysql2');
-const Sequelize  = require('sequelize');*/
-
+//Import des routes
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 /*const articleRoutes = require('./routes/article')
 const commentRoutes = require('./routes/comment')*/
 
 
-
 const app = express ();
-
 
 
 //Définition de headers pour éviters les erreurs de CORS
@@ -27,7 +23,6 @@ app.use((req, res, next) => {
 
 //fonction pour tout type de requête qui permet à l'application express d'envoyer une réponse en JSON
 app.use(express.json());
-
 
 
 // appel des models pour créer les tables dans la DB
