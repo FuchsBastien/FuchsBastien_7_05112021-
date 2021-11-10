@@ -29,6 +29,7 @@ exports.modifyUser = (req, res, next) => {
     // S'il existe déjà une image
     {
       ...JSON.parse(req.body.user),
+      updatedAt: Date.now(),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body }; 
     // S'il n'existe pas d'image
