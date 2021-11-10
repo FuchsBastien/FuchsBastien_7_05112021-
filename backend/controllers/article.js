@@ -5,15 +5,15 @@ const fs = require('fs');
 
 
 // logique métier : lire tous les articles
-exports.getAllArticle = (req, res, next) => {
-  Article.find()
+exports.findAllArticle = (req, res, next) => {
+  Article.findAll()
     .then(article => res.status(200).json(article))
     .catch(error => res.status(400).json({ error }));
 };
 
 
 // logique métier : lire un article par son id
-exports.getOneArticle = (req, res, next) => {
+exports.findOneArticle = (req, res, next) => {
   //afficher l'article par son ID récupéré dans l'url
   Article.findOne({ _id: req.params.id })
     .then(article => res.status(200).json(article))
@@ -21,7 +21,7 @@ exports.getOneArticle = (req, res, next) => {
 };
 
 
-// logique métier : enregistrer un article
+// logique métier : créer un article
 exports.createArticle = (req, res, next) => {
     const articleObject = JSON.parse(req.body.article);
     //ID de le requête à supprimer car généré automatiquement par mongoDB
@@ -30,7 +30,7 @@ exports.createArticle = (req, res, next) => {
     const article = new Article({
       //copie tous les champs de la requête de la variable articleObject
       ...articleObject,
-      // Création de l'URL de l'image : http://localhost:3000/image/nomdufichier 
+      // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     // Enregistrement de l'objet article dans la base de données
@@ -51,7 +51,7 @@ exports.createArticle = (req, res, next) => {
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
       // Si il n'existe pas d'image
-    Article.updateOne({ _id: req.params.id }, { ...articleObject, _id: req.params.id })
+    Article.update({ _id: req.params.id }, { ...articleObject, _id: req.params.id })
       .then(() => res.status(200).json({ message: 'Article modifié !'}))
       .catch(error => res.status(400).json({ error }));
   };
@@ -67,8 +67,8 @@ exports.createArticle = (req, res, next) => {
         // On efface le fichier (unlink)
         fs.unlink(`images/${filename}`, () => {
           //on supprime l'objet dans la base de données
-          Article.deleteOne({ _id: req.params.id })
-            .then(() => res.status(200).json({ message: 'Article supprimée !'}))
+          Article.destroy({ _id: req.params.id })
+            .then(() => res.status(200).json({ message: 'Article supprimé !'}))
             .catch(error => res.status(400).json({ error }));
         });
       })

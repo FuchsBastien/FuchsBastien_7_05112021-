@@ -5,7 +5,7 @@ const fs = require('fs');
 
 
 // logique métier : lire tous les utilisateurs
-exports.getAllUser = (req, res, next) => {
+exports.findAllUser = (req, res, next) => {
   User.findAll()
     .then(sauce => res.status(200).json(sauce))
     .catch(error => res.status(400).json({ error }));
@@ -13,7 +13,7 @@ exports.getAllUser = (req, res, next) => {
 
 
 // logique métier : lire un utilisateur par son id
-exports.getOneUser = (req, res, next) => {
+exports.findOneUser = (req, res, next) => {
   User.findOne({ _id: req.params.id })
   .then(user => {
     console.log(user);

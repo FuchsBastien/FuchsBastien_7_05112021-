@@ -9,8 +9,8 @@ const multer = require('../middleware/multer-config');
 
 // Routes
 //ici '/' pour /api/user/ par défaut
-router.get('/', userCtrl.getAllUser);
-router.get('/:id', userCtrl.getOneUser);
+router.get('/', userCtrl.findAllUser);
+router.get('/:id', userCtrl.findOneUser);
 router.put('/:id', multer, userCtrl.modifyUser);
 router.delete('/:id', userCtrl.deleteUser);
 

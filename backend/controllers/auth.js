@@ -36,8 +36,6 @@ exports.signup = (req, res, next) => {
   };
 
 
-  
-
 // Création de connexion d'utilisateur enregistré (login)
 exports.login = (req, res, next) => {
     // Recherche d'un utilisateur dans la base de données
