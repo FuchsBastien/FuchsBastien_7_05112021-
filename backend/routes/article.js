@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const articleCtrl = require('../controllers/article');
-const commentCtrl = require('../controllers/comment');
+//const commentCtrl = require('../controllers/comment');
 
 const auth = require('../middleware/auth');
 
@@ -15,9 +15,7 @@ router.delete('/:id', auth, articleCtrl.deleteArticle);
 router.get('/:id', auth, articleCtrl.getOneArticle); 
 router.get('/', auth, articleCtrl.getAllArticle);
 
-router.get('/:id/comments', auth, commentCtrl.getAllComment);
-
-router.get('/:id/likes', auth, likeCtrl.getAllLike);
+//router.get('/:id/comments', auth, commentCtrl.getAllComment);
 
 
 module.exports = router;

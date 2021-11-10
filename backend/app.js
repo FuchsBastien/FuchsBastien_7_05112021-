@@ -5,8 +5,8 @@ const path = require('path');
 //Import des routes
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
-/*const articleRoutes = require('./routes/article')
-const commentRoutes = require('./routes/comment')*/
+const articleRoutes = require('./routes/article')
+/*const commentRoutes = require('./routes/comment')*/
 
 
 const app = express ();
@@ -38,10 +38,10 @@ app.get("/api/", (req, res) => {
 
 //Enregistrement des routeurs
 /*app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/articles', articleRoutes);
 app.use('/api/comments', commentRoutes);*/
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/articles', articleRoutes);
 
 
 // export de notre app

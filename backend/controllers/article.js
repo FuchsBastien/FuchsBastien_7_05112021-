@@ -1,8 +1,27 @@
-const Article = require('../models/article');
+//const User = require('../models/user');
+const db = require("../models");
+const Article = db.articles;
 const fs = require('fs');
 
 
-//enregistrer nouvel article
+// logique métier : lire tous les articles
+exports.getAllArticle = (req, res, next) => {
+  Article.find()
+    .then(article => res.status(200).json(article))
+    .catch(error => res.status(400).json({ error }));
+};
+
+
+// logique métier : lire un article par son id
+exports.getOneArticle = (req, res, next) => {
+  //afficher l'article par son ID récupéré dans l'url
+  Article.findOne({ _id: req.params.id })
+    .then(article => res.status(200).json(article))
+    .catch(error => res.status(404).json({ error }));
+};
+
+
+// logique métier : enregistrer un article
 exports.createArticle = (req, res, next) => {
     const articleObject = JSON.parse(req.body.article);
     //ID de le requête à supprimer car généré automatiquement par mongoDB
@@ -23,7 +42,7 @@ exports.createArticle = (req, res, next) => {
   };
 
 
-//modifier article selectionné
+// logique métier : modifier un article
   exports.modifyArticle = (req, res, next) => {
     const articleObject = req.file ?
      // Si il existe déjà une image
@@ -38,7 +57,7 @@ exports.createArticle = (req, res, next) => {
   };
   
 
-  //supprimer article selectionné
+  // logique métier : supprimer un article
   exports.deleteArticle = (req, res, next) => {
     //trouver l'objet dans la base de données
     Article.findOne({ _id: req.params.id })
@@ -55,22 +74,4 @@ exports.createArticle = (req, res, next) => {
       })
       .catch(error => res.status(500).json({ error }));
   };
-
-
-//afficher article selectionnée
-  exports.getOneArticle = (req, res, next) => {
-    //afficher l'article par son ID récupéré dans l'url
-    Article.findOne({ _id: req.params.id })
-      .then(article => res.status(200).json(article))
-      .catch(error => res.status(404).json({ error }));
-  };
-
-
-//afficher toutes les articles
-  exports.getAllArticle = (req, res, next) => {
-    Article.find()
-      .then(article => res.status(200).json(article))
-      .catch(error => res.status(400).json({ error }));
-  };
-  
 

@@ -11,18 +11,6 @@ exports.getAllUser = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 };
 
-/*exports.getAllUser = (req, res, next) => {
-  User.findAll()
-  .then(users => {
-      console.log(users);
-      res.status(200).json({ data: users});
-  })
-  .catch(err => {
-    res.status(500).send({ message:err.message || "Some error occurred while retrieving tutorials."
-    });
-  });
-};*/
-
 
 // logique métier : lire un utilisateur par son id
 exports.getOneUser = (req, res, next) => {
@@ -68,3 +56,16 @@ exports.deleteUser = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+
+
+/*exports.getAllUser = (req, res, next) => {
+  User.findAll()
+  .then(users => {
+      console.log(users);
+      res.status(200).json({ data: users});
+  })
+  .catch(err => {
+    res.status(500).send({ message:err.message || "Some error occurred while retrieving tutorials."
+    });
+  });
+};*/
