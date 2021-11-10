@@ -7,14 +7,14 @@ const fs = require('fs');
 // logique métier : lire tous les utilisateurs
 exports.findAllUser = (req, res, next) => {
   User.findAll()
-    .then(sauce => res.status(200).json(sauce))
+    .then(user => res.status(200).json(user))
     .catch(error => res.status(400).json({ error }));
 };
 
 
 // logique métier : lire un utilisateur par son id
 exports.findOneUser = (req, res, next) => {
-  User.findOne({ _id: req.params.id })
+  User.findOne({ where: {id: req.params.id} })
   .then(user => {
     console.log(user);
     res.status(200).json(user)
@@ -32,7 +32,7 @@ exports.modifyUser = (req, res, next) => {
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body }; 
     // S'il n'existe pas d'image
-    User.update({ _id: req.params.id }, { ...userObject, _id: req.params.id })
+    User.update({ where: {id: req.params.id}}, { ...userObject, id: req.params.id })
       .then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
       .catch(error => res.status(400).json({ error }));
 };
@@ -41,14 +41,14 @@ exports.modifyUser = (req, res, next) => {
 // logique métier : supprimer un utilisateur
 exports.deleteUser = (req, res, next) => {
   //trouver l'utilisateur dans la base de données
-  User.findOne({_id: req.params.id})
+  User.findOne({ where: {id: req.params.id} })
     .then(user => {
       // Récupération du nom du fichier
       const filename = user.imageUrl.split('/images/')[1];
       // On efface le fichier (unlink)
       fs.unlink(`images/${filename}`, () => {
         //on supprime l'utilisateur dans la base de données
-        User.destroy({ _id: req.params.id })
+        User.destroy({ where: {id: req.params.id} })
         .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
         .catch(error => res.status(400).json({ error }));
       });
