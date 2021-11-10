@@ -5,15 +5,17 @@ const articleCtrl = require('../controllers/article');
 //const commentCtrl = require('../controllers/comment');
 
 const auth = require('../middleware/auth');
+const multer = require('../middleware/multer-config');
 
 
 // Routes
 //ici '/' pour /api/articles/ par défaut
-router.post('/', articleCtrl.createArticle);
-router.put('/:id', articleCtrl.modifyArticle);
-router.delete('/:id', articleCtrl.deleteArticle);
-router.get('/:id', articleCtrl.findOneArticle); 
 router.get('/', articleCtrl.findAllArticle);
+router.get('/:id', articleCtrl.findOneArticle); 
+router.post('/', multer, articleCtrl.createArticle);
+router.put('/:id', multer, articleCtrl.modifyArticle);
+router.delete('/:id', articleCtrl.deleteArticle);
+
 
 //router.get('/:id/comments', auth, commentCtrl.getAllComment);
 
