@@ -25,36 +25,39 @@ exports.findOneUser = (req, res, next) => {
 
 // logique métier : modifier un utilisateur
 exports.modifyUser = (req, res, next) => {
-  const userObject = req.file ?
+  const userObject = req.body
     // S'il existe déjà une image
-    {
+   /*{
       ...JSON.parse(req.body.user),
       updatedAt: Date.now(),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body }; 
-    // S'il n'existe pas d'image
-    User.update({ where: {id: req.params.id}}, { ...userObject, id: req.params.id })
-      .then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
-      .catch(error => res.status(400).json({ error }));
+    } : { ...req.body };*/
+   // S'il n'existe pas d'image
+   User.update({ where: {id: req.params.id}}, { ...userObject})
+    .then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
+    .catch(error => res.status(400).json({ error }));
 };
 
 
 // logique métier : supprimer un utilisateur
 exports.deleteUser = (req, res, next) => {
   //trouver l'utilisateur dans la base de données
-  User.findOne({ where: {id: req.params.id} })
+  /*User.findOne({ where: {id: req.params.id} })
     .then(user => {
       // Récupération du nom du fichier
       const filename = user.imageUrl.split('/images/')[1];
       // On efface le fichier (unlink)
       fs.unlink(`images/${filename}`, () => {
-        //on supprime l'utilisateur dans la base de données
-        User.destroy({ where: {id: req.params.id} })
-        .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
-        .catch(error => res.status(400).json({ error }));
+       
+        
       });
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(500).json({ error }));*/
+  //on supprime l'utilisateur dans la base de données
+  User.destroy({ where: {id: req.params.id} })
+  .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
+  .catch(error => res.status(400).json({ error }));
+
 };
 
 

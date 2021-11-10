@@ -43,36 +43,37 @@ exports.createArticle = (req, res, next) => {
 
 
 // logique métier : modifier un article
-  exports.modifyArticle = (req, res, next) => {
-    const articleObject = req.body
-     /* Si il existe déjà une image
-    {
-      ...req.body,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };*/
-      // Si il n'existe pas d'image
-    Article.update({ where: {id: req.params.id}}, {...articleObject})
-      .then(() => res.status(200).json({ message: 'Article modifié !'}))
-      .catch(error => res.status(400).json({ error }));
-  };
+exports.modifyArticle = (req, res, next) => {
+  const articleObject = req.body
+    // S'il existe déjà une image
+  /*{
+    ...req.body,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  } : { ...req.body };*/
+   // S'il n'existe pas d'image
+   Article.update({ where: {id: req.params.id}}, {...articleObject})
+    .then(() => res.status(200).json({ message: 'Article modifié !'}))
+    .catch(error => res.status(400).json({ error }));
+};
   
 
   // logique métier : supprimer un article
   exports.deleteArticle = (req, res, next) => {
-  //on supprime l'objet dans la base de données
-  Article.destroy({ where: {id: req.params.id} })
-  .then(() => res.status(200).json({ message: 'Article supprimé !'}))
-  .catch(error => res.status(400).json({ error }));
-
-    /*//trouver l'objet dans la base de données
-    Article.findOne({ where: {id: req.params.id} })
+    //trouver l'article dans la base de données
+    /*Article.findOne({ where: {id: req.params.id} })
       .then(article => {
         // Récupération du nom du fichier
         const filename = article.imageUrl.split('/images/')[1];
         // On efface le fichier (unlink)
         fs.unlink(`images/${filename}`, () => {
+
+          
         });
       })
       .catch(error => res.status(500).json({ error }));*/
+    //on supprime l'objet dans la base de données
+    Article.destroy({ where: {id: req.params.id} })
+    .then(() => res.status(200).json({ message: 'Article supprimé !'}))
+    .catch(error => res.status(400).json({ error }));
   };
 
