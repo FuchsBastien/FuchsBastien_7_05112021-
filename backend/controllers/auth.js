@@ -1,6 +1,9 @@
+//const User = require('../models/user');
+const db = require("../models");
+const User = db.users;
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
 
 
 // Logiques métiers pour les utilisateurs
@@ -19,8 +22,6 @@ exports.signup = (req, res, next) => {
           lastname: req.body.lastname,
           email: req.body.email,
           password: hash,
-          imageUrl: req.body.imageUrl,
-          createdAt: Date.now()
 
         });
         // Sauvegarde dans la base de données
@@ -41,7 +42,7 @@ exports.signup = (req, res, next) => {
 // Création de connexion d'utilisateur enregistré (login)
 exports.login = (req, res, next) => {
     // Recherche d'un utilisateur dans la base de données
-    User.findOne({ email: req.body.email })
+    User.findOne({ where: { email: req.body.email }})
       .then(user => {
         // Si on ne trouve pas l'utilisateur
         if (!user) {
@@ -54,10 +55,10 @@ exports.login = (req, res, next) => {
               return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
             res.status(200).json({
-              userId: user._id,
+              userId: user.id,
                // Création d'un token pour sécuriser le compte de l'utilisateur
               token: jwt.sign(
-                { userId: user._id },
+                { userId: user.id },
                 'RANDOM_TOKEN_SECRET',
                 { expiresIn: '24h' }
               )
