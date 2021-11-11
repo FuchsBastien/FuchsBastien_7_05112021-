@@ -37,11 +37,11 @@ app.get("/api/", (req, res) => {
 
 
 //Enregistrement des routeurs
-/*app.use('/images', express.static(path.join(__dirname, 'images')));
-app.use('/api/comments', commentRoutes);*/
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/articles', articleRoutes);
+//app.use('/api/comments', commentRoutes);*/
+//app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 // export de notre app

@@ -15,12 +15,10 @@ exports.findAllUser = (req, res, next) => {
 
 // logique métier : lire un utilisateur par son id
 exports.findOneUser = (req, res, next) => {
+  //afficher l'article par son ID récupéré dans l'url
   User.findOne({ where: {id: req.params.id} })
-  .then(user => {
-    console.log(user);
-    res.status(200).json(user)
-  })
-  .catch(error => res.status(404).json({ error }));
+    .then(user => {console.log(user); res.status(200).json(user)})
+    .catch(error => res.status(404).json({ error }));
 };
 
 
@@ -61,15 +59,3 @@ exports.deleteUser = (req, res, next) => {
 };
 
 
-
-/*exports.getAllUser = (req, res, next) => {
-  User.findAll()
-  .then(users => {
-      console.log(users);
-      res.status(200).json({ data: users});
-  })
-  .catch(err => {
-    res.status(500).send({ message:err.message || "Some error occurred while retrieving tutorials."
-    });
-  });
-};*/

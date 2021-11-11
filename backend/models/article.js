@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    //association
     static associate(models) {
       models.Article.belongsTo(models.User, {
         foreignKey: {
@@ -17,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Article.init({
+    //ajout userId
     userId: DataTypes.INTEGER,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
