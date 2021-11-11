@@ -12,7 +12,6 @@ module.exports = {
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        //association
         references: {
           model: 'Users',
           key: 'id'

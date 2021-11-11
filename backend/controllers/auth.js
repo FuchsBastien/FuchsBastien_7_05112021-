@@ -9,10 +9,6 @@ const jwt = require('jsonwebtoken');
 // Logiques métiers pour les utilisateurs
 // Création de nouveaux utilisateurs (signup)
 exports.signup = (req, res, next) => {
-  //champs obligatoire
-  if (firstname === null || firstname === '' || lastname === null || lastname === '' || email === null || email === '' || password === null || password === '') {
-  return res.status(400).json({'error': "Veuillez remplir l'ensemble des champs du formulaire"});
-}
   // Hash du mot de passe avec bcrypt (fonction asynchrone)
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
@@ -21,8 +17,7 @@ exports.signup = (req, res, next) => {
           firstname: req.body.firstname,
           lastname: req.body.lastname,
           email: req.body.email,
-          password: hash,
-
+          password: hash
         });
         // Sauvegarde dans la base de données
         user.save()
@@ -31,12 +26,17 @@ exports.signup = (req, res, next) => {
             if (req.body.mail === user.mail){
             res.status(408).json({ message: 'Adresse mail déjà utilisée !' });
             }
-            else {res.status(400).json({ error });
+            else {res.status(400).json({message: 'Adresse mail non utilisée !' });
             }
           })
-      })  
-      .catch(error => res.status(500).json({ error }));
+       })  
+      .catch(error => res.status(500).json({message: 'requête échouée' }));
   };
+
+/*champs obligatoire
+  if (firstname === null || firstname === '' || lastname === null || lastname === '' || email === null || email === '' || password === null || password === '') {
+  return res.status(400).json({'error': "Veuillez remplir l'ensemble des champs du formulaire"});
+}*/
 
 
 // Création de connexion d'utilisateur enregistré (login)

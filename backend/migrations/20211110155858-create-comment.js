@@ -12,23 +12,22 @@ module.exports = {
       articleId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        //pas association
-        /*references: {
+        references: {
           model: 'Articles',
           key: 'id'
-        }*/
+        }
       },
       //ajout userId
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        //pas association
-        /*references: {
+        references: {
           model: 'Users',
           key: 'id'
-        }*/
+        }
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

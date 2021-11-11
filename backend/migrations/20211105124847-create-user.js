@@ -18,7 +18,8 @@ module.exports = {
       },
       email: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique :true,
       },
       password: {
         allowNull: false,
@@ -28,10 +29,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
-      /*imageUrl: {
+      imageUrl: {
         allowNull: true,
-        type: Sequelize.STRING*
-      },*/
+        type: Sequelize.STRING
+      },
       isAdmin: {
         allowNull: false,
         type: Sequelize.BOOLEAN

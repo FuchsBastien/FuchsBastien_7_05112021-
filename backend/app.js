@@ -38,7 +38,7 @@ app.get("/api/", (req, res) => {
 
 //Enregistrement des routeurs
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/comments', commentRoutes);
 //app.use('/images', express.static(path.join(__dirname, 'images')));

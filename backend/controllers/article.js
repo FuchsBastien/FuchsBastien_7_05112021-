@@ -31,8 +31,8 @@ exports.createArticle = (req, res, next) => {
       ...articleObject,
       // Création lien articles ...
 
-      // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      /* Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`*/
     });
     // Enregistrement de l'objet article dans la base de données
     article.save()
