@@ -9,34 +9,47 @@ const jwt = require('jsonwebtoken');
 // Logiques métiers pour les utilisateurs
 // Création de nouveaux utilisateurs (signup)
 exports.signup = (req, res, next) => {
-  // Hash du mot de passe avec bcrypt (fonction asynchrone)
-    bcrypt.hash(req.body.password, 10)
-      .then(hash => {
-        //création nouvel utilisateur
-        const user = new User({
-          firstname: req.body.firstname,
-          lastname: req.body.lastname,
-          email: req.body.email,
-          password: hash
-        });
-        // Sauvegarde dans la base de données
-        user.save()
-          .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-          .catch(error => {
-            if (req.body.mail === user.mail){
-            res.status(408).json({ message: 'Adresse mail déjà utilisée !' });
-            }
-            else {res.status(400).json({message: 'Adresse mail non utilisée !' });
-            }
-          })
-       })  
-      .catch(error => res.status(500).json({message: 'requête échouée' }));
-  };
 
-/*champs obligatoire
-  if (firstname === null || firstname === '' || lastname === null || lastname === '' || email === null || email === '' || password === null || password === '') {
+   // éléments de la requète
+   const firstname = req.body.firstname;
+   const lastname =  req.body.lastname;
+   const email = req.body.email;
+   const password = req.body.password;
+
+  //champs obligatoire
+  if (firstname === null || firstname === '' || lastname === null || lastname === '' || email === null ||
+  email === '' || password === null || password === '') {
   return res.status(400).json({'error': "Veuillez remplir l'ensemble des champs du formulaire"});
-}*/
+  }
+
+
+  User.findOne({ where: { email: req.body.email }})
+    .then(userFound => {
+      // Si on ne trouve pas l'utilisateur
+      if (!userFound) {
+      // Hash du mot de passe avec bcrypt (fonction asynchrone)
+        bcrypt.hash(password, 10)
+        .then(hash => {
+          //création nouvel utilisateur
+          const user = new User({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: hash
+          });
+          // Sauvegarde dans la base de données
+         user.save()
+         .then(() => res.status(201).json({ message: 'Utilisateur créé !'}))
+         .catch(error => res.status(400).json({ error }));
+       })   
+     }
+     else if (userFound) {
+     return res.status(409).json({error: "L'utilisateur existe déjà !"})
+     }
+
+   })
+  .catch(error => res.status(500).json({message: 'requête échouée' }));
+}
 
 
 // Création de connexion d'utilisateur enregistré (login)
@@ -51,9 +64,11 @@ exports.login = (req, res, next) => {
          // On compare le mot de passe de la requête avec celui de la base de données
         bcrypt.compare(req.body.password, user.password)
           .then(valid => {
+            //si mot de passe différent
             if (!valid) {
               return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
+              //si même mot de passe
             res.status(200).json({
               userId: user.id,
                // Création d'un token pour sécuriser le compte de l'utilisateur
