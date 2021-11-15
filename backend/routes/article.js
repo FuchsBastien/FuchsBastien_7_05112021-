@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const articleCtrl = require('../controllers/article');
-//const commentCtrl = require('../controllers/comment');
+const commentCtrl = require('../controllers/comment');
 
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
@@ -12,12 +12,12 @@ const multer = require('../middleware/multer-config');
 //ici '/' pour /api/articles/ par défaut
 router.get('/', articleCtrl.findAllArticle);
 router.get('/:id', articleCtrl.findOneArticle); 
-router.post('/', multer, articleCtrl.createArticle);
-router.put('/:id', multer, articleCtrl.modifyArticle);
+router.post('/', articleCtrl.createArticle);
+router.put('/:id', articleCtrl.modifyArticle);
 router.delete('/:id', articleCtrl.deleteArticle);
 
 
-//router.get('/:id/comments', auth, commentCtrl.getAllComment);
+router.get('/:id/comments', commentCtrl.findAllComment);
 
 
 module.exports = router;

@@ -33,11 +33,10 @@ exports.modifyUser = (req, res, next) => {
    }
   const userObject = req.file ?
     // S'il existe déjà une image
-   {
-      ...JSON.parse(req.body.user),
+   { ...JSON.parse(req.body.user),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
-   // S'il n'existe pas d'image
+   } : { ...req.body };
+   // S'il n'existe pas d'image (ATTENTION : mettre userObject avant where)
    User.update({ ...userObject, id:  req.params.id}, { where: {id: req.params.id} })
     .then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
     .catch(error => res.status(400).json({ error }));

@@ -5,12 +5,20 @@ const Comment = db.comments;
 const fs = require('fs');
 
 
-// logique métier : lire tous les commentaires
+// logique métier : lire tous les commentaires de l'article
 exports.findAllComment = (req, res, next) => {
+  Comment.findAll({
+    where: {articleId: req.params.id},
+    order: [['createdAt', 'DESC'],]}
+    )
+  .then(comments => res.status(200).json(comments))
+  .catch(error => res.status(400).json({ error }));
+};
+/*exports.findAllComment = (req, res, next) => {
   Comment.findAll()
     .then(comment => res.status(200).json(comment))
     .catch(error => res.status(400).json({ error }));
-};
+};*/
 
 
 // logique métier : lire un commentaire par son id
