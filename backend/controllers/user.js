@@ -24,14 +24,22 @@ exports.findOneUser = (req, res, next) => {
 
 // logique métier : modifier un utilisateur
 exports.modifyUser = (req, res, next) => {
-  const userObject = req.body
+   // éléments de la requète
+   const firstname = req.body.firstname;
+   const lastname =  req.body.lastname;
+ 
+   // vérification que tous les champs sont remplis
+   if(firstname === null || firstname === '' || lastname === null ||lastname === '') {
+       return res.status(400).json({'error': "Les champs 'nom' et 'prénom' doivent être remplis "});
+   }
+  const userObject = req.file ?
     // S'il existe déjà une image
-   /*{
+   {
       ...JSON.parse(req.body.user),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };*/
+    } : { ...req.body };
    // S'il n'existe pas d'image
-   User.update({ where: {id: req.params.id}}, { ...userObject})
+   User.update({ ...userObject, id:  req.params.id}, { where: {id: req.params.id} })
     .then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
     .catch(error => res.status(400).json({ error }));
 };
@@ -40,22 +48,20 @@ exports.modifyUser = (req, res, next) => {
 // logique métier : supprimer un utilisateur
 exports.deleteUser = (req, res, next) => {
   //trouver l'utilisateur dans la base de données
-  /*User.findOne({ where: {id: req.params.id} })
+  User.findOne({ where: {id: req.params.id} })
     .then(user => {
       // Récupération du nom du fichier
-      const filename = user.imageUrl.split('/images/')[1];
+      const filename = user.imageUrl;
       // On efface le fichier (unlink)
       fs.unlink(`images/${filename}`, () => {
-       
-        
+      //on supprime l'utilisateur dans la base de données
+        User.destroy({ where: {id: req.params.id} })
+        .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
+        .catch(error => res.status(400).json({ error }));  
       });
     })
-    .catch(error => res.status(500).json({ error }));*/
-  //on supprime l'utilisateur dans la base de données
-  User.destroy({ where: {id: req.params.id} })
-  .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
-  .catch(error => res.status(400).json({ error }));
-
+    .catch(error => res.status(500).json({ error }));
+   
 };
 
 

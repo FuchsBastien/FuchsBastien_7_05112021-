@@ -44,7 +44,7 @@ exports.signup = (req, res, next) => {
        })   
      }
      else if (userFound) {
-     return res.status(409).json({error: "L'utilisateur existe déjà !"})
+     return res.status(409).json({error: "Adresse mail existe déjà !"})
      }
 
    })
