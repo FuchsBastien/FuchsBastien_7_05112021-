@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const userCtrl = require('../controllers/user');
-/*const articleCtrl = require('../controllers/article');*/
+const articleCtrl = require('../controllers/article');
 
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
@@ -15,7 +15,7 @@ router.get('/:id', userCtrl.findOneUser);
 router.put('/:id', userCtrl.modifyUser);
 router.delete('/:id', userCtrl.deleteUser);
 
-/*router.get('/:id/articles', articleCtrl.findArticlesByUserId);*/
+router.get('/:id/articles', articleCtrl.findArticlesByUserId);
 
 module.exports = router;
 
