@@ -9,7 +9,7 @@ const multer = require('../middleware/multer-config');
 
 
 // Routes
-//ici '/' pour /api/user/ par défaut
+//ici '/' pour /api/users/ 
 router.get('/', userCtrl.findAllUser);
 router.get('/:id', userCtrl.findOneUser);
 router.put('/:id', userCtrl.modifyUser);
@@ -20,6 +20,6 @@ router.get('/:id/articles', articleCtrl.findArticlesByUserId);
 module.exports = router;
 
 
-//api/user/
-//api/user/:id
-//api/user/:id/article
+//api/users/
+//api/users/:id
+//api/users/:id/articles

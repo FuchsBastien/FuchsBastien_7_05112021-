@@ -6,7 +6,7 @@ const commentCtrl = require('../controllers/comment');
 const auth = require('../middleware/auth');
 
 // Routes
-//ici '/' pour /api/comments/ par défaut
+//ici '/' pour /api/comments/
 router.get('/', commentCtrl.findAllComment);
 router.get('/:id', commentCtrl.findOneComment); 
 router.post('/', commentCtrl.createComment);

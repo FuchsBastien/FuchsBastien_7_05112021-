@@ -5,6 +5,16 @@ module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
     //associations
     static associate(models) {
+      models.Comment.belongsTo(models.User, {
+        foreignKey: 'userId',
+        as: 'user'
+      });
+
+      models.Comment.belongsTo(models.Article, {
+        foreignKey: 'articleId',
+        as: 'article'
+      });
+
       models.User.belongsToMany(models.Article, {
         through: models.Comment,
         foreignKey: 'userId',
@@ -17,15 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: 'userId',
       });
 
-      models.Comment.belongsTo(models.Article, {
-        foreignKey: 'articleId',
-        as: 'article'
-      });
-    
-      models.Comment.belongsTo(models.User, {
-        foreignKey: 'userId',
-        as: 'user'
-      });
     }
   };
   Comment.init({

@@ -6,9 +6,11 @@ module.exports = (sequelize, DataTypes) => {
     //association
     static associate(models) {
       models.Article.belongsTo(models.User, {
-        foreignKey: {
-          allowNull: false
-        }
+        foreignKey: { allowNull: false }
+      });
+
+      models.Article.hasMany(models.Comment, { 
+        onDelete: 'cascade' 
       });
 
     }
