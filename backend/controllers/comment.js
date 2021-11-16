@@ -5,20 +5,21 @@ const Comment = db.comments;
 const fs = require('fs');
 
 
-// logique métier : lire tous les commentaires de l'article
+// logique métier : lire tous les commentaires
 exports.findAllComment = (req, res, next) => {
-  Comment.findAll({
-    where: {articleId: req.params.id},
-    order: [['createdAt', 'DESC'],]}
-    )
-  .then(comments => res.status(200).json(comments))
-  .catch(error => res.status(400).json({ error }));
-};
-/*exports.findAllComment = (req, res, next) => {
   Comment.findAll()
     .then(comment => res.status(200).json(comment))
     .catch(error => res.status(400).json({ error }));
-};*/
+};
+
+
+// logique métier : lire tous les commentaires de l'article
+exports.findCommentsByArticleId = (req, res, next) => {
+  //afficher les commentaires par l'articleId récupéré dans l'url
+  Comment.findAll ({where: {articleId: req.params.id}, order: [['createdAt', 'DESC']]})
+   .then(comment => res.status(200).json(comment))
+   .catch(error => res.status(400).json({ error }));
+};
 
 
 // logique métier : lire un commentaire par son id
@@ -40,17 +41,22 @@ exports.createComment = (req, res, next) => {
     });
     // Enregistrement de l'objet commentaire dans la base de données
     comment.save()
-      //réponse obligatoire sinon expiration de la requête
-      .then(() => res.status(201).json({ message: 'Commentaire enregistré !'}))
+      .then(() => {
+        //on recherche l'articleID de la requête à enregistrer
+         Comment.findAll ({where: {articleId: req.body.articleId} })
+         //réponse obligatoire sinon expiration de la requête
+         .then(() => {
+         res.status(200).json({message: 'Commentaire enregistré !'})
+         })
+      })
       //erreur si requête non envoyé au serveur
       .catch(error => res.status(400).json({ error }));
-  };
+};
 
 
 // logique métier : modifier un commentaire
 exports.modifyComment = (req, res, next) => {
   const commentObject = req.body
- 
    Comment.update({ where: {id: req.params.id}}, {...commentObject})
     .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))
     .catch(error => res.status(400).json({ error }));
@@ -59,8 +65,7 @@ exports.modifyComment = (req, res, next) => {
 
   // logique métier : supprimer un commentaire
   exports.deleteComment = (req, res, next) => {
-   
-    Comment.destroy({ where: {id: req.params.id} })
+    Comment.destroy ({ where: {id: req.params.id} })
     .then(() => res.status(200).json({ message: 'Commentaire supprimé !'}))
     .catch(error => res.status(400).json({ error }));
   };

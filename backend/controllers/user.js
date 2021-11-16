@@ -15,9 +15,9 @@ exports.findAllUser = (req, res, next) => {
 
 // logique métier : lire un utilisateur par son id
 exports.findOneUser = (req, res, next) => {
-  //afficher l'article par son ID récupéré dans l'url
-  User.findOne({ where: {id: req.params.id} })
-    .then(user => {console.log(user); res.status(200).json(user)})
+  //afficher l'utilisateur par son ID récupéré dans l'url
+  User.findOne ({ where: {id: req.params.id} })
+    .then(user => res.status(200).json(user))
     .catch(error => res.status(404).json({ error }));
 };
 
@@ -28,11 +28,10 @@ exports.modifyUser = (req, res, next) => {
    const firstname = req.body.firstname;
    const lastname =  req.body.lastname;
    // vérification que tous les champs sont remplis
-   if(firstname === null || firstname === '' || lastname === null ||lastname === '') {
-       return res.status(400).json({'error': "Les champs 'nom' et 'prénom' doivent être remplis "});
-   }
+   if(firstname === null || firstname === '' || lastname === null ||lastname === '') 
+   { return res.status(400).json({'error': "Les champs 'nom' et 'prénom' doivent être remplis "});}
+   // S'il existe déjà une image
   const userObject = req.file ?
-    // S'il existe déjà une image
    { ...JSON.parse(req.body.user),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
    } : { ...req.body };
@@ -46,7 +45,7 @@ exports.modifyUser = (req, res, next) => {
 // logique métier : supprimer un utilisateur
 exports.deleteUser = (req, res, next) => {
   //trouver l'utilisateur dans la base de données
-  User.findOne({ where: {id: req.params.id} })
+  User.findOne ({ where: {id: req.params.id} })
     .then(user => {
       // Récupération du nom du fichier
       const filename = user.imageUrl;

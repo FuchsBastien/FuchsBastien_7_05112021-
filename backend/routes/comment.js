@@ -7,12 +7,11 @@ const auth = require('../middleware/auth');
 
 // Routes
 //ici '/' pour /api/comments/ par défaut
-/*router.get('/', commentCtrl.findAllComment);*/
+router.get('/', commentCtrl.findAllComment);
 router.get('/:id', commentCtrl.findOneComment); 
 router.post('/', commentCtrl.createComment);
 router.put('/:id', commentCtrl.modifyComment);
 router.delete('/:id', commentCtrl.deleteComment);
-
 
 module.exports = router;
 

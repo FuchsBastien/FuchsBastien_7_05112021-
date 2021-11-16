@@ -7,9 +7,7 @@ const fs = require('fs');
 
 // logique métier : lire tous les articles
 exports.findAllArticle = (req, res, next) => {
-  Article.findAll(
-    {order: [['createdAt', 'DESC'],]}
-  )
+  Article.findAll ({order: [['createdAt', 'DESC'],]})
     .then(article => res.status(200).json(article))
     .catch(error => res.status(400).json({ error }));
 };
@@ -17,10 +15,8 @@ exports.findAllArticle = (req, res, next) => {
 
 // logique métier : lire tous les articles de l'utilisateur
 exports.findArticlesByUserId = (req, res, next) => {
-  Article.findAll({
-    where: {userId: req.params.id},
-    order: [['createdAt', 'DESC'],]
-  })
+  //afficher les articles par l'userId récupéré dans l'url
+  Article.findAll ({where: {userId: req.params.id}, order: [['createdAt', 'DESC']]})
   .then(article => res.status(200).json(article))
   .catch(error => res.status(400).json({ error }));
 };
@@ -47,7 +43,6 @@ exports.createArticle = (req, res, next) => {
   }
   //variable contenant les champs de la requête
   const articleObject = req.body;
-
   // Création d'un nouvel objet Article à partir du modèle Article créé
   const article = new Article({
     //copie tous les champs de la requête de la variable articleObject
@@ -73,6 +68,7 @@ exports.modifyArticle = (req, res, next) => {
   if(title === null || title === '' || content === null || content === '') {
       return res.status(400).json({'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour créer un article"});
   }
+  //variable contenant les champs de la requête
   const articleObject = req.body;
     // S'il existe déjà une image
   /*{ ...req.body,

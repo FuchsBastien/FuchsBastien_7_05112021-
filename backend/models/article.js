@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           allowNull: false
         }
-      })
+      });
+
     }
   };
   Article.init({

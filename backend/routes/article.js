@@ -16,9 +16,7 @@ router.post('/', articleCtrl.createArticle);
 router.put('/:id', articleCtrl.modifyArticle);
 router.delete('/:id', articleCtrl.deleteArticle);
 
-
-router.get('/:id/comments', commentCtrl.findAllComment);
-
+router.get('/:id/comments', commentCtrl.findCommentsByArticleId);
 
 module.exports = router;
 
