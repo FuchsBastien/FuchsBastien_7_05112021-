@@ -15,8 +15,8 @@
   },
   "production": {
     "username": "root",
-    "password": "groupomania",
-    "database": "sakila",
+    "password": "shogun99",
+    "database": "groupomania",
     "host": "127.0.0.1",
     "dialect": "mysql"
 }
