@@ -83,8 +83,6 @@ exports.modifyArticle = (req, res, next) => {
   
 
   // logique métier : supprimer un article
-
-  
   exports.deleteArticle = (req, res, next) => {
     //trouver l'article dans la base de données
     /*Article.findOne({ where: {id: req.params.id} })
@@ -98,9 +96,14 @@ exports.modifyArticle = (req, res, next) => {
         });
       })
       .catch(error => res.status(500).json({ error }));*/
-    //on supprime l'objet dans la base de données
+    
+    //supprime chaque commentaire qui contient l'Id de l'article
+    Comment.destroy({where: {articleId: req.params.id}})
+    .then(() =>
+    //supprime l'article de la base de données
     Article.destroy({ where: {id: req.params.id} })
     .then(() => res.status(200).json({ message: 'Article supprimé !'}))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(400).json({ error }))
+    )
   };
 
