@@ -31,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Comment.init({
     //ajout articleId et userId 
-    articleId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+    //articleId: DataTypes.INTEGER,
+    //userId: DataTypes.INTEGER,
     content: DataTypes.STRING
   }, {
     sequelize,

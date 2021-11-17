@@ -26,8 +26,8 @@ app.use(express.json());
 
 
 // appel des models pour créer les tables dans la DB
-const db = require("./models");
-db.sequelize.sync();
+//const db = require("./models");
+//db.sequelize.sync();
 
 
 // exemple route

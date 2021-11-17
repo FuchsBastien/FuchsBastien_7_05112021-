@@ -1,6 +1,8 @@
 //const User = require('../models/user');
 const db = require("../models");
 const User = db.users;
+const Article = db.articles;
+const Comment = db.comments;
 
 const fs = require('fs');
 
@@ -44,19 +46,39 @@ exports.modifyUser = (req, res, next) => {
 
 // logique métier : supprimer un utilisateur
 exports.deleteUser = (req, res, next) => {
-  //trouver l'utilisateur dans la base de données
-  User.findOne ({ where: {id: req.params.id} })
-    .then(user => {
-      // Récupération du nom du fichier
-      const filename = user.imageUrl;
-      // On efface le fichier (unlink)
-      fs.unlink(`images/${filename}`, () => {
-      //on supprime l'utilisateur dans la base de données
-        User.destroy({ where: {id: req.params.id} })
-        .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
-        .catch(error => res.status(400).json({ error }));  
-      });
-    })
+ /* Comment.destroy({where: {userId: req.params.id}})
+  .then(() => */
+  Article.findAll({where: {userId: req.params.id}})
+    .then(
+      (articles) => {
+        articles.forEach(
+          (article) => {
+            Comment.destroy({where: {articleId: article.id}})
+            Article.destroy({where: {id: article.id}})
+          }
+        )
+      }
+    )
+
+    .then(() =>
+    //trouver l'utilisateur dans la base de données
+     User.findOne ({ where: {id: req.params.id} })
+      .then(user => {
+        // Récupération du nom du fichier
+        const filename = user.imageUrl;
+        // On efface le fichier (unlink)
+        fs.unlink(`images/${filename}`, () => {
+        //on supprime l'utilisateur dans la base de données
+          User.destroy({ where: {id: req.params.id} })
+          .then(() => res.status(200).json({ message: 'Utilisateur supprimé !'}))
+          .catch(error => res.status(400).json({ error }));  
+        })
+      })
+    )
+  
+ /*)*/
+
+
     .catch(error => res.status(500).json({ error }));
    
 };
