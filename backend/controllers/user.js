@@ -46,15 +46,19 @@ exports.modifyUser = (req, res, next) => {
 
 // logique métier : supprimer un utilisateur
 exports.deleteUser = (req, res, next) => {
- /* Comment.destroy({where: {userId: req.params.id}})
-  .then(() => */
+  //supprime chaque commentaire qui contient l'Id de tous les utilisateurs 
+  Comment.destroy({where: {userId: req.params.id}})
+  .then(() => 
+  //trouve les articles qui contiennent l'Id de l'user
   Article.findAll({where: {userId: req.params.id}})
     .then(
       (articles) => {
+        //supprime chaque article qui contient l'Id de l'user
+        //supprime chaque commentaire qui contient l'ID des articles trouvés 
         articles.forEach(
           (article) => {
-            Comment.destroy({where: {articleId: article.id}})
             Article.destroy({where: {id: article.id}})
+            Comment.destroy({where: {articleId: article.id}})
           }
         )
       }
@@ -76,7 +80,7 @@ exports.deleteUser = (req, res, next) => {
       })
     )
   
- /*)*/
+ )
 
 
     .catch(error => res.status(500).json({ error }));

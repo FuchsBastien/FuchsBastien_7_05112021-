@@ -30,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Comment.init({
-    //ajout articleId et userId 
-    //articleId: DataTypes.INTEGER,
-    //userId: DataTypes.INTEGER,
+    //ajout articleId et userId pour l'envoi des données
+    articleId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     content: DataTypes.STRING
   }, {
     sequelize,

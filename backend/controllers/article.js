@@ -1,6 +1,7 @@
 //const User = require('../models/article');
 const db = require("../models");
 const Article = db.articles;
+const Comment = db.comments;
 
 const fs = require('fs');
 
@@ -82,6 +83,8 @@ exports.modifyArticle = (req, res, next) => {
   
 
   // logique métier : supprimer un article
+
+  
   exports.deleteArticle = (req, res, next) => {
     //trouver l'article dans la base de données
     /*Article.findOne({ where: {id: req.params.id} })
