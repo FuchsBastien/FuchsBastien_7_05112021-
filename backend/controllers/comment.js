@@ -57,7 +57,7 @@ exports.createComment = (req, res, next) => {
 // logique métier : modifier un commentaire
 exports.modifyComment = (req, res, next) => {
   const commentObject = req.body
-   Comment.update({ where: {id: req.params.id}}, {...commentObject})
+   Comment.update({ ...commentObject, id:  req.params.id},{ where: {id: req.params.id}})
     .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))
     .catch(error => res.status(400).json({ error }));
 };
