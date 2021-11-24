@@ -5,12 +5,14 @@
 
 <form>
   <div class="form-group mt-5">
+     <input v-model= "formData.userId" type="text" id="title" placeholder="UserId" class= "form-control">  
+  </div>
 
-    <input v-model= "formData.title" type="text" id="title" placeholder="Title" class= "form-control">  
+  <div class="form-group mt-5">
+     <input v-model= "formData.title" type="text" id="title" placeholder="Titre" class= "form-control">  
   </div>
   
   <div class="form-group mt-5">
-  
     <textarea v-model= "formData.content" id="content"  rows="15" placeholder="Quoi de neuf?" class= "form-control"></textarea>
   </div>
 

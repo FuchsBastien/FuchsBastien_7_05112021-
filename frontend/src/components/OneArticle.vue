@@ -1,50 +1,40 @@
 <template>
-<div class="container mt-5">
-    <h1>Votre Article</h1>
-
-   <div class="article_frame">
-          
-            <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
-              <h2>{{article.title}}</h2>
-              <p>{{article.content}}</p>
-              <p>Publié par : {{article.userId}}</p>
-           </div> 
-
-        </div>
+<div class="article_frame">
+    <h1>{{oneArticleArray.title}} </h1>
+    <p>{{oneArticleArray.content}}</p>
+   <p>Publié par : {{oneArticleArray}}</p>
 </div>  
 </template>
 
 
 <script>
+
 import axios from 'axios'
 
 export default {
     name :'OneArticles',
     data : function () {
       return {
-          articlesArray : null
+          id: this.$route.params.id,
+          oneArticleArray : []
       } 
     },
-
-    methods : {   
-    },
-
-    components : {  
-    },
-
+    
     mounted(){
-     axios.get ("http://localhost:3000/api/articles/")
-     .then(articles => {
-        console.log(articles);
-        this.articlesArray = articles.data
+     axios.get (`http://localhost:3000/api/articles/${this.id}`)
+     .then(response => {
+        console.log(response);
+        this.oneArticleArray = response.data
         })
    }   
+
+    
 }
 </script>
 
 
 <style>
-  h1,h2 {
+  /*h1,h2 {
     text-align: center;
     margin: 20px 0px 20px 0px;
     color: orangered;
@@ -68,5 +58,5 @@ export default {
     height: 200px;
     overflow: hidden;
     margin-bottom: 50px;
- }
+ }*/
 </style>

@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import AllArticles from '../views/AllArticles.vue'
 import CreateArticle from '../components/CreateArticles.vue'
 import Account from '../components/Account.vue'
-
+import OneArticle from '../components/OneArticle.vue'
 
 const routes = [
   {
@@ -22,6 +22,13 @@ const routes = [
     name: 'Account',
     component: Account
   },
+
+  {
+    path: '/OneArticle/:id',
+    name: 'OneArticle',
+    component: OneArticle
+  },
+
 
 
 ]
