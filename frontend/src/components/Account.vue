@@ -51,7 +51,7 @@ export default {
 
 
 <style>
- /* h1,h2 {
+  h1,h2 {
     text-align: center;
     margin: 20px 0px 20px 0px;
     color: orangered;
@@ -75,5 +75,5 @@ export default {
     height: 200px;
     overflow: hidden;
     margin-bottom: 50px;
- }*/
+ }
 </style>

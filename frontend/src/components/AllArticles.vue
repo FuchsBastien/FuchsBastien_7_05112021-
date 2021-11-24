@@ -3,19 +3,21 @@
     <h1>Tous les Articles Publiés</h1>
 
 
-<button class ="article_publish" >Publier un article</button>
+<button class ="article_publish">Publier un article</button>
 
 
    <div class="article_frame">
             <!--<li v-bind:key = "index" v-for="(article,index) in articlesArray"> 
               <div v-bind:key = "index" v-for= "(value, index) in article">{{value}}</div>
            </li>--> 
-                 
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
                <router-link v-bind:to ="`/OneArticle/${article.id}`">
               <h2>{{article.title}}</h2>
               <p>{{article.content}}</p>
               <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
+              <p>Le {{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}} {{article.createdAt [5]}}{{article.createdAt [6]}}
+                 {{article.createdAt [8]}}{{article.createdAt [9]}}
+              </p>
                </router-link>
            </div>  
                 
@@ -54,7 +56,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
   h1,h2 {
     text-align: center;
     margin: 20px 0px 20px 0px;
@@ -76,7 +78,7 @@ export default {
 
  .article {
     border : solid 2px #f3e9f1;
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     margin-bottom: 50px;
  }

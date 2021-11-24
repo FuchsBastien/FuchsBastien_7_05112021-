@@ -1,15 +1,17 @@
 <template>
-<div class="article_frame">
-    <h1>{{oneArticleArray.title}} </h1>
-    <p>{{oneArticleArray.content}}</p>
-   <p>Publié par : {{oneArticleArrayUser.firstname}}</p>
-  
-</div>  
+<div class="container mt-5">
+
+   <div class="article">
+      <h1>{{oneArticleArray.title}} </h1>
+      <p>{{oneArticleArray.content}}</p>
+      <p>Publié par : {{oneArticleArrayUser.firstname}} {{oneArticleArrayUser.lastname}}</p>
+   </div> 
+
+</div>
 </template>
 
 
 <script>
-
 import axios from 'axios'
 
 export default {
@@ -33,10 +35,43 @@ export default {
         })
    }   
 
-    
 }
 </script>
 
 
-<style>
+<style scoped>
+ h1,h2 {
+    text-align: center;
+    margin: 20px 0px 20px 0px;
+    color: orangered;
+    padding: 20px;
+ }
+
+ .article_publish {
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+ }
+
+ .article_frame {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+ }
+
+ .article {
+    border : solid 2px #f3e9f1;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 50px;
+ }
+
+ p{
+    color: black;
+ }
+
+ a {
+ text-decoration: none;
+ }
+
 </style>
