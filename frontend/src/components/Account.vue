@@ -50,7 +50,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
   h1,h2 {
     text-align: center;
     margin: 20px 0px 20px 0px;

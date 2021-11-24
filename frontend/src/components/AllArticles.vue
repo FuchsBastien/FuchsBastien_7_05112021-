@@ -6,7 +6,7 @@
 <button class ="article_publish">Publier un article</button>
 
 
-   <div class="article_frame">
+   <div class="articles_frame">
             <!--<li v-bind:key = "index" v-for="(article,index) in articlesArray"> 
               <div v-bind:key = "index" v-for= "(value, index) in article">{{value}}</div>
            </li>--> 
@@ -15,8 +15,7 @@
               <h2>{{article.title}}</h2>
               <p>{{article.content}}</p>
               <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
-              <p>Le {{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}} {{article.createdAt [5]}}{{article.createdAt [6]}}
-                 {{article.createdAt [8]}}{{article.createdAt [9]}}
+              <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}} {{article.createdAt [5]}}{{article.createdAt [6]}} {{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}
               </p>
                </router-link>
            </div>  
@@ -70,7 +69,7 @@ export default {
     margin-bottom: 20px;
  }
 
- .article_frame {
+ .articles_frame {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -89,6 +88,10 @@ export default {
 
  a {
  text-decoration: none;
+ }
+
+ .date {
+    color: gray;
  }
 
 </style>
