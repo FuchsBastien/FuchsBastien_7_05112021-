@@ -3,19 +3,22 @@ import App from './App.vue'
 //importer bootstrap des dépendances
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+//importer router index.js
+import router from './router'
 
-/*on crée une instance de vue qui s'appelle bus permettant de gérer les données entre différents composants
-qui ne sont pas parents-enfant*/
-//export const bus = new createApp()
+//importer vue router
+//import VueRouter from 'vue-router'
+//importer Routes.js
+//import Routes from './Routes'
+
+//utiliser vue router
+//VueRouter.use (VueRouter)
+//variable l'on donne la propriété routes auxquel on fait passer Routes qui fait référence à Routes.js
+//const router = new VueRouter (({
+//routes :Routes  
+//}))
 
 
-createApp(App).mount('#app')
+createApp(App).use(router).mount('#app')
 
 
-
-
-
-/*new Vue ({
-    render: h => h(App),
-
-}).$mount ('#app')*/

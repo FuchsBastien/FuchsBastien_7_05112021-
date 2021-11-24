@@ -6,9 +6,9 @@
 <form>
   <div class="form-group mt-5">
 
-    <input v-model= "formData.title" type="text" id="title" placeholder="Titre" class= "form-control">
+    <input v-model= "formData.title" type="text" id="title" placeholder="Title" class= "form-control">  
   </div>
-
+  
   <div class="form-group mt-5">
   
     <textarea v-model= "formData.content" id="content"  rows="15" placeholder="Quoi de neuf?" class= "form-control"></textarea>
@@ -26,7 +26,6 @@
 import axios from 'axios'
 
 export default {
-   
     name :'CreateArticles',
      data : function () {
       return {

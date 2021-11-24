@@ -2,16 +2,24 @@
 const db = require("../models");
 const Article = db.articles;
 const Comment = db.comments;
+const User = db.users;
+
+User.hasMany(Article);
+Article.belongsTo(User);
+
 
 const fs = require('fs');
 
 
-// logique métier : lire tous les articles
+// logique métier : lire tous les articles avec leur utilisateurs
 exports.findAllArticle = (req, res, next) => {
-  Article.findAll ({order: [['createdAt', 'DESC'],]})
+  Article.findAll ({ include: { model: User}, order: [['createdAt', 'DESC']]
+})
     .then(article => res.status(200).json(article))
     .catch(error => res.status(400).json({ error }));
 };
+
+
 
 
 // logique métier : lire tous les articles de l'utilisateur

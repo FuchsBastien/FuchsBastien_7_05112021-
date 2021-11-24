@@ -5,9 +5,11 @@ module.exports = (sequelize, DataTypes) => {
   class Article extends Model {
     //association
     static associate(models) {
-      models.Article.belongsTo(models.User, {
-        foreignKey: { allowNull: false }
+     models.Article.belongsTo(models.User, { 
+        foreignKey: 'userId',
+        as: 'user'
       });
+      
 
       models.Article.hasMany(models.Comment, { 
         onDelete: 'cascade' 

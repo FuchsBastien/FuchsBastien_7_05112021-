@@ -15,6 +15,8 @@ exports.findAllUser = (req, res, next) => {
 };
 
 
+
+
 // logique métier : lire un utilisateur par son id
 exports.findOneUser = (req, res, next) => {
   //afficher l'utilisateur par son ID récupéré dans l'url
