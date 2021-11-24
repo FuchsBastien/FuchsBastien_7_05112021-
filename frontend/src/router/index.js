@@ -29,8 +29,6 @@ const routes = [
     component: OneArticle
   },
 
-
-
 ]
 
 const router = createRouter({

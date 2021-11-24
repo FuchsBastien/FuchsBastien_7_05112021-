@@ -34,7 +34,7 @@ exports.findArticlesByUserId = (req, res, next) => {
 // logique métier : lire un article par son id
 exports.findOneArticle = (req, res, next) => {
   //afficher l'article par son ID récupéré dans l'url
-  Article.findOne ({ where: {id: req.params.id} })
+  Article.findOne ({include: { model: User}, where: {id: req.params.id} })
     .then(article => res.status(200).json(article))
     .catch(error => res.status(404).json({ error }));
 };

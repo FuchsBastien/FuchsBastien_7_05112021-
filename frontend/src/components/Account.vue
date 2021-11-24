@@ -23,7 +23,7 @@ export default {
     name :'Account',
     data : function () {
       return {
-          userArray : null
+          userArray : []
       } 
     },
 

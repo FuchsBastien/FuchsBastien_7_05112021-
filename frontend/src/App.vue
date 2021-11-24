@@ -3,8 +3,7 @@
   <div id="nav">
      <router-link to="/">Tous les Articles</router-link> 
      <router-link to="/CreateArticles">Publier un article</router-link> 
-     <router-link to="/Account">Mon compte</router-link>
-     
+     <router-link to="/Account">Mon compte</router-link> 
   </div>
 
   <router-view/>
@@ -23,18 +22,14 @@
 }
 
 #nav {
-
- 
   display: flex;
     justify-content: space-around;
     margin: auto;
     padding: 30px;
     font-size: 1.3em;
     background-color: grey;
-    height: auto;
-    
-  }
-
+    height: auto; 
+}
 
 #nav a {
   font-weight: bold;
