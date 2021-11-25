@@ -8,10 +8,11 @@
       <p class="ArticleDate">Le {{oneArticleArrayDate[8]}}{{oneArticleArrayDate [9]}} {{oneArticleArrayDate [5]}}{{oneArticleArrayDate [6]}} {{oneArticleArrayDate [0]}}{{oneArticleArrayDate [1]}}{{oneArticleArrayDate [2]}}{{oneArticleArrayDate [3]}}</p>
    </div>
    <div class="comments_frame">
+      <h2>Commentaires</h2>
       <div class="comments" v-bind:key = "comments" v-for= "comments in oneArticleArrayComments">
         <p>{{comments.content}}</p>
         <p>Publié par :</p>
-        <p class="CommentDate">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}} {{comments.createdAt [5]}}{{comments.createdAt [6]}} {{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
+        <p class="CommentDate">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
       </div>   
    </div>    
 

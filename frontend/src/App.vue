@@ -27,16 +27,18 @@
     margin: auto;
     padding: 30px;
     font-size: 1.3em;
-    background-color: grey;
+    background-color: #2c3e50;;
     height: auto; 
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: grey;
+  text-decoration: none;
 }
 
 #nav a.router-link-exact-active {
-  color: orangered;;
+  color: orangered;
+  
 }
 </style>

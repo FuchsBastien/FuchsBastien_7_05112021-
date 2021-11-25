@@ -52,5 +52,12 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+ h1 {
+    text-align: center;
+    margin: 20px 0px 20px 0px;
+    color: orangered;
+    padding: 20px;
+ }
+
 </style>
