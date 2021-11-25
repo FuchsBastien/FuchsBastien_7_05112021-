@@ -3,7 +3,7 @@
     <h1>Tous les Articles Publiés</h1>
 
 
-<button class ="article_publish">Publier un article</button>
+<!--<button class ="article_publish">Publier un article</button>-->
 
 
    <div class="articles_frame">
