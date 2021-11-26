@@ -5,6 +5,7 @@ import Login from '../components/Login.vue'
 import AllArticles from '../views/AllArticles.vue'
 import OneArticle from '../components/OneArticle.vue'
 import Account from '../components/Account.vue'
+import AccountDelete from '../components/AccountDelete.vue'
 
 const routes = [
   {
@@ -36,6 +37,12 @@ const routes = [
     path: '/account',
     name: 'account',
     component: Account
+  },
+
+  {
+    path: '/delete',
+    name: 'accountDelete',
+    component: AccountDelete
   },
 
   {

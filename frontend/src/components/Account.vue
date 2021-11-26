@@ -47,13 +47,17 @@ export default {
     },
 
    methods : { 
-    //modifier user  
-    userModify () {
-     axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
+     //modifier user  
+     userModify () {
+       axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
     },
-   //supprimer user
+
+    //supprimer user
     userDelete () {
-     axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
+       axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
+        .then(() => {
+           this.$router.push('/delete');    
+        })
     }
    },
 

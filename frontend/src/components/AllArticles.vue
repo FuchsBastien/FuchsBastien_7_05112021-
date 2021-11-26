@@ -12,7 +12,7 @@
             <textarea v-model= "formData.content" id="content"  rows="1" placeholder="Quoi de neuf?" class= "form-control"></textarea>
          </div>
 
-         <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Valider</button>
+         <button class ="btn btn-primary mt-5" v-on:click.prevent = "envoiForm">Valider</button>
          </form>
          {{user}}
            <br>
@@ -36,7 +36,7 @@
               </div>
             </div>    
          </div>
-l
+
       </div>  
       
 
