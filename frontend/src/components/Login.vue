@@ -24,6 +24,7 @@
     </div>
 </template>
 
+
 <script>
     import axios from 'axios'
 
@@ -57,11 +58,10 @@
             }
         }
     }
-
 </script>
 
-<style scoped>
 
+<style scoped>
 input.form-control:valid {
     border:3px solid #0a0 !important;
 }
@@ -81,5 +81,4 @@ label, a, p, h3{
 a:hover {
     color: white;
 }
-
 </style>

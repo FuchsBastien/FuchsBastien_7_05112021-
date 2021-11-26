@@ -35,6 +35,7 @@
     </div>
 </template>
 
+
 <script>
     import axios from 'axios'
 
@@ -74,9 +75,8 @@
     }
 </script>
 
+
 <style scoped>
-
-
 input.form-control:valid {
     border:3px solid #0a0 !important;
 }

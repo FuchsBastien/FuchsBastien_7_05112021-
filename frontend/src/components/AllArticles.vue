@@ -1,28 +1,44 @@
 <template>
-<div class="container mt-5">
-    <h1>Tous les Articles Publiés</h1>
+   <div>
+     <div class="container mt-5">
+         <h1>Créer une publication</h1>
+
+         <form>
+         <div class="form-group mt-5">
+            <input v-model= "formData.userId" type="text" id="title" placeholder="UserId" class= "form-control">  
+         </div>
+
+         <div class="form-group mt-5">
+            <input v-model= "formData.title" type="text" id="title" placeholder="Titre" class= "form-control">  
+         </div>
+         
+         <div class="form-group mt-5">
+            <textarea v-model= "formData.content" id="content"  rows="1" placeholder="Quoi de neuf?" class= "form-control"></textarea>
+         </div>
+
+         <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Valider</button>
+         </form>
+      </div>  
 
 
-<!--<button class ="article_publish">Publier un article</button>-->
+      <div class="container mt-5">
+        <h1>Tous les Articles Publiés</h1>
 
-
-   <div class="articles_frame">
-            <!--<li v-bind:key = "index" v-for="(article,index) in articlesArray"> 
-              <div v-bind:key = "index" v-for= "(value, index) in article">{{value}}</div>
-           </li>--> 
+         <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
                <router-link v-bind:to ="`/OneArticle/${article.id}`">
-              <h2>{{article.title}}</h2>
-              <p>{{article.content}}</p>
-              <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
-              <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}
-              </p>
+                 <h2>{{article.title}}</h2>
+                 <p>{{article.content}}</p>
+                 <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
+                 <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}
+                 </p>
                </router-link>
-           </div>  
-                
+            </div>    
+         </div>
 
-        </div>
-</div>  
+      </div>  
+
+   </div>
 </template>
 
 
@@ -33,11 +49,19 @@ export default {
     name :'AllArticles',
     data : function () {
       return {
-          articlesArray : []
+          articlesArray : [],
+          formData : {
+            title : '',
+            content : ''
+        } 
       } 
     },
 
-    methods : {   
+    methods : { 
+        envoiForm () {
+      axios.post ("http://localhost:3000/api/articles/",this.formData)
+    
+     } 
     },
 
     components : {  
