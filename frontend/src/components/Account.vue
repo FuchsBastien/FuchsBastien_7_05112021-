@@ -6,7 +6,6 @@
    <div class="account_frame">
 
       <div class="account_modify">
-
             <h2>{{userArray.firstname}} {{userArray.lastname}}</h2>  
             <div class="form-group mt-5">
                <input v-model= "formData.firstname" type="text" id="firstname" placeholder="Prénom" class= "form-control">  
@@ -14,19 +13,7 @@
             <div class="form-group mt-5">
                <input v-model= "formData.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
             </div>
-            <button class ="btn btn-primary mt-5" v-on:click = "userModify">Modifier</button>
-
-             <br> 
-             <br> 
-
-            <p>{{userArray.bio}}</p>
-  
-             <br> 
-             <br> 
-
-            <p>{{userArray.email}}</p>
-            
- 
+            <button class ="btn btn-primary mt-5" v-on:click = "userModify">Modifier</button>         
       </div>
 
       <br>
@@ -37,20 +24,7 @@
 
    </div>
 
-   <br>
 
-   <div class="articles_frame">
-      <h2>Vos articles</h2>
-      <div class="articles" v-bind:key = "article" v-for= "article in userArrayArticles"> 
-               <router-link v-bind:to ="`/OneArticle/${article.id}`">
-              <h3>{{article.title}}</h3>
-              <p>{{article.content}}</p>
-              <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}
-              </p>
-               </router-link>
-      </div> 
-  </div>   
- 
  </div>  
 </template>
 
@@ -66,9 +40,7 @@ export default {
           userArrayArticles : [],
           formData : {
             firstname : '',
-            lastname : '',
-           // email : '',
-          
+            lastname : '', 
          }
       } 
     },
@@ -91,14 +63,7 @@ export default {
          console.log(user);
           this.userArray = user.data
         })
-      //afficher articles user
-      axios.get ("http://localhost:3000/api/users/8/articles")
-        .then(articles => {
-          console.log(articles);
-          this.userArrayArticles = articles.data
-        })
    }   
-
 }
 </script>
 
