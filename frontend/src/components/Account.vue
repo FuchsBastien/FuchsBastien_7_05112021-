@@ -41,24 +41,25 @@ export default {
           formData : {
             firstname : '',
             lastname : '', 
-         }
+         },
+            Id: localStorage.getItem('Id'),
       } 
     },
 
    methods : { 
     //modifier user  
     userModify () {
-     axios.put ("http://localhost:3000/api/users/8",this.formData) 
+     axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
     },
    //supprimer user
     userDelete () {
-     axios.delete ("http://localhost:3000/api/users/8") 
+     axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
     }
    },
 
    created(){
      //afficher user
-      axios.get ("http://localhost:3000/api/users/8")
+      axios.get (`http://localhost:3000/api/users/${this.Id}`)
         .then(user => {
          console.log(user);
           this.userArray = user.data

@@ -5,13 +5,13 @@
                 <h3 class="mt-5">Inscription</h3>
 
                 <div class="form-group">
-                    <label class="mb-2">Nom</label>
-                    <input class="form-control" v-model="user.firstname" type="text" name="Votre nom" placeholder="Dupont"  required/>
+                    <label class="mb-2">Prénom</label>
+                    <input class="form-control" v-model="user.firstname" type="text" name="Votre prénom" placeholder="Dupont"  required/>
                 </div>
 
                 <div class="form-group">
-                    <label class="mb-1 mt-2">Prénom</label>
-                    <input class="form-control" v-model="user.lastname" type="text" name="Votre prénom" placeholder="Marc" required/>
+                    <label class="mb-1 mt-2">Nom</label>
+                    <input class="form-control" v-model="user.lastname" type="text" name="Votre nom" placeholder="Marc" required/>
                 </div>
 
                 <div class="form-group">

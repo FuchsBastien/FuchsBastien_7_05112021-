@@ -14,7 +14,7 @@
 
          <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Valider</button>
          </form>
-         {{ok}}
+         {{user}}
            <br>
          {{formData}}
       </div>  
@@ -30,8 +30,7 @@
                  <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
                  <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                 <router-link v-bind:to ="`/OneArticle/${article.id}`">Commentaires</router-link>
-
-               
+ 
               <div>
                  
               </div>
@@ -66,7 +65,7 @@ export default {
             content : ''
           },
 
-          ok : {
+          user : {
             Id: localStorage.getItem('Id'),
             userPrenom: localStorage.getItem('userPrenom'),
             userNom: localStorage.getItem('userNom'),
