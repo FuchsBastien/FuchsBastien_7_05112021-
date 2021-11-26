@@ -1,31 +1,52 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import Signup from '../components/Signup.vue'
+import SignupSuccess from '../components/SignupSuccess.vue'
+import Login from '../components/Login.vue'
 import AllArticles from '../views/AllArticles.vue'
+import OneArticle from '../components/OneArticle.vue'
 import CreateArticle from '../components/CreateArticles.vue'
 import Account from '../components/Account.vue'
-import OneArticle from '../components/OneArticle.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'AllArticles',
+    name: 'signup',
+    component: Signup
+  },
+
+  {
+    path: '/signupSuccess',
+    name: 'signupSuccess',
+    component: SignupSuccess
+  },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+
+  {
+    path: '/allArticles',
+    name: 'allArticles',
     component: AllArticles
   },
  
   {
-    path: '/CreateArticles',
-    name: 'CreateArticles',
+    path: '/createArticles',
+    name: 'createArticles',
     component: CreateArticle
   },
 
   {
-    path: '/Account',
-    name: 'Account',
+    path: '/account',
+    name: 'account',
     component: Account
   },
 
   {
-    path: '/OneArticle/:id',
-    name: 'OneArticle',
+    path: '/oneArticle/:id',
+    name: 'oneArticle',
     component: OneArticle
   },
 

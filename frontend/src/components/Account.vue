@@ -20,19 +20,12 @@
              <br> 
 
             <p>{{userArray.bio}}</p>
-            <div class="form-groupmt-5">
-               <input v-model= "formData.bio" id="text"  placeholder="bio" class= "form-control">
-            </div>
-             <button class ="btn btn-primary mt-5" v-on:click = "userModify">Modifier</button>
-
+  
              <br> 
              <br> 
 
             <p>{{userArray.email}}</p>
-             <div class="form-group mt-5">
-               <input v-model= "formData.email" id="text"  placeholder="email" class= "form-control">
-            </div>
-             <button class ="btn btn-primary mt-5" v-on:click = "userModify">Modifier</button>
+            
  
       </div>
 
@@ -75,7 +68,7 @@ export default {
             firstname : '',
             lastname : '',
            // email : '',
-           // bio : ''
+          
          }
       } 
     },
@@ -83,23 +76,23 @@ export default {
    methods : { 
     //modifier user  
     userModify () {
-     axios.put ("http://localhost:3000/api/users/11",this.formData) 
+     axios.put ("http://localhost:3000/api/users/8",this.formData) 
     },
    //supprimer user
     userDelete () {
-     axios.delete ("http://localhost:3000/api/users/11") 
+     axios.delete ("http://localhost:3000/api/users/8") 
     }
    },
 
    created(){
      //afficher user
-      axios.get ("http://localhost:3000/api/users/11")
+      axios.get ("http://localhost:3000/api/users/8")
         .then(user => {
          console.log(user);
           this.userArray = user.data
         })
       //afficher articles user
-      axios.get ("http://localhost:3000/api/users/11/articles")
+      axios.get ("http://localhost:3000/api/users/8/articles")
         .then(articles => {
           console.log(articles);
           this.userArrayArticles = articles.data

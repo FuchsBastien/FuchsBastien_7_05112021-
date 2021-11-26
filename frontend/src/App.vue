@@ -1,9 +1,9 @@
 <template>
 <div id="app">
   <div id="nav">
-     <router-link to="/">Tous les Articles</router-link> 
-     <router-link to="/CreateArticles">Publier un article</router-link> 
-     <router-link to="/Account">Mon compte</router-link> 
+     <router-link to="/allArticles">Tous les Articles</router-link> 
+     <router-link to="/createArticles">Publier un article</router-link> 
+     <router-link to="/account">Mon compte</router-link> 
   </div>
 
   <router-view/>

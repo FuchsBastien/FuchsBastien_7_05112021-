@@ -7,6 +7,19 @@
       <p>Publié par : {{oneArticleArrayUser.firstname}} {{oneArticleArrayUser.lastname}}</p>
       <p class="ArticleDate">Le {{oneArticleArrayDate[8]}}{{oneArticleArrayDate [9]}} {{oneArticleArrayDate [5]}}{{oneArticleArrayDate [6]}} {{oneArticleArrayDate [0]}}{{oneArticleArrayDate [1]}}{{oneArticleArrayDate [2]}}{{oneArticleArrayDate [3]}}</p>
    </div>
+
+   <div class="all_comments">
+
+   <div class = "post_comment_frame">
+      <h2>Laisser un commentaire !</h2>
+      <div class="post_comment">
+          <input type="text" id="userId" placeholder="UserId" class= "form-control">
+          <input type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">
+          <input type="text" id="content" placeholder="content" class= "form-control">
+          <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Post</button>
+      </div>
+   </div>
+
    <div class="comments_frame">
       <h2>Commentaires</h2>
       <div class="comments" v-bind:key = "comments" v-for= "comments in oneArticleArrayComments">
@@ -14,7 +27,9 @@
         <p>Publié par :</p>
         <p class="CommentDate">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
       </div>   
-   </div>    
+   </div> 
+
+    </div>  
 
 </div>
 </template>
@@ -81,15 +96,24 @@ export default {
     overflow: hidden;
  }
 
+ .all_comments {
+    background: orangered;
+ }
 
+
+  .post_comment {
+    border : solid 2px white;
+    height: 150px;
+    margin: 50px;
+    background: white;
+ }
 
  .comments_frame {
     border : solid 2px white;
     background: orangered;
     
-    
-    ;
  }
+
   .comments {
     border : solid 2px white;
     height: 150px;
