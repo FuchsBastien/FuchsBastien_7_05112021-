@@ -26,7 +26,7 @@
 
                 <button class="submit btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">S'inscrire</button>
 
-                <p v-if="errorSignup" class="mt-2 text-danger"> Création de compte impossible, veuillez remplir tous les champs. </p>
+                <p v-if="errorSignup" class="mt-2 text-danger"> Création de compte impossible, veuillez remplir tous les champs (ou choisir une adresse mail différente) </p>
 
                 <p class="createAcc text-right mt-3">
                     Déjà inscrit ?

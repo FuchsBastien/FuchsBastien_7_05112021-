@@ -41,14 +41,14 @@
         },
         methods: {
             sendForm(){
-                axios.post("http://localhost:3000//api/auth/signup", this.user)
-                .then((res) => {
-                    localStorage.setItem('token', res.data.token)
-                    localStorage.setItem('userPrenom', res.data.prenom)
-                    localStorage.setItem('userNom', res.data.nom)
-                    localStorage.setItem('userPhoto', res.data.photo)
-                    localStorage.setItem('userId', res.data.id)
-                    this.$router.push('articles');
+                axios.post("http://localhost:3000/api/auth/login", this.user)
+               .then((res) => {
+                   localStorage.setItem('token', res.data.token)
+                   localStorage.setItem('firstname', res.data.firstname)
+                   localStorage.setItem('lastname', res.data.lastname)
+                   localStorage.setItem('userPhoto', res.data.photo)
+                   localStorage.setItem('Id', res.data.userId)
+                    this.$router.push('/articles');
                     this.errorLogin = false
                 })
                 .catch((error) =>{

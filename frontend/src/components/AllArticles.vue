@@ -5,10 +5,6 @@
 
          <form>
          <div class="form-group mt-5">
-            <input v-model= "formData.userId" type="text" id="title" placeholder="UserId" class= "form-control">  
-         </div>
-
-         <div class="form-group mt-5">
             <input v-model= "formData.title" type="text" id="title" placeholder="Titre" class= "form-control">  
          </div>
          
@@ -18,6 +14,9 @@
 
          <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Valider</button>
          </form>
+         {{ok}}
+           <br>
+         {{formData}}
       </div>  
 
 
@@ -31,15 +30,16 @@
                  <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
                  <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                 <router-link v-bind:to ="`/OneArticle/${article.id}`">Commentaires</router-link>
+
                
               <div>
-                 <OneArticle></OneArticle>
-           
+                 
               </div>
             </div>    
          </div>
-
+l
       </div>  
+      
 
    </div>
 </template>
@@ -47,27 +47,38 @@
 
 <script>
 import axios from 'axios'
-import OneArticle from "./OneArticle.vue"
+//import OneArticle from "./OneArticle.vue"
 
 export default {
    name: 'AllArticles',
 
 	components: {
-	OneArticle
+	//OneArticle
    },
 
     data : function () {
       return {
           articlesArray : [],
+
           formData : {
+            userId: localStorage.getItem('Id'),
             title : '',
             content : ''
-        } 
+          },
+
+          ok : {
+            Id: localStorage.getItem('Id'),
+            userPrenom: localStorage.getItem('userPrenom'),
+            userNom: localStorage.getItem('userNom'),
+            userPhoto: localStorage.getItem('userPhoto'),
+           
+          }
+            
       } 
     },
 
     methods : { 
-        envoiForm () {
+      envoiForm () {
       axios.post ("http://localhost:3000/api/articles/",this.formData)
     
      } 
