@@ -17,7 +17,7 @@
             <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
             <p class="text-right mt-3">
                 Vous n'avez pas de compte ?
-                <router-link class="createAccount" :to="{name: 'signup'}">Créez-en un</router-link>
+                <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link>
             </p>
         </form>
         </div>

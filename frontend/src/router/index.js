@@ -9,24 +9,25 @@ import Account from '../components/Account.vue'
 const routes = [
   {
     path: '/',
-    name: 'signup',
-    component: Signup
-  },
-
-  {
-    path: '/signupSuccess',
-    name: 'signupSuccess',
-    component: SignupSuccess
-  },
-
-  {
-    path: '/login',
     name: 'login',
     component: Login
   },
 
   {
-    path: '/allArticles',
+    path: '/signup',
+    name: 'signup',
+    component: Signup
+  },
+
+  {
+    path: '/success',
+    name: 'signupSuccess',
+    component: SignupSuccess
+  },
+
+
+  {
+    path: '/articles',
     name: 'allArticles',
     component: AllArticles
   },

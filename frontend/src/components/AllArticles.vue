@@ -26,13 +26,16 @@
 
          <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
-               <router-link v-bind:to ="`/OneArticle/${article.id}`">
                  <h2>{{article.title}}</h2>
                  <p>{{article.content}}</p>
                  <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
-                 <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}
-                 </p>
-               </router-link>
+                 <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+                <router-link v-bind:to ="`/OneArticle/${article.id}`">Commentaires</router-link>
+               
+              <div>
+                 <OneArticle></OneArticle>
+           
+              </div>
             </div>    
          </div>
 
@@ -44,9 +47,15 @@
 
 <script>
 import axios from 'axios'
+import OneArticle from "./OneArticle.vue"
 
 export default {
-    name :'AllArticles',
+   name: 'AllArticles',
+
+	components: {
+	OneArticle
+   },
+
     data : function () {
       return {
           articlesArray : [],
@@ -62,9 +71,6 @@ export default {
       axios.post ("http://localhost:3000/api/articles/",this.formData)
     
      } 
-    },
-
-    components : {  
     },
 
     created(){
@@ -101,7 +107,7 @@ export default {
 
  .article {
     border : solid 2px #f3e9f1;
-    height: 250px;
+ 
     overflow: hidden;
     margin-bottom: 50px;
  }

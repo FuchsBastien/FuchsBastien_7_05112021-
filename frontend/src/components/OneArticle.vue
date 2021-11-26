@@ -1,21 +1,14 @@
 <template>
 <div class ="article_detail">
 
-   <div class="article_frame">
-      <h1>{{oneArticleArray.title}} </h1>
-      <p>{{oneArticleArray.content}}</p>
-      <p>Publié par : {{oneArticleArrayUser.firstname}} {{oneArticleArrayUser.lastname}}</p>
-      <p class="ArticleDate">Le {{oneArticleArrayDate[8]}}{{oneArticleArrayDate [9]}} {{oneArticleArrayDate [5]}}{{oneArticleArrayDate [6]}} {{oneArticleArrayDate [0]}}{{oneArticleArrayDate [1]}}{{oneArticleArrayDate [2]}}{{oneArticleArrayDate [3]}}</p>
-   </div>
-
    <div class="all_comments">
 
    <div class = "post_comment_frame">
       <h2>Laisser un commentaire !</h2>
       <div class="post_comment">
-          <input type="text" id="userId" placeholder="UserId" class= "form-control">
-          <input type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">
-          <input type="text" id="content" placeholder="content" class= "form-control">
+          <input v-model= "formData.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
+          <input v-model= "formData.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">
+          <input v-model= "formData.content" type="text" id="content" placeholder="content" class= "form-control">
           <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Post</button>
       </div>
    </div>
@@ -39,39 +32,32 @@
 import axios from 'axios'
 
 export default {
-    name :'OneArticles',
+    name :'OneArticle',
     data : function () {
       return {
           id: this.$route.params.id,
-          oneArticleArray : [],
-          oneArticleArrayUser : [],
-          oneArticleArrayDate : [],
-          oneArticleArrayComments : []
-         
+          oneArticleArrayComments : [],
+          formData : {
+            userId : '',
+            articleId : '',
+            content : ''
+        } 
       } 
+    },
+
+     methods : { 
+        envoiForm () {
+      axios.post ("http://localhost:3000/api/comments/",this.formData)
+     } 
     },
     
     created(){
-     axios.get (`http://localhost:3000/api/articles/${this.id}`)
-     .then(response => {
-        console.log(response);
-        this.oneArticleArray = response.data
-        this.oneArticleArrayUser = response.data.User
-        this.oneArticleArrayDate = response.data.createdAt
-        })
-
        axios.get (`http://localhost:3000/api/articles/${this.id}/comments`)
      .then(response => {
         console.log(response);
         this.oneArticleArrayComments = response.data
         })
-     
    },  
-
-  
-    
-
-
 }
 </script>
 

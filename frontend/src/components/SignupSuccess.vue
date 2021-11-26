@@ -5,7 +5,7 @@
                 <div class="col">
                     <div class="card mt-3 mb-3">
                         <h3 class="mt-2">Votre compte a été créé avec succès !</h3>
-                        <p class="text-center">Vous pouvez maintenant vous <router-link v-bind:to="`/login/`">connecter</router-link>.</p>
+                        <p class="text-center">Vous pouvez maintenant vous <router-link v-bind:to="`/`">connecter</router-link>.</p>
                     </div>
                 </div>
             </div>

@@ -6,12 +6,12 @@
 
                 <div class="form-group">
                     <label class="mb-2">Nom</label>
-                    <input class="form-control" v-model="user.nom" type="text" name="Votre nom" placeholder="Dupont"  required/>
+                    <input class="form-control" v-model="user.firstname" type="text" name="Votre nom" placeholder="Dupont"  required/>
                 </div>
 
                 <div class="form-group">
                     <label class="mb-1 mt-2">Prénom</label>
-                    <input class="form-control" v-model="user.prenom" type="text" name="Votre prénom" placeholder="Marc" required/>
+                    <input class="form-control" v-model="user.lastname" type="text" name="Votre prénom" placeholder="Marc" required/>
                 </div>
 
                 <div class="form-group">
@@ -25,10 +25,12 @@
                 </div>
 
                 <button class="submit btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">S'inscrire</button>
-                <p v-if="errorSignup" class="mt-2 text-danger"> Création de compte impossible, veuillez réessayer. </p>
+
+                <p v-if="errorSignup" class="mt-2 text-danger"> Création de compte impossible, veuillez remplir tous les champs. </p>
+
                 <p class="createAcc text-right mt-3">
                     Déjà inscrit ?
-                   <router-link class="createAccount" v-bind:to="`/login/`">Se connecter</router-link>
+                   <router-link class="createAccount" v-bind:to="`/`">Se connecter</router-link>
                 </p>
             </form>
         </div>
@@ -44,8 +46,8 @@
         data() {
             return {
                 user:{
-                    nom: '',
-                    prenom: '',
+                    firstname: '',
+                    lastname: '',
                     email: '',
                     password: ''
                 },
@@ -55,22 +57,23 @@
         methods: {
             sendForm(){
 
-                if (this.user.nom == '' || this.user.prenom == '' || this.user.email == '') {
+               if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == '') {
                     this.errorSignup = true
                     return
                 } else {
 
-                axios.post("http://localhost:3000//api/auth/signup", this.user)
+                axios.post("http://localhost:3000/api/auth/signup", this.user)
                 .then(() => {
                     console.log("Le compte a été créé !")
-                    //this.$router.push('signup/success');
+                   this.$router.push('/success');
                     this.errorSignup = false
                 })
                 .catch((error) =>{
                     console.log(error.message);
                     this.errorSignup = true
                 })
-            }},
+
+           }},
         }
     }
 </script>
