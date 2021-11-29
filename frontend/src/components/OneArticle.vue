@@ -18,7 +18,7 @@
       <h2>Commentaires</h2>
       <div class="comments" v-bind:key = "comments" v-for= "comments in oneArticleArrayComments">
         <p>{{comments.content}}</p>
-        <p>Publié par :</p>
+        <p>Publié par : {{comments.User.firstname}} {{comments.User.lastname}}</p>
         <p class="CommentDate">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
       </div>   
    </div> 

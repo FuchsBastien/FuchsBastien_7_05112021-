@@ -1,11 +1,16 @@
 //const User = require('../models/user');
 const db = require("../models");
 const Comment = db.comments;
+const User = db.users;
+
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
 
 const fs = require('fs');
 
 
-// logique métier : lire tous les commentaires
+// logique métier : lire tous les commentaires 
 exports.findAllComment = (req, res, next) => {
   Comment.findAll()
     .then(comment => res.status(200).json(comment))
@@ -13,10 +18,10 @@ exports.findAllComment = (req, res, next) => {
 };
 
 
-// logique métier : lire tous les commentaires de l'article
+// logique métier : lire tous les commentaires de l'article avec leur utilisateur
 exports.findCommentsByArticleId = (req, res, next) => {
   //afficher les commentaires par l'articleId récupéré dans l'url
-  Comment.findAll ({where: {articleId: req.params.id}, order: [['createdAt', 'DESC']]})
+  Comment.findAll ({ include: { model: User}, where: {articleId: req.params.id}, order: [['createdAt', 'DESC']]})
    .then(comment => res.status(200).json(comment))
    .catch(error => res.status(400).json({ error }));
 };
