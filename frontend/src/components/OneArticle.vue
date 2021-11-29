@@ -6,10 +6,11 @@
    <div class = "post_comment_frame">
       <h2>Laisser un commentaire !</h2>
       <div class="post_comment">
-          <input v-model= "formData.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
-          <input v-model= "formData.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">
+          <!--<input v-model= "formData.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
+          <input v-model= "formData.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
           <input v-model= "formData.content" type="text" id="content" placeholder="content" class= "form-control">
           <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Post</button>
+           {{formData}}
       </div>
    </div>
 
@@ -35,13 +36,18 @@ export default {
     name :'OneArticle',
     data : function () {
       return {
-          id: this.$route.params.id,
           oneArticleArrayComments : [],
+
           formData : {
-            userId : '',
-            articleId : '',
+            userId: localStorage.getItem('Id'),
+            articleId : this.$route.params.id,
             content : ''
-        } 
+         },
+
+          
+            Id: localStorage.getItem('Id'),
+            articleId : this.$route.params.id,
+
       } 
     },
 
@@ -52,7 +58,7 @@ export default {
     },
     
     created(){
-       axios.get (`http://localhost:3000/api/articles/${this.id}/comments`)
+       axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`)
      .then(response => {
         console.log(response);
         this.oneArticleArrayComments = response.data
