@@ -75,14 +75,14 @@
                     return
                 } 
                 else {
-               /* const formData = new FormData()
+               const formData = new FormData()
                 formData.append('firstname', this.user.firstname);
                 formData.append('lastname', this.user.lastname);
                 formData.append('email', this.user.email);
                 formData.append('password', this.user.password);
-                formData.append('imageUrl', this.user.imageUrl);*/
+                formData.append('imageUrl', this.user.imageUrl);
 
-                   axios.post("http://localhost:3000/api/auth/signup", this.user)
+                   axios.post("http://localhost:3000/api/auth/signup", formData)
                     .then(() => {
                       console.log("Le compte a été créé !")
                       this.$router.push('/success');

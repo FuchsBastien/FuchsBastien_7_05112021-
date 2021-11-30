@@ -38,6 +38,7 @@ exports.signup = (req, res, next) => {
             //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             // imageUrl : req.body.imageUrl,
              //imageUrl : req.file != undefined ? req.file.filename : '',
+             imageUrl: `http://localhost:3000/images/${req.file.filename}`
        
           });
           // Sauvegarde dans la base de données
