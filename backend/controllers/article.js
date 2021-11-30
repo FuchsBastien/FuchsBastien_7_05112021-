@@ -44,32 +44,45 @@ exports.createArticle = (req, res, next) => {
   // éléments de la requète
   const title = req.body.title;
   const content =  req.body.content;
-  
+  const imageUrl =  req.body.imageUrl;
 
   // vérification que tous les champs sont remplis
   if(title === null || title === '' || content === null || content === '') {
       return res.status(400).json({'error': "Veuillez remplir les champs 'titre' et 'contenu' pour créer un article"});
   }
-  //variable contenant les champs de la requête
-  const articleObject = req.body;
-  // Création d'un nouvel objet Article à partir du modèle Article créé
-  const article = new Article({
-    //copie tous les champs de la requête de la variable articleObject
-    ...articleObject,
-    // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
-    //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    imageUrl: `http://localhost:3000/images/${req.file.filename}`
-    //imageUrl : req.file != undefined ? req.file.filename : '',
-    //imageUrl :  req.file.filename
-    
   
-  });
-  // Enregistrement de l'objet article dans la base de données
-  article.save()
-    //réponse obligatoire sinon expiration de la requête
-    .then(() => res.status(201).json({ message: 'Article enregistré !'}))
-    //erreur si requête non envoyé au serveur
-    .catch(error => res.status(400).json({ error }));
+  if (imageUrl === null || imageUrl  === '' ) {
+
+    //variable contenant les champs de la requête
+    const articleObject = req.body;
+    // Création d'un nouvel objet Article à partir du modèle Article créé
+    const article = new Article({
+      //copie tous les champs de la requête de la variable articleObject
+      ...articleObject,
+      // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
+      //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      //imageUrl: `http://localhost:3000/images/${req.file.filename}`
+      imageUrl : req.file != undefined ? req.file.filename : '',
+    });
+    // Enregistrement de l'objet article dans la base de données
+    article.save()
+      //réponse obligatoire sinon expiration de la requête
+      .then(() => res.status(201).json({ message: 'Article enregistré !'}))
+      //erreur si requête non envoyé au serveur
+      .catch(error => res.status(400).json({ error }));
+
+  } else {
+
+    const articleObject = req.body;
+    const article = new Article({
+      ...articleObject,
+      imageUrl: `http://localhost:3000/images/${req.file.filename}`
+    });
+    article.save()
+      .then(() => res.status(201).json({ message: 'Article enregistré !'}))
+      .catch(error => res.status(400).json({ error }));
+    }
+
 };
 
 

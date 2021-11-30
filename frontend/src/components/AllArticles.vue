@@ -20,7 +20,7 @@
          <button class ="btn btn-primary mt-5" v-on:click.prevent="envoiForm">Partager</button>
          </form>
            <br>
-         <!--{{article}}-->
+         {{article}}
       </div>  
 
 
@@ -68,7 +68,7 @@ export default {
             userId: localStorage.getItem('Id'),
             title : '',
             content : '',
-            imageUrl : null
+            imageUrl : ''
           },
 
           /*user : {
@@ -84,6 +84,11 @@ export default {
     methods : { 
       envoiForm () {
 
+         if (this.article.imageUrl == '') {
+               axios.post ('http://localhost:3000/api/articles/', this.article)
+                return
+         } 
+         else {
          const formData = new FormData()
          formData.append('userId', this.article.userId);
          formData.append('title', this.article.title);
@@ -93,16 +98,26 @@ export default {
          axios.post ('http://localhost:3000/api/articles/', formData,
          {
             headers: {
-         
            }
          }).
          then(()=>{
          console.log('réussite!!');
+         this.$emit('articleCree');
+         this.clearData();
          })
          .catch(()=>{
          console.log('échec!!');
          });
+       } 
+       
       },
+      
+
+      clearData() {
+            this.article.title = '';
+            this.article.content = '';
+            this.article.imageUrl = null;
+        },
 
       onSelect(event) {
          this.article.imageUrl = event.target.files[0];    
