@@ -31,7 +31,14 @@ exports.signup = (req, res, next) => {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
-            password: hash
+            password: hash,
+            //copie tous les champs de la requête de la variable user
+            //...user,
+            // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
+            //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            // imageUrl : req.body.imageUrl,
+             //imageUrl : req.file != undefined ? req.file.filename : '',
+       
           });
           // Sauvegarde dans la base de données
          user.save()

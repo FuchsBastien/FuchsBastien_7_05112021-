@@ -1,10 +1,13 @@
 <template>
- <div class="account_and_articles">
+ <div class="account">
    
-   <h1>Bienvenue {{userArray.firstname}}!</h1> 
+      <div class = "account_avatar">
+         <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
+          <h1>Bienvenue {{userArray.firstname}}!</h1> 
+         <!--{{userArray}}-->
+      </div>
 
    <div class="account_frame">
-
       <div class="account_modify">
             <h2>{{userArray.firstname}} {{userArray.lastname}}</h2>  
             <div class="form-group mt-5">
@@ -21,7 +24,6 @@
       <div class="account_delete">
         <button class ="btn btn-primary mt-5" v-on:click = "userDelete">Supprimer votre compte</button>
       </div>
-
    </div>
 
 
@@ -37,12 +39,13 @@ export default {
     data : function () {
       return {
           userArray : [],
-          userArrayArticles : [],
+
           formData : {
             firstname : '',
             lastname : '', 
-         },
-            Id: localStorage.getItem('Id'),
+          },
+
+          Id: localStorage.getItem('Id'),
       } 
     },
 

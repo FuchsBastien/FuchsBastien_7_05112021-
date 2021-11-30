@@ -30,18 +30,13 @@ app.use(express.json());
 //db.sequelize.sync();
 
 
-// exemple route
-app.get("/api/", (req, res) => {
-  console.log("Welcome bastien's application.");
-});
-
-
 //Enregistrement des routeurs
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/comments', commentRoutes);
-//app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 
 // export de notre app

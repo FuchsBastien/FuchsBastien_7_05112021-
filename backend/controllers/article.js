@@ -21,7 +21,6 @@ exports.findAllArticle = (req, res, next) => {
 
 
 
-
 // logique métier : lire tous les articles de l'utilisateur
 exports.findArticlesByUserId = (req, res, next) => {
   //afficher les articles par l'userId récupéré dans l'url
@@ -45,6 +44,7 @@ exports.createArticle = (req, res, next) => {
   // éléments de la requète
   const title = req.body.title;
   const content =  req.body.content;
+  
 
   // vérification que tous les champs sont remplis
   if(title === null || title === '' || content === null || content === '') {
@@ -56,8 +56,13 @@ exports.createArticle = (req, res, next) => {
   const article = new Article({
     //copie tous les champs de la requête de la variable articleObject
     ...articleObject,
-    /* Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`*/
+    // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
+    //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    imageUrl: `http://localhost:3000/images/${req.file.filename}`
+    //imageUrl : req.file != undefined ? req.file.filename : '',
+    //imageUrl :  req.file.filename
+    
+  
   });
   // Enregistrement de l'objet article dans la base de données
   article.save()

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Article extends Model {
     //association
     static associate(models) {
-    /* models.Article.belongsTo(models.User, { 
+     models.Article.belongsTo(models.User, { 
         foreignKey: 'userId',
         as: 'user'
       });
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
       models.Article.hasMany(models.Comment, { 
         onDelete: 'cascade' 
-      });*/
+      });
 
     }
   };
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    imgUrl: DataTypes.STRING
+    imageUrl: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Article',

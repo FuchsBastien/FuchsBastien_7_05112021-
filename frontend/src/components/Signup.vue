@@ -24,6 +24,17 @@
                     <input class="form-control"  v-model="user.password" type="password" name="Votre mot de passe" placeholder="Au moins 6 caractères dont un chiffre" autocomplete="on" required/>
                 </div>
 
+               <div class="form-group "> 
+                    <label class="mb-1 mt-2">Avatar</label>
+                   <input  aria-label="envoi image" accept="image/*" type="file" @change="onSelect" class="form-control-file" id="image">
+                   <!-- <button _ngcontent-fxu-c7 mat-raised-button class = "mat-raised-button mat-button-base mat-primary">
+                        <span class="mat-button-wrapper">Ajouter avatar</span>
+                        <div class="mat-button-ripple mat-ripple" matripple></div>
+                        <div class="mat-button-focus-overlay"></div>
+                    </button>-->
+                     
+                </div>
+
                 <button class="submit btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">S'inscrire</button>
 
                 <p v-if="errorSignup" class="mt-2 text-danger"> Création de compte impossible, veuillez remplir tous les champs (ou choisir une adresse mail différente) </p>
@@ -33,6 +44,7 @@
                    <router-link class="createAccount" v-bind:to="`/`">Se connecter</router-link>
                 </p>
             </form>
+            {{user}}
         </div>
     </div>
 </template>
@@ -49,7 +61,8 @@
                     firstname: '',
                     lastname: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    imageUrl: ''
                 },
                 errorSignup: false,
             }   
@@ -57,23 +70,35 @@
         methods: {
             sendForm(){
 
-               if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == '') {
+                if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == '') {
                     this.errorSignup = true
                     return
-                } else {
+                } 
+                else {
+               /* const formData = new FormData()
+                formData.append('firstname', this.user.firstname);
+                formData.append('lastname', this.user.lastname);
+                formData.append('email', this.user.email);
+                formData.append('password', this.user.password);
+                formData.append('imageUrl', this.user.imageUrl);*/
 
-                axios.post("http://localhost:3000/api/auth/signup", this.user)
-                .then(() => {
-                    console.log("Le compte a été créé !")
-                   this.$router.push('/success');
-                    this.errorSignup = false
-                })
-                .catch((error) =>{
-                    console.log(error.message);
-                    this.errorSignup = true
-                })
+                   axios.post("http://localhost:3000/api/auth/signup", this.user)
+                    .then(() => {
+                      console.log("Le compte a été créé !")
+                      this.$router.push('/success');
+                      this.errorSignup = false
+                    })
+                    .catch((error) =>{
+                     console.log(error.message);
+                     this.errorSignup = true
+                    })
+                }
+           },
 
-           }},
+           onSelect(event) {
+            this.user.imageUrl = event.target.files[0];
+            console.log(event);
+        }
         }
     }
 </script>
