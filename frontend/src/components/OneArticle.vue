@@ -10,7 +10,8 @@
           <input v-model= "formData.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
           <input v-model= "formData.content" type="text" id="content" placeholder="content" class= "form-control">
           <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Post</button>
-           {{formData}}
+          <p v-if="errorComment" class="mt-2 text-danger"> {{ok}}</p>
+           <!--{{formData}}-->
       </div>
    </div>
 
@@ -33,107 +34,121 @@
 import axios from 'axios'
 
 export default {
-    name :'OneArticle',
-    data : function () {
-      return {
-          oneArticleArrayComments : [],
+   name :'OneArticle',
+      data : function () {
+         return {
+            oneArticleArrayComments : [],
 
-          formData : {
-            userId: localStorage.getItem('Id'),
-            articleId : this.$route.params.id,
-            content : ''
-         },
-
+            formData : {
+               userId: localStorage.getItem('Id'),
+               articleId : this.$route.params.id,
+               content : ''
+            },
           
             Id: localStorage.getItem('Id'),
             articleId : this.$route.params.id,
 
-      } 
-    },
+            errorComment: false,
 
-     methods : { 
-        envoiForm () {
-      axios.post ("http://localhost:3000/api/comments/",this.formData)
-     } 
-    },
+            ok: "Post du commentaire impossible veuillez remplir tous les champs"
+         } 
+      },
+
+   methods : { 
+      envoiForm () {  
+         if (this.formData.content == '' || this.formData.content == '') {
+            this.errorComment = true
+            return
+         } 
+         else {
+         axios.post ("http://localhost:3000/api/comments/",this.formData)
+            .then(()=>{
+               console.log('réussite!!');
+               this.clearData();
+               this.errorComment = false
+            })
+            .catch(()=>{
+               console.log('échec!!');
+               this.errorComment = true
+            });
+          }
+      },
+
+      clearData() {
+         this.formData.content = '';
+      },
+   },
     
-    created(){
-       axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`)
-     .then(response => {
-        console.log(response);
-        this.oneArticleArrayComments = response.data
-        })
+   created(){
+      axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`)
+         .then(response => {
+            console.log(response);
+            this.oneArticleArrayComments = response.data
+         })
    },  
 }
 </script>
 
 
 <style scoped>
- h1 {
+h1 {
     text-align: center;
     margin: 20px 0px 20px 0px;
     color: orangered;
     padding: 20px;
- }
+}
 
- .article_detail{
+.article_detail{
     width: 80%;
     margin-left: auto;
     margin-right: auto;
- }
+}
 
- .article_frame {
+.article_frame {
     border : solid 2px #f3e9f1;;
     height: 250px;
     overflow: hidden;
- }
+}
 
- .all_comments {
+.all_comments {
     background: orangered;
- }
+}
 
-
-  .post_comment {
+.post_comment {
     border : solid 2px white;
-    height: 150px;
+    height: 175px;
     margin: 50px;
     background: white;
- }
+}
 
- .comments_frame {
+.comments_frame {
     border : solid 2px white;
-    background: orangered;
-    
- }
+    background: orangered;    
+}
 
-  .comments {
+.comments {
     border : solid 2px white;
     height: 150px;
     overflow: hidden;
     margin: 50px;
     background: white;
- }
+}
 
+p {
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.ArticleDate, .CommentDate {
+    color: gray;
+}
 
  /*.comments {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
  }*/
-
-
- p {
-    color: black;
- }
-
- a {
-    text-decoration: none;
- }
-
- .ArticleDate, .CommentDate {
-    color: gray;
- }
-
- 
-
 </style>

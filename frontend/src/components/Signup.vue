@@ -64,6 +64,7 @@
                     password: '',
                     imageUrl: ''
                 },
+                
                 errorSignup: false,
             }   
         },

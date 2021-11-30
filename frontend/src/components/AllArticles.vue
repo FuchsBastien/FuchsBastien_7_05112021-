@@ -18,9 +18,10 @@
          </div>
 
          <button class ="btn btn-primary mt-5" v-on:click.prevent="envoiForm">Partager</button>
+          <p v-if="errorArticle" class="mt-2 text-danger"> Post de l'article impossible veuillez remplir tous les champs (l'upload d'une image n'est pas obligatoire)</p>
          </form>
            <br>
-         {{article}}
+         <!--{{article}}-->
       </div>  
 
 
@@ -43,8 +44,6 @@
          </div>
 
       </div>  
-      
-
    </div>
 </template>
 
@@ -60,7 +59,7 @@ export default {
 	//OneArticle
    },
 
-    data : function () {
+   data : function () {
       return {
           articlesArray : [],
 
@@ -71,111 +70,122 @@ export default {
             imageUrl : ''
           },
 
+          errorArticle : false
+
           /*user : {
             Id: localStorage.getItem('Id'),
             userPrenom: localStorage.getItem('userPrenom'),
             userNom: localStorage.getItem('userNom'),
             userPhoto: localStorage.getItem('userPhoto'),
-          }*/
-            
+          }*/     
       } 
-    },
+   },
 
-    methods : { 
+   methods : { 
       envoiForm () {
-
-         if (this.article.imageUrl == '') {
-               axios.post ('http://localhost:3000/api/articles/', this.article)
-                return
-         } 
+         if (this.article.title == '' || this.article.content == '') {
+            this.errorArticle = true
+            return
+         }
          else {
-         const formData = new FormData()
-         formData.append('userId', this.article.userId);
-         formData.append('title', this.article.title);
-         formData.append('content', this.article.content);
-         formData.append('imageUrl', this.article.imageUrl);
-   
-         axios.post ('http://localhost:3000/api/articles/', formData,
-         {
-            headers: {
-           }
-         }).
-         then(()=>{
-         console.log('réussite!!');
-         this.$emit('articleCree');
-         this.clearData();
-         })
-         .catch(()=>{
-         console.log('échec!!');
-         });
-       } 
-       
+            if (this.article.imageUrl == '') {
+               axios.post ('http://localhost:3000/api/articles/', this.article)
+               .then(()=>{
+               console.log('réussite!!');
+               this.clearData();
+               this.errorComment = false
+               })
+               .catch(()=>{
+               console.log('échec!!');
+               this.errorComment = true
+               });  
+            } 
+            else {
+               const formData = new FormData()
+               formData.append('userId', this.article.userId);
+               formData.append('title', this.article.title);
+               formData.append('content', this.article.content);
+               formData.append('imageUrl', this.article.imageUrl);
+         
+               axios.post ('http://localhost:3000/api/articles/', formData,
+               {
+                  headers: {
+               }
+               })
+               .then(()=>{
+               console.log('réussite!!');
+               this.clearData();
+               this.errorComment = false
+               })
+               .catch(()=>{
+               console.log('échec!!');
+               this.errorComment = true
+               });
+            }
+         } 
       },
       
-
       clearData() {
-            this.article.title = '';
-            this.article.content = '';
-            this.article.imageUrl = null;
-        },
+         this.article.title = '';
+         this.article.content = '';
+         this.article.imageUrl = null;
+      },
 
       onSelect(event) {
          this.article.imageUrl = event.target.files[0];    
       },
+   },
 
-    },
 
-
-    created(){
+   created(){
      axios.get ("http://localhost:3000/api/articles/")
-     .then(articles => {
-        console.log(articles);
-        //this fait référence au tableau vide dans data
-        this.articlesArray = articles.data
-        })
+         .then(articles => {
+           console.log(articles);
+           //this fait référence au tableau vide dans data
+           this.articlesArray = articles.data
+         })
    }   
 }
 </script>
 
 
 <style scoped>
-  h1,h2 {
+h1,h2 {
     text-align: center;
     margin: 20px 0px 20px 0px;
     color: orangered;
     padding: 20px;
- }
+}
 
- .article_publish {
+.article_publish {
     display: block;
     margin: auto;
     margin-bottom: 20px;
- }
+}
 
- .articles_frame {
+.articles_frame {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
- }
+}
 
- .article {
+.article {
     border : solid 2px #f3e9f1;
- 
     overflow: hidden;
     margin-bottom: 50px;
- }
+}
 
- p{
+p {
     color: black;
- }
+}
 
- a {
+a {
  text-decoration: none;
- }
+}
 
- .date {
+.date {
     color: gray;
- }
+}
 
 .image_article {
    width: 500px;
