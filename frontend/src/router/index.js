@@ -34,6 +34,12 @@ const routes = [
   },
 
   {
+    path: '/oneArticle/:id',
+    name: 'oneArticle',
+    component: OneArticle
+  },
+
+  {
     path: '/account',
     name: 'account',
     component: Account
@@ -45,11 +51,7 @@ const routes = [
     component: AccountDelete
   },
 
-  {
-    path: '/oneArticle/:id',
-    name: 'oneArticle',
-    component: OneArticle
-  },
+
 
 ]
 

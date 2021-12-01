@@ -6,21 +6,25 @@
    <div class = "post_comment_frame">
       <h2>Laisser un commentaire !</h2>
       <div class="post_comment">
-          <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
-          <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
-          <input v-model= "comment.content" type="text" id="content" placeholder="content" class= "form-control">
-          <button class ="btn btn-primary mt-5" v-on:click = "postComment">Commenter</button>
-          <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
-           {{comment}}
+         <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
+         <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
+         <input v-model= "comment.content" type="text" id="content" placeholder="content" class= "form-control">
+         <button class ="btn btn-primary mt-5" v-on:click = "postComment">Commenter</button>
+         <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
+         <br>
+         {{comment}}
       </div>
    </div>
 
    <div class="comments_frame">
       <h2>Commentaires</h2>
-      <div class="comments" v-bind:key = "comments" v-for= "comments in CommentsArray">
-        <p>{{comments.content}}</p>
-        <p>Publié par : {{comments.User.firstname}} {{comments.User.lastname}}</p>
-        <p class="CommentDate">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
+      <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
+         <p>{{comments.content}}</p>
+         <p>Publié par : {{comments.User.firstname}} {{comments.User.lastname}}</p>
+         <p class="CommentDate">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
+         <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
+         <br>
+         {{comments.id}}
       </div>   
    </div> 
 
@@ -38,7 +42,7 @@ export default {
 
    data : function () {
       return {
-         CommentsArray : [],
+         commentsArray : [],
 
          comment : {
             userId: localStorage.getItem('Id'),
@@ -62,7 +66,7 @@ export default {
          axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`)
             .then(response => {
                console.log(response);
-               this.CommentsArray = response.data
+               this.commentsArray = response.data
          })
        },
 
@@ -89,11 +93,11 @@ export default {
          this.comment.content = '';
       },
 
-      deleteComment(id, index) {
+      deleteComment(id) {
          axios.delete("http://localhost:3000/api/comments/"+id)
          .then(() => {
             console.log('commentaire supprimé');
-            this.allComments.splice(index, 1)
+            this.allComments.splice(1)
             this.created();
          })
          .catch((error) => {
@@ -144,7 +148,7 @@ h1 {
 
 .comments {
     border : solid 2px white;
-    height: 150px;
+    height: 250px;
     overflow: hidden;
     margin: 50px;
     background: white;
