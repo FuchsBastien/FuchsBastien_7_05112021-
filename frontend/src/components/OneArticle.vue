@@ -1,36 +1,28 @@
 <template>
 <div class ="article_detail">
 
-   <div class="all_comments">
-
-   <div class = "post_comment_frame">
-      <h2>Laisser un commentaire !</h2>
       <div class="post_comment">
          <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
          <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
-         <input v-model= "comment.content" type="text" id="content" placeholder="content" class= "form-control">
-         <button class ="btn btn-primary mt-5" v-on:click = "postComment">Commenter</button>
+         <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
          <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
          <br>
-         {{comment}}
+         <!--{{comment}}-->
       </div>
-   </div>
 
-   <div class="comments_frame">
-      <h2>Commentaires</h2>
+   
       <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
+         <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
          <p>{{comments.content}}</p>
-         <p>Publié par : {{comments.User.firstname}} {{comments.User.lastname}}</p>
-         <p class="CommentDate">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
+         <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
          <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
          <br>
-         {{comments.id}}
+         <!--{{comments.id}}-->
       </div>   
-   </div> 
+   
+</div>  
 
-    </div>  
 
-</div>
 </template>
 
 
@@ -79,6 +71,7 @@ export default {
          axios.post ("http://localhost:3000/api/comments/",this.comment)
             .then(()=>{
                console.log('réussite!!');
+               this.loadComments();
                this.clearData();
                this.errorComment = false
             })
@@ -98,7 +91,7 @@ export default {
          .then(() => {
             console.log('commentaire supprimé!');
             this.commentsArray.splice(1)
-            this.created();
+            this.loadComments();
          })
          .catch((error) => {
             console.log(error.message);
@@ -111,64 +104,48 @@ export default {
 
 
 <style scoped>
-h1 {
-    text-align: center;
-    margin: 20px 0px 20px 0px;
-    color: orangered;
-    padding: 20px;
-}
+   .article_detail{
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      background: orangered;
+      padding-bottom: 10px;
+   }
 
-.article_detail{
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
+   .post_comment {
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 20px 20px 0px 20px;
+   }
 
-.article_frame {
-    border : solid 2px #f3e9f1;;
-    height: 250px;
-    overflow: hidden;
-}
+   .form-control{
+       border-radius: 20px;
+   }
 
-.all_comments {
-    background: orangered;
-}
+   .comments {
+      overflow: hidden;
+      margin: 40px;
+      background: white;
+      border-radius: 20px;
+   }
 
-.post_comment {
-    border : solid 2px white;
-    height: 175px;
-    margin: 50px;
-    background: white;
-}
+   .comment_user {
+      font-weight : bold;
+   }
 
-.comments_frame {
-    border : solid 2px white;
-    background: orangered;    
-}
+   .comment_date {
+      color: gray;
+   }
 
-.comments {
-    border : solid 2px white;
-    height: 250px;
-    overflow: hidden;
-    margin: 50px;
-    background: white;
-}
+   h1 {
+      text-align: center;
+      margin: 20px 0px 20px 0px;
+      color: orangered;
+      padding: 20px;
+   }
 
-p {
-    color: black;
-}
-
-a {
-    text-decoration: none;
-}
-
-.ArticleDate, .CommentDate {
-    color: gray;
-}
-
- /*.comments {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
- }*/
+   p {
+      margin-bottom: 0;
+   }
 </style>

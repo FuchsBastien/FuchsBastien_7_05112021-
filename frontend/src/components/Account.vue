@@ -49,13 +49,24 @@ export default {
     } 
   },
 
+
+  created(){
+    this.userLoad();
+  },  
+
   methods : { 
-    //modifier user  
+    userLoad(){
+      axios.get (`http://localhost:3000/api/users/${this.Id}`)
+      .then(user => {
+        console.log(user);
+        this.userArray = user.data
+      })
+    },
+
     userModify () {
       axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
     },
 
-    //supprimer user
     userDelete () {
       axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
       .then(() => {
@@ -63,15 +74,6 @@ export default {
       })
     }
   },
-
-  created(){
-  //afficher user
-    axios.get (`http://localhost:3000/api/users/${this.Id}`)
-    .then(user => {
-      console.log(user);
-      this.userArray = user.data
-    })
-  }   
 }
 </script>
 
