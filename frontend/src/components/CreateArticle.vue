@@ -16,7 +16,7 @@
 
          <button class ="btn btn-primary mt-5" v-on:click.prevent="envoiForm">Partager</button>
 
-         <p v-if="errorArticle" class="mt-2 text-danger"> Post de l'article impossible veuillez remplir tous les champs (l'upload d'une image n'est pas obligatoire)</p>
+         <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez remplir tous les champs (l'ajout d'une image n'est pas obligatoire)</p>
       </form>
       {{article}}
    </div>  

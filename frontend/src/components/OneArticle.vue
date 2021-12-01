@@ -9,8 +9,8 @@
           <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
           <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
           <input v-model= "comment.content" type="text" id="content" placeholder="content" class= "form-control">
-          <button class ="btn btn-primary mt-5" v-on:click = "envoiForm">Post</button>
-          <p v-if="errorComment" class="mt-2 text-danger"> {{ok}}</p>
+          <button class ="btn btn-primary mt-5" v-on:click = "postComment">Commenter</button>
+          <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
            {{comment}}
       </div>
    </div>
@@ -35,27 +35,26 @@ import axios from 'axios'
 
 export default {
    name :'OneArticle',
-      data : function () {
-         return {
-            CommentsArray : [],
 
-            comment : {
-               userId: localStorage.getItem('Id'),
-               articleId : this.$route.params.id,
-               content : ''
-            },
-          
-            Id: localStorage.getItem('Id'),
+   data : function () {
+      return {
+         CommentsArray : [],
+
+         comment : {
+            userId: localStorage.getItem('Id'),
             articleId : this.$route.params.id,
+            content : ''
+         },
+         
+         Id: localStorage.getItem('Id'),
+         articleId : this.$route.params.id,
 
-            errorComment: false,
-
-            ok: "Post du commentaire impossible veuillez remplir tous les champs"
-         } 
-      },
+         errorComment: false,
+      } 
+   },
 
    methods : { 
-      envoiForm () {  
+      postComment () {  
          if (this.comment.content == '' || this.comment.content == '') {
             this.errorComment = true
             return
