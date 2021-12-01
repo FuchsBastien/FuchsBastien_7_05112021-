@@ -76,7 +76,6 @@
                   })
                   .then(()=>{
                      console.log('réussite!!');
-                     this.loadComments();
                      this.clearData();
                      this.errorComment = false
                   })

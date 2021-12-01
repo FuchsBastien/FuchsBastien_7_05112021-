@@ -77,7 +77,7 @@
          .then(() => {
             console.log('article supprimé!');
             this.articlesArray.splice(1)
-            this.created();
+            this.loadArticles();
          })
          .catch((error) => {
             console.log(error.message);
