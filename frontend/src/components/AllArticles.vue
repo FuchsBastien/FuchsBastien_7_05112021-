@@ -5,10 +5,10 @@
          <h1>Tous les Articles Publiés</h1>
          <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
-               <h2>{{article.title}}</h2>
+               <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
+               <p>{{article.User.firstname}} {{article.User.lastname}}</p>
                <p>{{article.content}}</p>
                <img class="image_article" v-bind:src="article.imageUrl" alt="">
-               <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                <button class="btn btn-primary" v-on:click="deleteArticle(article.id)">Supprimer</button>
                <br>
@@ -112,6 +112,10 @@
       border : solid 2px #f3e9f1;
       overflow: hidden;
       margin-bottom: 50px;
+   }
+
+   .iconUser.rounded-circle.mb-2.me-2 {
+    border: solid 1px gray;
    }
 
    p {

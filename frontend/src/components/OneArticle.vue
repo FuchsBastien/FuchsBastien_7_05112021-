@@ -10,6 +10,7 @@
    </div>
 
    <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
+      <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="comments.User.imageUrl" alt="">
       <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
       <p>{{comments.content}}</p>
       <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
@@ -125,6 +126,10 @@ export default {
       margin: 40px;
       background: white;
       border-radius: 20px;
+   }
+
+  .iconUser.rounded-circle.mb-2.me-2 {
+    border: solid 1px gray;
    }
 
    .comment_user {

@@ -92,6 +92,11 @@ export default {
       margin-bottom : 10px;
   }
 
+  .iconUser.rounded-circle.mb-2.me-2 {
+    border: solid 1px gray;
+    margin : 10px;
+  }
+
   .form-control {
       width: 25%;
       margin-left: auto;
