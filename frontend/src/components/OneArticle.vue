@@ -53,7 +53,19 @@ export default {
       } 
    },
 
+   created(){
+      this.loadComments();
+   },  
+
    methods : { 
+      loadComments () { 
+         axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`)
+            .then(response => {
+               console.log(response);
+               this.CommentsArray = response.data
+         })
+       },
+
       postComment () {  
          if (this.comment.content == '' || this.comment.content == '') {
             this.errorComment = true
@@ -76,15 +88,20 @@ export default {
       clearData() {
          this.comment.content = '';
       },
-   },
-    
-   created(){
-      axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`)
-         .then(response => {
-            console.log(response);
-            this.CommentsArray = response.data
+
+      deleteComment(id, index) {
+         axios.delete("http://localhost:3000/api/comments/"+id)
+         .then(() => {
+            console.log('commentaire supprimé');
+            this.allComments.splice(index, 1)
+            this.created();
          })
-   },  
+         .catch((error) => {
+            console.log(error.message);
+         })
+      },
+
+   },
 }
 </script>
 
