@@ -69,7 +69,7 @@ exports.deleteUser = (req, res, next) => {
      User.findOne ({ where: {id: req.params.id} })
       .then(user => {
         // Récupération du nom du fichier
-        const filename = user.imageUrl;
+        const filename = user.imageUrl.split('/images/')[1];
         // On efface le fichier (unlink)
         fs.unlink(`images/${filename}`, () => {
         //on supprime l'utilisateur dans la base de données
