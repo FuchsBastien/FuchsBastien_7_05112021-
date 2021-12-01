@@ -1,25 +1,22 @@
 <template>
 <div class ="article_detail">
+   <div class="post_comment">
+      <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
+      <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
+      <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
+      <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
+      <br>
+      <!--{{comment}}-->
+   </div>
 
-      <div class="post_comment">
-         <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
-         <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
-         <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
-         <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
-         <br>
-         <!--{{comment}}-->
-      </div>
-
-   
-      <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
-         <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
-         <p>{{comments.content}}</p>
-         <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
-         <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
-         <br>
-         <!--{{comments.id}}-->
-      </div>   
-   
+   <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
+      <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
+      <p>{{comments.content}}</p>
+      <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
+      <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
+      <br>
+      <!--{{comments.id}}-->
+   </div>   
 </div>  
 
 

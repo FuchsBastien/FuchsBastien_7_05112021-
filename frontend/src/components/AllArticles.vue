@@ -58,7 +58,20 @@
          } 
       },
 
+      created(){
+      this.loadArticles ()
+      },  
+
       methods : { 
+         loadArticles () {
+         axios.get ("http://localhost:3000/api/articles/")
+         .then(articles => {
+            console.log(articles);
+            //this fait référence au tableau vide dans data
+            this.articlesArray = articles.data
+         })
+         },
+
          deleteArticle(id) {
          axios.delete("http://localhost:3000/api/articles/"+id)
          .then(() => {
@@ -69,17 +82,8 @@
          .catch((error) => {
             console.log(error.message);
          })
+         },
       },
-      },
-
-      created(){
-         axios.get ("http://localhost:3000/api/articles/")
-         .then(articles => {
-            console.log(articles);
-            //this fait référence au tableau vide dans data
-            this.articlesArray = articles.data
-         })
-      }   
    }
 </script>
 
