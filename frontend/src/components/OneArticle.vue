@@ -96,8 +96,8 @@ export default {
       deleteComment(id) {
          axios.delete("http://localhost:3000/api/comments/"+id)
          .then(() => {
-            console.log('commentaire supprimé');
-            this.allComments.splice(1)
+            console.log('commentaire supprimé!');
+            this.commentsArray.splice(1)
             this.created();
          })
          .catch((error) => {

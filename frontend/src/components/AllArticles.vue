@@ -10,6 +10,10 @@
                <img class="image_article" v-bind:src="article.imageUrl" alt="">
                <p>Publié par : {{article.User.firstname}} {{article.User.lastname}}</p>
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+               <button class="btn btn-primary" v-on:click="deleteArticle(article.id)">Supprimer</button>
+               <br>
+               {{article.id}}
+               <br>
                <router-link v-bind:to ="`/OneArticle/${article.id}`">Commentaires</router-link>
             </div>      
          </div>
@@ -55,6 +59,17 @@
       },
 
       methods : { 
+         deleteArticle(id) {
+         axios.delete("http://localhost:3000/api/articles/"+id)
+         .then(() => {
+            console.log('article supprimé!');
+            this.articlesArray.splice(1)
+            this.created();
+         })
+         .catch((error) => {
+            console.log(error.message);
+         })
+      },
       },
 
       created(){

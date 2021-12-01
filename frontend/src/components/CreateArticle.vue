@@ -14,7 +14,7 @@
             <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
          </div>
 
-         <button class ="btn btn-primary mt-5" v-on:click.prevent="envoiForm">Partager</button>
+         <button class ="btn btn-primary mt-5" v-on:click.prevent="postArticle">Partager</button>
 
          <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez remplir tous les champs (l'ajout d'une image n'est pas obligatoire)</p>
       </form>
@@ -44,7 +44,7 @@
       },
 
       methods : { 
-         envoiForm () {
+         postArticle () {
             if (this.article.title == '' || this.article.content == '') {
                this.errorArticle = true
                return
