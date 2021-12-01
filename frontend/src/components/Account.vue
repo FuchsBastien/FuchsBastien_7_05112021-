@@ -1,22 +1,23 @@
 <template>
- <div class="account">
-   
-      <div class = "account_avatar">
-         <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
-          <h1>Bienvenue {{userArray.firstname}}!</h1> 
-         <!--{{userArray}}-->
-      </div>
+  <div class="account">
+    <div class = "account_avatar">
+      <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
+      <h1>Bienvenue {{userArray.firstname}}!</h1> 
+      <!--{{userArray}}-->
+    </div>
 
-   <div class="account_frame">
+    <div class="account_frame">
       <div class="account_modify">
-            <h2>{{userArray.firstname}} {{userArray.lastname}}</h2>  
-            <div class="form-group mt-5">
-               <input v-model= "formData.firstname" type="text" id="firstname" placeholder="Prénom" class= "form-control">  
-            </div>
-            <div class="form-group mt-5">
-               <input v-model= "formData.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
-            </div>
-            <button class ="btn btn-primary mt-5" v-on:click = "userModify">Modifier</button>         
+        <h2>{{userArray.firstname}} {{userArray.lastname}}</h2>  
+          <div class="form-group mt-5">
+            <input v-model= "formData.firstname" type="text" id="firstname" placeholder="Prénom" class= "form-control">  
+          </div>
+
+          <div class="form-group mt-5">
+            <input v-model= "formData.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
+          </div>
+
+          <button class ="btn btn-primary mt-5" v-on:click = "userModify">Modifier</button>         
       </div>
 
       <br>
@@ -24,10 +25,8 @@
       <div class="account_delete">
         <button class ="btn btn-primary mt-5" v-on:click = "userDelete">Supprimer votre compte</button>
       </div>
-   </div>
-
-
- </div>  
+    </div>
+  </div>  
 </template>
 
 
@@ -35,87 +34,87 @@
 import axios from 'axios'
 
 export default {
-    name :'Account',
-    data : function () {
-      return {
-          userArray : [],
+  name :'Account',
 
-          formData : {
-            firstname : '',
-            lastname : '', 
-          },
+  data : function () {
+    return {
+      userArray : [],
 
-          Id: localStorage.getItem('Id'),
-      } 
-    },
+      formData : {
+        firstname : '',
+        lastname : '', 
+      },
 
-   methods : { 
-     //modifier user  
-     userModify () {
-       axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
+      Id: localStorage.getItem('Id'),
+    } 
+  },
+
+  methods : { 
+    //modifier user  
+    userModify () {
+      axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
     },
 
     //supprimer user
     userDelete () {
-       axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
-        .then(() => {
-           this.$router.push('/delete');    
-        })
+      axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
+      .then(() => {
+         this.$router.push('/delete');    
+      })
     }
-   },
+  },
 
-   created(){
-     //afficher user
-      axios.get (`http://localhost:3000/api/users/${this.Id}`)
-        .then(user => {
-         console.log(user);
-          this.userArray = user.data
-        })
-   }   
+  created(){
+  //afficher user
+    axios.get (`http://localhost:3000/api/users/${this.Id}`)
+    .then(user => {
+      console.log(user);
+      this.userArray = user.data
+    })
+  }   
 }
 </script>
 
 
 <style scoped>
-h1 {
-    text-align: center;
-    margin: 20px 0px 20px 0px;
-    color: orangered;
-    padding: 20px;
-}
+  h1 {
+      text-align: center;
+      margin: 20px 0px 20px 0px;
+      color: orangered;
+      padding: 20px;
+  }
 
-h2 {
-    text-align: center;
-    padding-top : 10px;
-    margin-bottom : 10px;
-  
-}
+  h2 {
+      text-align: center;
+      padding-top : 10px;
+      margin-bottom : 10px;
+  }
 
-.form-control {
-    width: 25%;
-    margin-left: auto;
-    margin-right: auto;  
-}
+  .form-control {
+      width: 25%;
+      margin-left: auto;
+      margin-right: auto;  
+  }
 
-.form-groupmt-5 {
-margin-top : 5px;
-}
+  .form-groupmt-5 {
+    margin-top : 5px;
+  }
 
-.account_frame {
+  .account_frame {
     border : solid 2px #f3e9f1;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-}
+  }
 
-.articles_frame {
+  .articles_frame {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
     background-color: orangered;
-}
+  }
 
-.articles {
+  .articles {
     border : solid 2px #f3e9f1;
     height: 150px;
     width: 95%;
@@ -125,13 +124,13 @@ margin-top : 5px;
     margin-right: auto;
     overflow: hidden;
     padding: 10px;
-}
+  }
 
-p {
+  p {
     color: black;
-} 
+  } 
 
-a {
+  a {
     text-decoration: none;  
-}
+  }
 </style>

@@ -1,25 +1,23 @@
 <template>
     <div>
         <div class="container">
-        <form>
-            <h3 class="mt-5">Connexion</h3>
-            <div class="form-group col-md mb-2">
-                <label class="mb-1">Adresse email</label>
-                <input class="form-control form-control-lg" v-model="user.email" type="email" title="Entrez votre addresse email" aria-describedby="aideEmail" required/>
-            </div>
+            <form>
+                <h3 class="mt-5">Connexion</h3>
+                <div class="form-group col-md mb-2">
+                    <label class="mb-1">Adresse email</label>
+                    <input class="form-control form-control-lg" v-model="user.email" type="email" title="Entrez votre addresse email" aria-describedby="aideEmail" required/>
+                </div>
 
-            <div class="form-group col-md">
-                <label class="mb-1">Mot de passe</label>
-                <input class="form-control form-control-lg" v-model="user.password" type="password" name="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
-                <small v-if="errorLogin" class="form-text text-danger">L'email ou le mot de passe est incorrect.</small>
-            </div>
+                <div class="form-group col-md">
+                    <label class="mb-1">Mot de passe</label>
+                    <input class="form-control form-control-lg" v-model="user.password" type="password" name="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
+                    <small v-if="errorLogin" class="form-text text-danger">L'email ou le mot de passe est incorrect.</small>
+                </div>
 
-            <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
-            <p class="text-right mt-3">
-                Vous n'avez pas de compte ?
-                <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link>
-            </p>
-        </form>
+                <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
+
+                <p class="text-right mt-3">Vous n'avez pas de compte ? <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link></p>
+            </form>
         </div>
     </div>
 </template>
@@ -30,6 +28,7 @@
 
     export default {
         name :'Login',
+
         data() {
             return {
                 user:{
@@ -39,15 +38,16 @@
                 errorLogin: false,
             }
         },
+
         methods: {
             sendForm(){
                 axios.post("http://localhost:3000/api/auth/login", this.user)
                .then((res) => {
-                   localStorage.setItem('token', res.data.token)
-                   localStorage.setItem('firstname', res.data.firstname)
-                   localStorage.setItem('lastname', res.data.lastname)
-                   localStorage.setItem('userPhoto', res.data.photo)
-                   localStorage.setItem('Id', res.data.userId)
+                    localStorage.setItem('token', res.data.token)
+                    localStorage.setItem('firstname', res.data.firstname)
+                    localStorage.setItem('lastname', res.data.lastname)
+                    localStorage.setItem('userPhoto', res.data.photo)
+                    localStorage.setItem('Id', res.data.userId)
                     this.$router.push('/articles');
                     this.errorLogin = false
                 })
@@ -62,23 +62,19 @@
 
 
 <style scoped>
-input.form-control:valid {
-    border:3px solid #0a0 !important;
-}
+    input.form-control:valid {
+        border:3px solid #0a0 !important;
+    }
 
-input.form-control:invalid {
-    border:1px solid grey !important;
-} 
+    input.form-control:invalid {
+        border:1px solid grey !important;
+    } 
 
-</style>
+    label, a, p, h3{
+        color: black;
+    }
 
-<style scoped>
-
-label, a, p, h3{
-    color: black;
-}
-
-a:hover {
-    color: white;
-}
+    a:hover {
+        color: white;
+    }
 </style>
