@@ -1,6 +1,6 @@
 <template>
    <div>
-      <CreateArticle></CreateArticle>
+      <CreateArticle v-on:articleCree="loadArticles()"></CreateArticle>
       <div class="container mt-5">
          <h1>Tous les Articles Publiés</h1>
          <div class="articles_frame">
@@ -15,7 +15,10 @@
                <br>
                {{article.id}}
                <br>
-               <router-link v-bind:to ="`/OneArticle/${article.id}`">Commentaires</router-link>
+
+               <router-link v-bind:to ="`/articles/${article.id}`">Commentaires</router-link>
+              <OneArticle></OneArticle>
+               <button v-on:click= "com">com</button>
             </div>      
          </div>
       </div>    
@@ -26,14 +29,14 @@
 <script>
    import axios from 'axios'
    import CreateArticle from "./CreateArticle.vue"
-   //import OneArticle from "./OneArticle.vue"
+   import OneArticle from "./OneArticle.vue"
 
    export default {
       name: 'AllArticles',
 
       components: {
          CreateArticle,
-         //OneArticle
+         OneArticle
       },
 
       data : function () {
@@ -84,6 +87,10 @@
             console.log(error.message);
          })
          },
+
+         com () {
+          <OneArticle></OneArticle>
+       },
       },
    }
 </script>

@@ -6,7 +6,7 @@
       <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
       <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
       <br>
-      <!--{{comment}}-->
+      {{comment}}
    </div>
 
    <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">

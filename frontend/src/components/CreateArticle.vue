@@ -44,6 +44,7 @@
       },
 
       methods : { 
+         
          postArticle () {
             if (this.article.title == '' || this.article.content == '') {
                this.errorArticle = true
@@ -54,6 +55,7 @@
                   axios.post ('http://localhost:3000/api/articles/', this.article)
                   .then(()=>{
                   console.log('réussite!!');
+                  this.$emit('articleCree');
                   this.clearData();
                   this.errorComment = false
                   })
@@ -76,6 +78,7 @@
                   })
                   .then(()=>{
                      console.log('réussite!!');
+                     this.$emit('articleCree');
                      this.clearData();
                      this.errorComment = false
                   })
@@ -90,7 +93,7 @@
          clearData() {
             this.article.title = '';
             this.article.content = '';
-            this.article.imageUrl = null;
+            this.article.imageUrl = '';
          },
 
          onSelect(event) {
