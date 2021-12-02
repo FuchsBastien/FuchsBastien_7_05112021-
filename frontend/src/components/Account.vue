@@ -17,14 +17,19 @@
             <input v-model= "formData.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
           </div>
 
-          <button class ="btn btn-primary mt-5" v-on:click = "userModify">Modifier</button>         
+          <button class ="btn-success rounded mt-5" v-on:click = "userModify">Modifier</button>         
       </div>
 
       <br>
 
       <div class="account_delete">
-        <button class ="btn btn-primary mt-5" v-on:click = "userDelete">Supprimer votre compte</button>
+        <button class ="btn-danger mt-2 rounded" v-on:click = "userDelete">Supprimer votre compte</button>
       </div>
+
+      <div class="account_delete">
+        <button class ="btn btn-primary mt-3" v-on:click = "LocalstorageClear">Se déconnecter</button>
+      </div>
+
     </div>
   </div>  
 </template>
@@ -79,7 +84,13 @@ export default {
       .then(() => {
          this.$router.push('/delete');    
       })
+    },
+
+    LocalstorageClear () {
+      localStorage.clear();
+      this.$router.push('/');    
     }
+
   },
 }
 </script>

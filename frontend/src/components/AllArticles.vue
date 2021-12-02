@@ -84,7 +84,7 @@
 
       methods : { 
          loadArticles () {
-         axios.get ("http://localhost:3000/api/articles/")
+         axios.get ("http://localhost:3000/api/articles/",{headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
          .then(articles => {
             console.log(articles);
             //this fait référence au tableau vide dans data
