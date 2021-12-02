@@ -9,11 +9,11 @@
                <p>{{article.User.firstname}} {{article.User.lastname}}</p>
                <h2>{{article.title}}</h2>
                <p>{{article.content}}</p>
-               <img class="image_article" v-bind:src="article.imageUrl" alt="">
+               <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                <button class="btn btn-primary" v-on:click="deleteArticle(article.id)">Supprimer</button>
                <br>
-               {{article.id}}
+               <!--{{article.id}}-->
                <br>
 
                <router-link v-bind:to ="`/articles/${article.id}`">Commentaires</router-link>
