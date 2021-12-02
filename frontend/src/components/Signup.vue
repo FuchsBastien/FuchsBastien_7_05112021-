@@ -40,7 +40,7 @@
 
                 <p class="createAcc text-right mt-3">Déjà inscrit ? <router-link class="createAccount" v-bind:to="`/`">Se connecter</router-link></p>
             </form>
-            {{user}}
+            <!--{{user}}-->
         </div>
     </div>
 </template>

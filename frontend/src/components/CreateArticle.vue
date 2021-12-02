@@ -7,7 +7,7 @@
          </div>
          
          <div class="form-group mt-5">
-            <textarea v-model= "article.content" id="content"  rows="1" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
+            <textarea v-model= "article.content" id="content"  rows="2" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
          </div>
 
          <div class="form-group mt-5">
@@ -18,7 +18,7 @@
 
          <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez remplir tous les champs (l'ajout d'une image n'est pas obligatoire)</p>
       </form>
-      <!--{{article}}-->
+      {{article}}
    </div>  
 </template>
 

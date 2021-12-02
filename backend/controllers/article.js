@@ -93,7 +93,7 @@ exports.modifyArticle = (req, res, next) => {
   const content =  req.body.content;
   // vérification que tous les champs sont remplis
   if(title === null || title === '' || content === null || content === '') {
-      return res.status(400).json({'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour créer un article"});
+      return res.status(400).json({'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour modifier votre article"});
   }
   //variable contenant les champs de la requête
   const articleObject = req.body;

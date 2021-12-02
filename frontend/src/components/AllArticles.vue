@@ -11,14 +11,21 @@
                <p>{{article.content}}</p>
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
-               <button class="btn btn-primary" v-on:click="deleteArticle(article.id)">Supprimer</button>
+               
+               
+               <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
+               <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>
+               <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Modifier</button>
+               <br>
+               <br>
+               <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
                <br>
                <!--{{article.id}}-->
                <br>
 
                <router-link v-bind:to ="`/articles/${article.id}`">Commentaires</router-link>
-              <OneArticle></OneArticle>
-               <button v-on:click= "com">com</button>
+               <OneArticle></OneArticle>
+              
             </div>      
          </div>
       </div>    
@@ -43,15 +50,24 @@
          return {
             articlesArray : [],
 
-            article : {
+            /*article : {
                token : localStorage.getItem('token'),
                userId: localStorage.getItem('Id'),
                title : '',
                content : '',
                imageUrl : ''
+            },*/
+
+             updatearticle : {
+               token : localStorage.getItem('token'),
+               userId: localStorage.getItem('Id'),
+               title : '',
+               content : '',  
             },
 
-            errorArticle : false
+
+            errorArticle : false,
+            idArticleUpdate: null,
 
             /*user : {
                Id: localStorage.getItem('Id'),
@@ -76,6 +92,18 @@
          })
          },
 
+         modifyArticle(id) {
+         axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle)
+         .then(() => {
+            console.log('article modifié');
+            this.loadArticles();
+           // this.idArticleUpdate = null
+             })
+         .catch((error) => {
+            console.log(error.message);
+         })
+         },
+
          deleteArticle(id) {
          axios.delete("http://localhost:3000/api/articles/"+id)
          .then(() => {
@@ -91,6 +119,9 @@
          com () {
           <OneArticle></OneArticle>
        },
+          setIdArticleToUpdate(article_id){
+            this.idArticleUpdate = article_id
+        }
       },
    }
 </script>

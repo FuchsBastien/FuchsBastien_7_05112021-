@@ -65,6 +65,13 @@ export default {
 
     userModify () {
       axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
+      .then(() => {
+            console.log('compte modifié');
+            this.userLoad();
+             })
+         .catch((error) => {
+            console.log(error.message);
+         })
     },
 
     userDelete () {
