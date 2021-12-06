@@ -26,6 +26,7 @@
 
                <div class="form-group "> 
                     <label class="mb-1 mt-2">Avatar</label>
+                    <br>
                     <input  aria-label="envoi image" accept="image/*" type="file" @change="onSelect" class="form-control-file" id="image">
                     <!-- <button _ngcontent-fxu-c7 mat-raised-button class = "mat-raised-button mat-button-base mat-primary">
                         <span class="mat-button-wrapper">Ajouter avatar</span>
@@ -36,7 +37,7 @@
 
                 <button class="submit btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">S'inscrire</button>
 
-                <p v-if="errorSignup" class="mt-2 text-danger"> Création de compte impossible, veuillez remplir tous les champs (ou choisir une adresse mail différente) </p>
+                <p v-if="errorSignup" class="mt-2 text-danger"> Inscription impossible, veuillez remplir tous les champs et choisir un avatar</p>
 
                 <p class="createAcc text-right mt-3">Déjà inscrit ? <router-link class="createAccount" v-bind:to="`/`">Se connecter</router-link></p>
             </form>
@@ -69,7 +70,7 @@
         methods: {
             sendForm(){
 
-                if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == ''|| this.user.email == ''|| this.user.password == '') {
+                if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == ''|| this.user.email == ''|| this.user.password == ''|| this.user.imageUrl == '') {
                     this.errorSignup = true
                     return
                 } 
@@ -87,8 +88,9 @@
                         this.$router.push('/success');
                         this.errorSignup = false
                     })
-                    .catch((error)=>{
-                        console.log(error.message);
+                    .catch(()=>{
+                        console.log("Adresse mail existe déjà !");
+                        window.alert('Adresse mail existe déjà !');
                         this.errorSignup = true
                     })
                 }

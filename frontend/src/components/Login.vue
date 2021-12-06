@@ -11,7 +11,7 @@
                 <div class="form-group col-md">
                     <label class="mb-1">Mot de passe</label>
                     <input class="form-control form-control-lg" v-model="user.password" type="password" name="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
-                    <small v-if="errorLogin" class="form-text text-danger">L'email ou le mot de passe est incorrect.</small>
+                    <small v-if="errorLogin" class="form-text text-danger">Connexion impossible, veuillez remplir tous les champs</small>
                 </div>
 
                 <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
@@ -36,25 +36,33 @@
                     password: '',
                 },
                 errorLogin: false,
+                err : "email ou le mot de passe est incorrect!"
             }
         },
 
         methods: {
             sendForm(){
-                axios.post("http://localhost:3000/api/auth/login", this.user)
-               .then((res) => {
-                    localStorage.setItem('token', res.data.token)
-                    localStorage.setItem('firstname', res.data.firstname)
-                    localStorage.setItem('lastname', res.data.lastname)
-                    localStorage.setItem('userPhoto', res.data.photo)
-                    localStorage.setItem('Id', res.data.userId)
-                    this.$router.push('/articles');
-                    this.errorLogin = false
-                })
-                .catch((error) =>{
-                    console.log(error.message);
+                if (this.user.email == ''|| this.user.password == '') {
                     this.errorLogin = true
-                })
+                    return
+                } 
+                else {
+                    axios.post("http://localhost:3000/api/auth/login", this.user)
+                    .then((res) => {
+                        localStorage.setItem('token', res.data.token)
+                        localStorage.setItem('firstname', res.data.firstname)
+                        localStorage.setItem('lastname', res.data.lastname)
+                        localStorage.setItem('userPhoto', res.data.photo)
+                        localStorage.setItem('Id', res.data.userId)
+                        this.$router.push('/articles');
+                        this.errorLogin = false
+                    })
+                    .catch(() =>{ 
+                        console.log("L'email ou le mot de passe est incorrect");
+                        window.alert("L'email ou le mot de passe est incorrect");
+                        this.errorLogin = true
+                    })
+                }  
             }
         }
     }

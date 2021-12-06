@@ -15,6 +15,7 @@
       <p>{{comments.content}}</p>
       <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
       <div v-if="comments.userId == userId" >
+         <!--userId ==comments.articleId.userId-->
          <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
       </div>
       <br>

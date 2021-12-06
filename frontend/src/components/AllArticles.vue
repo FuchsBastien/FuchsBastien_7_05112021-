@@ -13,15 +13,21 @@
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                
                <div v-if="article.userId == userId">
-                  <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
-                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>
-                  <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Modifier</button>
-                  <br>
-                  <br>
+                  <!--<input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
+                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>-->
+                  <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id)">Modifier</button>
+                  <br><br>
                   <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
                   <br>
+
                </div>
 
+               <div v-if="idArticleUpdate == article.id">
+                  <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
+                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>
+                  <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
+                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
+               </div>
                  <!--{{article.userId}}{{userId}}-->
                <br>
 
@@ -71,6 +77,7 @@
 
 
             errorArticle : false,
+
             idArticleUpdate: null,
 
             /*user : {
