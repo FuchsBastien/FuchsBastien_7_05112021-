@@ -7,7 +7,7 @@
          </div>
          
          <div class="form-group mt-5">
-            <textarea v-model= "article.content" id="content"  rows="2" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
+            <textarea v-model= "article.content" id="content"  rows="3" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
          </div>
 
          <div class="form-group mt-5">
@@ -18,7 +18,7 @@
 
          <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez remplir tous les champs (l'ajout d'une image n'est pas obligatoire)</p>
       </form>
-      {{article}}
+      <!--{{article}}-->
    </div>  
 </template>
 
@@ -52,7 +52,7 @@
             }
             else {
                if (this.article.imageUrl == '') {
-                  axios.post ('http://localhost:3000/api/articles/', this.article)
+                  axios.post ('http://localhost:3000/api/articles/', this.article, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                   .then(()=>{
                   console.log('réussite!!');
                   this.$emit('articleCree');
@@ -73,8 +73,7 @@
             
                   axios.post ('http://localhost:3000/api/articles/', formData,
                   {
-                     headers: {
-                  }
+                     headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
                   })
                   .then(()=>{
                      console.log('réussite!!');

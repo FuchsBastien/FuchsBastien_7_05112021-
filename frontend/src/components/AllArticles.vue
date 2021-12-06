@@ -12,15 +12,17 @@
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                
-               
-               <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
-               <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>
-               <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Modifier</button>
-               <br>
-               <br>
-               <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
-               <br>
-               <!--{{article.id}}-->
+               <div v-if="article.userId == userId">
+                  <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
+                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>
+                  <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Modifier</button>
+                  <br>
+                  <br>
+                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
+                  <br>
+               </div>
+
+                 <!--{{article.userId}}{{userId}}-->
                <br>
 
                <router-link v-bind:to ="`/articles/${article.id}`">Commentaires</router-link>
@@ -65,6 +67,8 @@
                content : '',  
             },
 
+            userId: localStorage.getItem('Id'),
+
 
             errorArticle : false,
             idArticleUpdate: null,
@@ -84,7 +88,7 @@
 
       methods : { 
          loadArticles () {
-         axios.get ("http://localhost:3000/api/articles/",{headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+         axios.get ("http://localhost:3000/api/articles/", {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
          .then(articles => {
             console.log(articles);
             //this fait référence au tableau vide dans data
@@ -93,7 +97,7 @@
          },
 
          modifyArticle(id) {
-         axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle)
+         axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
          .then(() => {
             console.log('article modifié');
             this.loadArticles();
@@ -105,7 +109,7 @@
          },
 
          deleteArticle(id) {
-         axios.delete("http://localhost:3000/api/articles/"+id)
+         axios.delete("http://localhost:3000/api/articles/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
          .then(() => {
             console.log('article supprimé!');
             this.articlesArray.splice(1)

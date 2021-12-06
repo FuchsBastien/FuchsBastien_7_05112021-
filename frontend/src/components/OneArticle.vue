@@ -6,7 +6,7 @@
       <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
       <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
       <br>
-      {{comment}}
+      <!--{{comment}}-->
    </div>
 
    <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
@@ -14,7 +14,9 @@
       <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
       <p>{{comments.content}}</p>
       <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
-      <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
+      <div v-if="comments.userId == userId" >
+         <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
+      </div>
       <br>
       <!--{{comments.id}}-->
    </div>   
@@ -35,12 +37,14 @@ export default {
          commentsArray : [],
 
          comment : {
+            token : localStorage.getItem('token'),
             userId: localStorage.getItem('Id'),
             articleId : this.$route.params.id,
             content : ''
          },
          
          Id: localStorage.getItem('Id'),
+         userId: localStorage.getItem('Id'),
          articleId : this.$route.params.id,
 
          errorComment: false,
@@ -53,7 +57,7 @@ export default {
 
    methods : { 
       loadComments () { 
-         axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`)
+         axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => {
                console.log(response);
                this.commentsArray = response.data
@@ -66,7 +70,7 @@ export default {
             return
          } 
          else {
-         axios.post ("http://localhost:3000/api/comments/",this.comment)
+         axios.post ("http://localhost:3000/api/comments/",this.comment, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(()=>{
                console.log('réussite!!');
                this.loadComments();
@@ -85,7 +89,7 @@ export default {
       },
 
       deleteComment(id) {
-         axios.delete("http://localhost:3000/api/comments/"+id)
+         axios.delete("http://localhost:3000/api/comments/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
          .then(() => {
             console.log('commentaire supprimé!');
             this.commentsArray.splice(1)

@@ -23,11 +23,11 @@
       <br>
 
       <div class="account_delete">
-        <button class ="btn-danger mt-2 rounded" v-on:click = "userDelete">Supprimer votre compte</button>
+        <button class ="btn-danger mt-2 rounded" v-on:click = "userDelete">Supprimer</button>
       </div>
 
       <div class="account_delete">
-        <button class ="btn btn-primary mt-3" v-on:click = "LocalstorageClear">Se déconnecter</button>
+        <button class ="btn btn-primary mt-3" v-on:click = "LocalstorageClear">Déconnexion</button>
       </div>
 
     </div>
