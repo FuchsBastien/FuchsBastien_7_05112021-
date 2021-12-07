@@ -6,6 +6,7 @@ import AllArticles from '../views/AllArticles.vue'
 import OneArticle from '../components/OneArticle.vue'
 import Account from '../components/Account.vue'
 import AccountDelete from '../components/AccountDelete.vue'
+import AllAccounts from '../components/AllAccounts.vue'
 
 const routes = [
   {
@@ -49,6 +50,12 @@ const routes = [
     path: '/delete',
     name: 'accountDelete',
     component: AccountDelete
+  },
+
+  {
+    path: '/accounts/:id',
+    name: 'accounts',
+    component: AllAccounts
   },
 
 

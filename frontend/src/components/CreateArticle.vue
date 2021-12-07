@@ -2,7 +2,7 @@
    <div class="create_article">
       <div class="container">
          <h1>Créer une publication</h1>
-          {{article.userAdmin}}
+          <!--{{article.userAdmin}}-->
          <form>
             <div class="form-group mt-3">
                <input v-model= "article.title" type="text" id="title" placeholder="Titre" class= "form-control" required>  
@@ -20,7 +20,7 @@
 
             <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez remplir tous les champs (l'ajout d'une image n'est pas obligatoire)</p>
          </form>
-         {{article}}
+         <!--{{article}}-->
       </div>  
    </div>
 </template>

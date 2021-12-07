@@ -32,7 +32,8 @@
                </div>
                  <!--{{article.userId}}{{userId}}-->
                <br>
-
+               <router-link v-bind:to ="`/accounts/${article.User.id}`">Compte</router-link>
+               <br>
                <router-link v-bind:to ="`/articles/${article.id}`">Commentaires</router-link>
                <OneArticle></OneArticle>
               
