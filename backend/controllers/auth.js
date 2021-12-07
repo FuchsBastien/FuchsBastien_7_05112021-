@@ -74,9 +74,13 @@ exports.login = (req, res, next) => {
             //si même mot de passe
             res.status(200).json({
               userId: user.id,
+              userAdmin: user.isAdmin,
               // Création d'un token pour sécuriser le compte de l'utilisateur
               token: jwt.sign(
-                { userId: user.id },
+                { 
+                  userId: user.id,
+                  userAdmin : user.isAdmin 
+                },
                 'RANDOM_TOKEN_SECRET',
                 { expiresIn: '1h' }
               )

@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div class ="all_articles">
       <CreateArticle v-on:articleCree="loadArticles()"></CreateArticle>
       <div class="container mt-5">
          <h1>Tous les Articles Publiés</h1>
@@ -12,14 +12,16 @@
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                
-               <div v-if="article.userId == userId">
-                  <!--<input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
-                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>-->
+               <div v-if="userAdmin == 'true'">
+                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
+                  <br>
+               </div>
+
+               <div v-else-if ="article.userId == userId">
                   <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id)">Modifier</button>
                   <br><br>
                   <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
                   <br>
-
                </div>
 
                <div v-if="idArticleUpdate == article.id">
@@ -67,13 +69,15 @@
             },*/
 
              updatearticle : {
-               token : localStorage.getItem('token'),
-               userId: localStorage.getItem('Id'),
+               //token : localStorage.getItem('token'),
+               //userId: localStorage.getItem('Id'),
                title : '',
                content : '',  
             },
 
             userId: localStorage.getItem('Id'),
+            
+            userAdmin: localStorage.getItem('Admin'),
 
 
             errorArticle : false,
@@ -108,7 +112,7 @@
          .then(() => {
             console.log('article modifié');
             this.loadArticles();
-           // this.idArticleUpdate = null
+           this.idArticleUpdate = null
              })
          .catch((error) => {
             console.log(error.message);
@@ -139,6 +143,10 @@
 
 
 <style scoped>
+   .all_articles{
+      background-color: #dfe3ee;
+   }
+
    h1,h2 {
       text-align: center;
       margin: 20px 0px 20px 0px;
@@ -163,6 +171,14 @@
       overflow: hidden;
       margin-bottom: 50px;
       border-radius: 20px;
+      background-color: white;
+   }
+
+   .form-control {
+      width: 65%;
+      margin-left : auto;
+      margin-right : auto; 
+      background-color: #dfe3ee;
    }
 
    .iconUser.rounded-circle.mb-2.me-2 {

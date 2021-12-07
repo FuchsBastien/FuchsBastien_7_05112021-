@@ -97,6 +97,10 @@ export default {
 
 
 <style scoped>
+.account {
+  background-color: #dfe3ee;
+}
+
   h1 {
       text-align: center;
       margin: 20px 0px 20px 0px;
@@ -121,6 +125,7 @@ export default {
       width: 25%;
       margin-left: auto;
       margin-right: auto;  
+      background-color: #dfe3ee;
   }
 
   .form-groupmt-5 {
