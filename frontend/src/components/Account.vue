@@ -9,28 +9,35 @@
     <div class="account_frame">
       <div class="account_modify">
         <h2>{{userArray.firstname}} {{userArray.lastname}}</h2>  
-          <div class="form-group mt-5">
-            <input v-model= "formData.firstname" type="text" id="firstname" placeholder="Prénom" class= "form-control">  
+
+          <div v-if="idUserUpdate == userArray.id">
+            <div class="form-group mt-5">
+              <input v-model= "formData.firstname" type="text" id="firstname" placeholder="Prénom" class= "form-control">  
+            </div>
+
+            <div class="form-group mt-5">
+              <input v-model= "formData.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
+            </div>
+
+            <button class="btn-success rounded mt-3" v-on:click="userModify(userArray.id)">Valider</button>
+
+            <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdUserToUpdate(null)">
           </div>
 
-          <div class="form-group mt-5">
-            <input v-model= "formData.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
-          </div>
-
-          <button class ="btn-success rounded mt-5" v-on:click = "userModify">Modifier</button>         
+          <button class ="btn-success rounded mt-5" v-on:click ="setIdUserToUpdate(userArray.id)">Modifier</button>         
       </div>
 
       <br>
 
       <div class="account_delete">
-        <button class ="btn-danger mt-2 rounded" v-on:click = "userDelete">Supprimer</button>
+        <button class ="btn-danger mt-2 rounded" v-on:click ="userDelete">Supprimer</button>
       </div>
 
       <div class="account_delete">
-        <button class ="btn btn-primary mt-3" v-on:click = "LocalstorageClear">Déconnexion</button>
+        <button class ="btn btn-primary mt-3" v-on:click ="LocalstorageClear">Déconnexion</button>
       </div>
-
     </div>
+
   </div>  
 </template>
 
@@ -43,17 +50,18 @@ export default {
 
   data : function () {
     return {
+      Id: localStorage.getItem('Id'),
+
       userArray : [],
+
+      idUserUpdate: null,
 
       formData : {
         firstname : '',
         lastname : '', 
       },
-
-      Id: localStorage.getItem('Id'),
     } 
   },
-
 
   created(){
     this.userLoad();
@@ -89,7 +97,11 @@ export default {
     LocalstorageClear () {
       localStorage.clear();
       this.$router.push('/');    
-    }
+    },
+
+    setIdUserToUpdate(userArray_id) {
+    this.idUserUpdate = userArray_id
+    },
 
   },
 }

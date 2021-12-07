@@ -28,7 +28,7 @@
                   <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
-                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
+                  <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
                </div>
                  <!--{{article.userId}}{{userId}}-->
                <br>
@@ -132,12 +132,13 @@
          })
          },
 
+         setIdArticleToUpdate(article_id){
+         this.idArticleUpdate = article_id
+         },
+
          com () {
           <OneArticle></OneArticle>
-       },
-          setIdArticleToUpdate(article_id){
-            this.idArticleUpdate = article_id
-        }
+         },  
       },
    }
 </script>
