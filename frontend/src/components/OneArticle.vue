@@ -14,9 +14,13 @@
       <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
       <p>{{comments.content}}</p>
       <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
-      <div v-if="comments.userId == userId" >
-         <!--userId ==comments.articleId.userId-->
+      
+      <div v-if="userAdmin == 'true'">
          <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
+      </div>
+
+      <div v-else-if="comments.userId == userId" >
+         <button class="btn-danger ms-2 rounded" v-on:click="deleteComment(comments.id)">Supprimer</button>
       </div>
       <br>
       <!--{{comments.id}}-->
@@ -45,8 +49,12 @@ export default {
          },
          
          Id: localStorage.getItem('Id'),
+
          userId: localStorage.getItem('Id'),
+
          articleId : this.$route.params.id,
+
+         userAdmin: localStorage.getItem('Admin'),
 
          errorComment: false,
       } 

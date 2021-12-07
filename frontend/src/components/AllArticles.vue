@@ -60,15 +60,7 @@
          return {
             articlesArray : [],
 
-            /*article : {
-               token : localStorage.getItem('token'),
-               userId: localStorage.getItem('Id'),
-               title : '',
-               content : '',
-               imageUrl : ''
-            },*/
-
-             updatearticle : {
+            updatearticle : {
                //token : localStorage.getItem('token'),
                //userId: localStorage.getItem('Id'),
                title : '',
@@ -78,7 +70,6 @@
             userId: localStorage.getItem('Id'),
             
             userAdmin: localStorage.getItem('Admin'),
-
 
             errorArticle : false,
 
@@ -90,6 +81,16 @@
                userNom: localStorage.getItem('userNom'),
                userPhoto: localStorage.getItem('userPhoto'),
             }*/     
+
+            
+            /*article : {
+               token : localStorage.getItem('token'),
+               userId: localStorage.getItem('Id'),
+               title : '',
+               content : '',
+               imageUrl : ''
+            },*/
+
          } 
       },
 
