@@ -10,8 +10,12 @@
    </div>
 
    <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
-      <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="comments.User.imageUrl" alt="">
-      <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
+      <div>
+         <router-link v-bind:to ="`/accounts/${comments.User.id}`">
+         <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="comments.User.imageUrl" alt="">
+         <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
+          </router-link>
+      </div>
       <p>{{comments.content}}</p>
       <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
       
@@ -44,7 +48,8 @@ export default {
          comment : {
             token : localStorage.getItem('token'),
             userId: localStorage.getItem('Id'),
-            articleId : this.$route.params.id,
+            //articleId : this.$route.params.id,
+            articleId : this.idArticleTransfert,
             content : ''
          },
          
@@ -52,13 +57,18 @@ export default {
 
          userId: localStorage.getItem('Id'),
 
-         articleId : this.$route.params.id,
+        // articleId : this.$route.params.id,
+        
+         articleId : this.idArticleTransfert,
 
          userAdmin: localStorage.getItem('Admin'),
 
          errorComment: false,
+
       } 
    },
+
+   props: ['idArticleTransfert'],
 
    created(){
       this.loadComments();
@@ -166,5 +176,10 @@ export default {
 
    p {
       margin-bottom: 0;
+      color: black;
+   }
+
+   a {
+   text-decoration: none;
    }
 </style>

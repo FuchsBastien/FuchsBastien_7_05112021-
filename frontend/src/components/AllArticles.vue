@@ -6,7 +6,6 @@
          <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
                <div>
-                  
                   <router-link v-bind:to ="`/accounts/${article.User.id}`">
                   <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
                   <p>{{article.User.firstname}} {{article.User.lastname}}</p>
@@ -26,7 +25,6 @@
                <div v-else-if ="article.userId == userId">
                   <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id)">Modifier</button>
                   <br><br>
-                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
                   <br>
                </div>
 
@@ -36,12 +34,22 @@
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
                </div>
+
+               <div v-else-if ="article.userId == userId">
+                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
+                  <br>
+               </div>
                  <!--{{article.userId}}{{userId}}-->
                <br>
             
+               <button class="btn-success rounded" v-on:click="setToUpdate(article.id)">Commentaires</button>
                <br>
-               <router-link v-bind:to ="`/articles/${article.id}`">Commentaires</router-link>
-               <OneArticle></OneArticle>
+                 <!--{{idArticleStorage}}-->
+               <div v-if="idArticleStorage == article.id">
+                  <OneArticle 
+                   v-bind:idArticleTransfert = idArticleStorage 
+                  ></OneArticle>
+               </div>
               
             </div>      
          </div>
@@ -82,6 +90,8 @@
 
             idArticleUpdate: null,
 
+            idArticleStorage : null
+
             /*user : {
                Id: localStorage.getItem('Id'),
                userPrenom: localStorage.getItem('userPrenom'),
@@ -89,7 +99,6 @@
                userPhoto: localStorage.getItem('userPhoto'),
             }*/     
 
-            
             /*article : {
                token : localStorage.getItem('token'),
                userId: localStorage.getItem('Id'),
@@ -97,9 +106,9 @@
                content : '',
                imageUrl : ''
             },*/
-
          } 
       },
+
 
       created(){
       this.loadArticles ()
@@ -143,9 +152,9 @@
          this.idArticleUpdate = article_id
          },
 
-         com () {
-          <OneArticle></OneArticle>
-         },  
+         setToUpdate(article_id){
+         this.idArticleStorage = article_id
+         },
       },
    }
 </script>
