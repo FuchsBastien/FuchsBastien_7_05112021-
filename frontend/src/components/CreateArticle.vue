@@ -128,9 +128,10 @@
    }
 
    .form-control {
-     width: 65%;
-     margin-left : auto;
-     margin-right : auto; 
-     background-color: #dfe3ee;
+      width: 65%;
+      margin-left : auto;
+      margin-right : auto; 
+      background-color: #dfe3ee;
+      border-radius: 15px;
    }
 </style>

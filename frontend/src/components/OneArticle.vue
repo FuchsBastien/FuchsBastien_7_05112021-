@@ -119,7 +119,7 @@ export default {
       width: 80%;
       margin-left: auto;
       margin-right: auto;
-      background: orangered;
+      background: white;
       padding-bottom: 10px;
       border-radius: 20px;
    }
@@ -132,13 +132,14 @@ export default {
    }
 
    .form-control{
-       border-radius: 20px;
+      border-radius: 20px;
+      background-color: #dfe3ee;
    }
 
    .comments {
       overflow: hidden;
       margin: 40px;
-      background: white;
+      background-color: #dfe3ee;
       border-radius: 20px;
    }
 

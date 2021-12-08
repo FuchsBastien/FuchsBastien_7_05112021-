@@ -1,22 +1,13 @@
 <template>
   <div class="account">
     <div class = "account_avatar">
-     <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
-    <h1>{{userArray.firstname}} {{userArray.lastname}}</h1> 
-      <!--{{userArray}}-->
+      <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
+      <h1>{{userArray.firstname}} {{userArray.lastname}}</h1> 
     </div>
-
-    <div class="account_frame">
-
-      <br>
-
-      <div class="account_delete">
-        <button class ="btn-danger mt-2 rounded" v-on:click ="userDelete">Supprimer</button>
-      </div>
-
     
+    <div class="account_delete" v-if="userAdmin == 'true'">
+      <button class ="btn-danger mt-2 rounded" v-on:click ="userDelete">Supprimer</button>
     </div>
-
   </div>  
 </template>
 
@@ -32,8 +23,8 @@ export default {
       Id : this.$route.params.id,
 
       userArray : [],
-
       
+      userAdmin: localStorage.getItem('Admin'), 
     } 
   },
 

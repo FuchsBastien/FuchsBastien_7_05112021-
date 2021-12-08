@@ -1,12 +1,12 @@
 <template>
   <div class="account">
-    <div class = "account_avatar">
+    <div class= "account_avatar">
       <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
       <h1>Bienvenue {{userArray.firstname}}!</h1> 
       <!--{{userArray}}-->
     </div>
 
-    <div class="account_frame">
+    <div class= "account_frame">
       <div class="account_modify">
         <h2>{{userArray.firstname}} {{userArray.lastname}}</h2>  
 
@@ -34,7 +34,7 @@
       </div>
 
       <div class="account_delete">
-        <button class ="btn btn-primary mt-3" v-on:click ="LocalstorageClear">Déconnexion</button>
+        <button class ="btn btn-primary mt-4" v-on:click ="LocalstorageClear">Déconnexion</button>
       </div>
     </div>
 
@@ -43,75 +43,74 @@
 
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
 
-export default {
-  name :'Account',
+  export default {
+    name :'Account',
 
-  data : function () {
-    return {
-      Id: localStorage.getItem('Id'),
+    data : function () {
+      return {
+        Id: localStorage.getItem('Id'),
 
-      userArray : [],
+        userArray : [],
 
-      idUserUpdate: null,
+        idUserUpdate: null,
 
-      formData : {
-        firstname : '',
-        lastname : '', 
+        formData : {
+          firstname : '',
+          lastname : '', 
+        },
+      } 
+    },
+
+    created(){
+      this.userLoad();
+    },  
+
+    methods : { 
+      userLoad(){
+        axios.get (`http://localhost:3000/api/users/${this.Id}`)
+        .then(user => {
+          console.log(user);
+          this.userArray = user.data
+        })
       },
-    } 
-  },
 
-  created(){
-    this.userLoad();
-  },  
+      userModify () {
+        axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
+        .then(() => {
+              console.log('compte modifié');
+              this.userLoad();
+              })
+          .catch((error) => {
+              console.log(error.message);
+          })
+      },
 
-  methods : { 
-    userLoad(){
-      axios.get (`http://localhost:3000/api/users/${this.Id}`)
-      .then(user => {
-        console.log(user);
-        this.userArray = user.data
-      })
+      userDelete () {
+        axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
+        .then(() => {
+          this.$router.push('/delete');    
+        })
+      },
+
+      LocalstorageClear () {
+        localStorage.clear();
+        this.$router.push('/');    
+      },
+
+      setIdUserToUpdate(userArray_id) {
+      this.idUserUpdate = userArray_id
+      },
     },
-
-    userModify () {
-      axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
-      .then(() => {
-            console.log('compte modifié');
-            this.userLoad();
-             })
-         .catch((error) => {
-            console.log(error.message);
-         })
-    },
-
-    userDelete () {
-      axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
-      .then(() => {
-         this.$router.push('/delete');    
-      })
-    },
-
-    LocalstorageClear () {
-      localStorage.clear();
-      this.$router.push('/');    
-    },
-
-    setIdUserToUpdate(userArray_id) {
-    this.idUserUpdate = userArray_id
-    },
-
-  },
-}
+  }
 </script>
 
 
 <style scoped>
-.account {
-  background-color: #dfe3ee;
-}
+  .account {
+    background-color: #dfe3ee;
+  }
 
   h1 {
       text-align: center;
@@ -138,6 +137,7 @@ export default {
       margin-left: auto;
       margin-right: auto;  
       background-color: #dfe3ee;
+      border-radius: 15px;
   }
 
   .form-groupmt-5 {
@@ -145,10 +145,11 @@ export default {
   }
 
   .account_frame {
-    border : solid 2px #f3e9f1;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    background-color: white;
+    border-radius: 15px;
   }
 
   .articles_frame {

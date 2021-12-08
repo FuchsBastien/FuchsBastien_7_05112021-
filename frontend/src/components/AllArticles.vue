@@ -5,8 +5,14 @@
          <h1>Tous les Articles Publiés</h1>
          <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
-               <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
-               <p>{{article.User.firstname}} {{article.User.lastname}}</p>
+               <div>
+                  
+                  <router-link v-bind:to ="`/accounts/${article.User.id}`">
+                  <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
+                  <p>{{article.User.firstname}} {{article.User.lastname}}</p>
+                  </router-link>
+              </div>
+              
                <h2>{{article.title}}</h2>
                <p>{{article.content}}</p>
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
@@ -25,14 +31,14 @@
                </div>
 
                <div v-if="idArticleUpdate == article.id">
-                  <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title">  
-                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3"></textarea>
+                  <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title" placeholder="titre...">  
+                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "contenu..."></textarea>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
                </div>
                  <!--{{article.userId}}{{userId}}-->
                <br>
-               <router-link v-bind:to ="`/accounts/${article.User.id}`">Compte</router-link>
+            
                <br>
                <router-link v-bind:to ="`/articles/${article.id}`">Commentaires</router-link>
                <OneArticle></OneArticle>
@@ -182,6 +188,7 @@
       margin-left : auto;
       margin-right : auto; 
       background-color: #dfe3ee;
+      border-radius: 15px;
    }
 
    .iconUser.rounded-circle.mb-2.me-2 {
