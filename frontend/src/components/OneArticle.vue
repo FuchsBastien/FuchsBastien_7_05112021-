@@ -1,6 +1,6 @@
 <template>
 <div class ="article_detail">
-   <div class="post_comment">
+   <div v-if="userAdmin == 'false'" class="post_comment">
       <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
       <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
       <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
