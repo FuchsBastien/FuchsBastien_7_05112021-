@@ -1,8 +1,10 @@
 <template>
-    <div id="nav">
+    <div v-if="user" id="nav" >
         <img class = img_header src='http://localhost:3000/images/logo.png' alt="">
         <router-link to="/articles">Tous les Articles</router-link> 
         <router-link to="/account">Mon compte</router-link> 
+        <a class = deconnexion v-on:click ="LocalstorageClear">Déconnexion</a>
+
     </div>
 </template>
 
@@ -13,8 +15,17 @@
 
         data : function () {
             return {
+                user: localStorage.getItem('Id'),
             }
-        },    
+        }, 
+
+        methods : { 
+            LocalstorageClear () {
+            localStorage.clear();
+            this.user=null 
+            this.$router.push('/');   
+            },
+        }
     }
 </script>
 
@@ -35,6 +46,7 @@
         font-weight: bold;
         color: grey;
         text-decoration: none;
+        cursor: pointer;   
     }
 
     #nav a.router-link-exact-active {

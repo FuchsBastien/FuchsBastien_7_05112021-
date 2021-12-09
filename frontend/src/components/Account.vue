@@ -32,10 +32,6 @@
       <div class="account_delete">
         <button class ="btn-danger mt-2 rounded" v-on:click ="userDelete">Supprimer</button>
       </div>
-
-      <div class="account_delete">
-        <button class ="btn btn-primary mt-4" v-on:click ="LocalstorageClear">Déconnexion</button>
-      </div>
     </div>
 
   </div>  
@@ -92,11 +88,6 @@
         .then(() => {
           this.$router.push('/delete');    
         })
-      },
-
-      LocalstorageClear () {
-        localStorage.clear();
-        this.$router.push('/');    
       },
 
       setIdUserToUpdate(userArray_id) {
