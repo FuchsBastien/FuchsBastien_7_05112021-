@@ -1,13 +1,20 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/articles">Tous les Articles</router-link> 
-      <router-link to="/account">Mon compte</router-link> 
-    </div>
-    
+    <Header></Header>
     <router-view/>
   </div>
 </template>
+
+
+<script>
+  import Header from './components/Header.vue'
+
+  export default {
+    components: {
+      Header
+    },
+  }
+</script>
 
 
 <style>
@@ -17,25 +24,5 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-  }
-
-  #nav {
-    display: flex;
-    justify-content: space-around;
-    margin: auto;
-    padding: 30px;
-    font-size: 1.3em;
-    background-color: #2c3e50;;
-    height: auto; 
-  }
-
-  #nav a {
-    font-weight: bold;
-    color: grey;
-    text-decoration: none;
-  }
-
-  #nav a.router-link-exact-active {
-    color: orangered;
   }
 </style>
