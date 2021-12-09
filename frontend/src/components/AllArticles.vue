@@ -17,12 +17,7 @@
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                
-               <div v-if="userAdmin == 'true'">
-                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
-                  <br>
-               </div>
-
-               <div v-else-if ="article.userId == userId">
+               <div v-if ="article.userId == userId">
                   <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id)">Modifier</button>
                   <br><br>
                   <br>
@@ -33,6 +28,11 @@
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "contenu..."></textarea>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
+               </div>
+
+               <div v-else-if="userAdmin == 'true'">
+                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
+                  <br>
                </div>
 
                <div v-else-if ="article.userId == userId">
@@ -223,8 +223,9 @@
    }
 
    .image_article {
-      width: 500px;
+      width: 800px;
       height : 500px;
+      object-fit: contain;
    }
 
    .container.mt-5{

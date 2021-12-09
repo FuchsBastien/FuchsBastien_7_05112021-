@@ -101,7 +101,7 @@
 <style scoped>
   .account {
     background-color: #dfe3ee;
-       padding-top : 150px;
+    padding-top : 150px;
   }
 
   h1 {

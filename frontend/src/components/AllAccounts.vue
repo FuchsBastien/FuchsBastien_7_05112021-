@@ -54,21 +54,22 @@ export default {
 
 
 <style scoped>
-.account {
-  background-color: #dfe3ee;
-}
+  .account {
+    background-color: #dfe3ee;
+    padding-top : 150px;
+  }
 
   h1 {
-      text-align: center;
-      margin: 20px 0px 20px 0px;
-      color: orangered;
-      padding: 20px;
+    text-align: center;
+    margin: 20px 0px 20px 0px;
+    color: orangered;
+    padding: 20px;
   }
 
   h2 {
-      text-align: center;
-      padding-top : 10px;
-      margin-bottom : 10px;
+    text-align: center;
+    padding-top : 10px;
+    margin-bottom : 10px;
   }
 
   .iconUser.rounded-circle.mb-2.me-2 {
@@ -79,10 +80,10 @@ export default {
   }
 
   .form-control {
-      width: 25%;
-      margin-left: auto;
-      margin-right: auto;  
-      background-color: #dfe3ee;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;  
+    background-color: #dfe3ee;
   }
 
   .form-groupmt-5 {

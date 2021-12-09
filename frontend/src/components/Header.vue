@@ -6,7 +6,7 @@
         <a class = deconnexion v-on:click ="LocalstorageClear">Déconnexion</a>
     </div>
 
-    <div v-else id="nav" >
+    <div v-else-if="!user" id="nav" >
         <img class = img_header_offline src='http://localhost:3000/images/logo-offline.png' alt="">
     </div>
 </template>
@@ -25,7 +25,7 @@
         methods : { 
             LocalstorageClear () {
             localStorage.clear();
-            this.user=null 
+            this.user= ''; 
             this.$router.push('/');   
             },
         }
