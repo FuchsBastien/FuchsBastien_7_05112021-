@@ -1,24 +1,22 @@
 <template>
-    <div>
-        <div class="container">
-            <form>
-                <h3 class="mt-5">Connexion</h3>
-                <div class="form-group col-md mb-2">
-                    <label class="mb-1">Adresse email</label>
-                    <input class="form-control form-control-lg" v-model="user.email" type="email" title="Entrez votre addresse email" aria-describedby="aideEmail" required/>
-                </div>
+    <div class="container">
+        <form>
+            <h3 class="mt-5">Connexion</h3>
+            <div class="form-group col-md mb-2">
+                <label class="mb-1">Adresse email</label>
+                <input class="form-control form-control-lg" v-model="user.email" type="email" title="Entrez votre addresse email" aria-describedby="aideEmail" required/>
+            </div>
 
-                <div class="form-group col-md">
-                    <label class="mb-1">Mot de passe</label>
-                    <input class="form-control form-control-lg" v-model="user.password" type="password" name="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
-                    <small v-if="errorLogin" class="form-text text-danger">Connexion impossible, veuillez remplir tous les champs</small>
-                </div>
+            <div class="form-group col-md">
+                <label class="mb-1">Mot de passe</label>
+                <input class="form-control form-control-lg" v-model="user.password" type="password" name="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
+                <small v-if="errorLogin" class="form-text text-danger">Connexion impossible, veuillez remplir tous les champs</small>
+            </div>
 
-                <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
+            <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
 
-                <p class="text-right mt-3">Vous n'avez pas de compte ? <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link></p>
-            </form>
-        </div>
+            <p class="text-right mt-3">Vous n'avez pas de compte ? <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link></p>
+        </form>
     </div>
 </template>
 
@@ -71,6 +69,10 @@
 
 
 <style scoped>
+    .container {
+        padding-top : 250px; 
+   }
+
     input.form-control {
         width : 50%;
         margin-left : auto;

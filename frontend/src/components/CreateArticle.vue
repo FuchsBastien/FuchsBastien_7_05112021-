@@ -110,6 +110,7 @@
 <style scoped>
    .create_article{
       background-color: #dfe3ee;
+      padding-top : 180px;
    }
 
    .container {

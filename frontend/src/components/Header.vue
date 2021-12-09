@@ -35,10 +35,14 @@
 
 <style scoped>
     #nav {
+        position: fixed;
+        top : 0;
+        left : 0;
+        width: 100%;
         display: flex;
         justify-content: space-around;
         margin: auto;
-        padding: 30px;
+        padding: 5px;
         font-size: 1.3em;
         background-color: #2c3e50;;
         height: auto; 

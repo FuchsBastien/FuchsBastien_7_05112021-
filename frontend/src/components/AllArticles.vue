@@ -226,4 +226,8 @@
       width: 500px;
       height : 500px;
    }
+
+   .container.mt-5{
+      padding-bottom: 100px;
+   }
 </style>
