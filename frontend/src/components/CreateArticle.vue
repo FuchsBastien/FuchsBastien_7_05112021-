@@ -1,6 +1,6 @@
 <template>
    <div class="create_article">
-      <div v-if="userAdmin == 'false'" class="container">
+      <div class="container">
          <h1>Créer une publication</h1>
           <!--{{article.userAdmin}}-->
          <form>
@@ -42,8 +42,6 @@
                content : '',
                imageUrl : ''
             },
-
-            userAdmin: localStorage.getItem('Admin'),
 
             errorArticle : false
          }

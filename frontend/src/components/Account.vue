@@ -30,7 +30,7 @@
       <br>
 
       <div class="account_delete">
-        <button class ="btn-danger mt-2 rounded" v-on:click ="userDelete">Supprimer</button>
+        <button class ="btn-danger mt-2 mb-3 rounded" v-on:click ="userDelete">Supprimer</button>
       </div>
     </div>
 
@@ -136,9 +136,10 @@
   }
 
   .account_frame {
-    width: 80%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 50px;
     background-color: white;
     border-radius: 15px;
   }

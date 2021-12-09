@@ -42,7 +42,8 @@
         font-size: 1.3em;
         background-color: #2c3e50;;
         height: auto; 
-        align-items: center;
+        align-items: center; 
+        
     }
 
     #nav a {

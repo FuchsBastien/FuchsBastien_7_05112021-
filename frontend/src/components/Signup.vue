@@ -106,6 +106,12 @@
 
 
 <style scoped>
+   input.form-control {
+        width : 50%;
+        margin-left : auto;
+        margin-right : auto;
+    }
+
     input.form-control:valid {
         border:3px solid #0a0 !important;
     }

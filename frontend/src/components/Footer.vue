@@ -51,7 +51,7 @@
     }
 
     .img_footer {
-        height: 100px;
-        width: 500px;
+        height: 85px;
+        width: 450px;
     }
  </style>
