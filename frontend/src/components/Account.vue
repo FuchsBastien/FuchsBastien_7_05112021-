@@ -147,7 +147,7 @@
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    background-color: orangered;
+    background-color: pink;
   }
 
   .articles {

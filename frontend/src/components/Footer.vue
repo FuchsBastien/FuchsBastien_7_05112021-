@@ -1,14 +1,8 @@
 <template>
     <div v-if="user" id="nav" >
-        <img class = img_header_online src='http://localhost:3000/images/logo-online.ico' alt="">
-        <router-link to="/articles">Tous les Articles</router-link> 
-        <router-link to="/account">Mon compte</router-link> 
-        <a class = deconnexion v-on:click ="LocalstorageClear">Déconnexion</a>
+        <img class = img_footer src='http://localhost:3000/images/logo-footer.png' alt="">
     </div>
 
-    <div v-else id="nav" >
-        <img class = img_header_offline src='http://localhost:3000/images/logo-offline.png' alt="">
-    </div>
 </template>
 
 
@@ -56,13 +50,8 @@
         color: pink;
     }
 
-    .img_header_online {
-        height: 75px;
-        width: 75px;
-    }
-
-    .img_header_offline {
-        height: 200px;
-        width: 450px;
+    .img_footer {
+        height: 100px;
+        width: 500px;
     }
  </style>

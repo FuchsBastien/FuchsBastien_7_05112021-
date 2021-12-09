@@ -170,7 +170,7 @@ export default {
    h1 {
       text-align: center;
       margin: 20px 0px 20px 0px;
-      color: orangered;
+      color: pink;
       padding: 20px;
    }
 

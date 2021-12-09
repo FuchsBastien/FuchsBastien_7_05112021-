@@ -8,9 +8,9 @@
                <div>
                   <router-link v-bind:to ="`/accounts/${article.User.id}`">
                   <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
-                  <p>{{article.User.firstname}} {{article.User.lastname}}</p>
+                  <p class= "ok">{{article.User.firstname}} {{article.User.lastname}}</p>
                   </router-link>
-              </div>
+               </div>
               
                <h2>{{article.title}}</h2>
                <p>{{article.content}}</p>
@@ -42,7 +42,7 @@
                  <!--{{article.userId}}{{userId}}-->
                <br>
             
-               <button class="btn-success rounded" v-on:click="setToUpdate(article.id)">Commentaires</button>
+               <a v-on:click="setToUpdate(article.id)">Commentaires</a>
                <br>
                  <!--{{idArticleStorage}}-->
                <div v-if="idArticleStorage == article.id">
@@ -50,7 +50,6 @@
                    v-bind:idArticleTransfert = idArticleStorage 
                   ></OneArticle>
                </div>
-              
             </div>      
          </div>
       </div>    
@@ -191,6 +190,11 @@
       border-radius: 20px;
       background-color: white;
    }
+
+   .article a:hover, .ok:hover {
+      color: orangered;
+      cursor: pointer;  
+    }
 
    .form-control {
       width: 65%;
