@@ -3,11 +3,7 @@
       <div class="container">
          <h1>Créer une publication</h1>
           <!--{{article.userAdmin}}-->
-         <form>
-            <div class="form-group mt-3">
-               <input v-model= "article.title" type="text" id="title" placeholder="Titre" class= "form-control" required>  
-            </div>
-            
+         <form> 
             <div class="form-group mt-3">
                <textarea v-model= "article.content" id="content"  rows="3" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
             </div>
@@ -38,7 +34,6 @@
                token : localStorage.getItem('token'),
                userId: localStorage.getItem('Id'),
                userAdmin: localStorage.getItem('Admin'),
-               title : '',
                content : '',
                imageUrl : ''
             },
@@ -50,7 +45,7 @@
       methods : { 
          
          postArticle () {
-            if (this.article.title == '' || this.article.content == '') {
+            if (this.article.content == '') {
                this.errorArticle = true
                return
             }
@@ -71,7 +66,6 @@
                else {
                   const formData = new FormData()
                   formData.append('userId', this.article.userId);
-                  formData.append('title', this.article.title);
                   formData.append('content', this.article.content);
                   formData.append('imageUrl', this.article.imageUrl);
             
@@ -94,7 +88,6 @@
          },
          
          clearData() {
-            this.article.title = '';
             this.article.content = '';
             this.article.imageUrl = '';
          },

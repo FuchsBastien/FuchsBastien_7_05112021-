@@ -42,12 +42,11 @@ exports.findOneArticle = (req, res, next) => {
 // logique métier : créer un article
 exports.createArticle = (req, res, next) => {
   // éléments de la requète
-  const title = req.body.title;
   const content =  req.body.content;
   const imageUrl =  req.body.imageUrl;
 
   // vérification que tous les champs sont remplis
-  if(title === null || title === '' || content === null || content === '') {
+  if(content === null || content === '') {
       return res.status(400).json({'error': "Veuillez remplir les champs 'titre' et 'contenu' pour créer un article"});
   }
   
@@ -89,10 +88,9 @@ exports.createArticle = (req, res, next) => {
 // logique métier : modifier un article
 exports.modifyArticle = (req, res, next) => {
   // éléments de la requète
-  const title = req.body.title;
   const content =  req.body.content;
   // vérification que tous les champs sont remplis
-  if(title === null || title === '' || content === null || content === '') {
+  if(content === null || content === '') {
       return res.status(400).json({'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour modifier votre article"});
   }
   //variable contenant les champs de la requête

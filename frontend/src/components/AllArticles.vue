@@ -24,7 +24,6 @@
                   </div>
                </div>
               
-               <h2>{{article.title}}</h2>
                <p>{{article.content}}</p>
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                
@@ -34,8 +33,7 @@
                   <br>
                </div>
 
-               <div v-if="idArticleUpdate == article.id">
-                  <input class= "form-control mb-2" v-model= "updatearticle.title" type="text" id="title" placeholder="titre...">  
+               <div v-if="idArticleUpdate == article.id"> 
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "contenu..."></textarea>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
@@ -88,7 +86,6 @@
             updatearticle : {
                //token : localStorage.getItem('token'),
                //userId: localStorage.getItem('Id'),
-               title : '',
                content : '',  
             },
 
