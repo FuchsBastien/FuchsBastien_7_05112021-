@@ -5,7 +5,7 @@
           <!--{{article.userAdmin}}-->
          <form> 
             <div class="form-group mt-3">
-               <textarea v-model= "article.content" id="content"  rows="3" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
+               <textarea @keyup.enter="postArticle()" v-model= "article.content" id="content"  rows="3" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
             </div>
 
             <div class="form-group mt-3">
@@ -14,7 +14,7 @@
 
             <button class ="btn btn-primary mt-5" v-on:click.prevent="postArticle">Partager</button>
 
-            <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez remplir tous les champs (l'ajout d'une image n'est pas obligatoire)</p>
+            <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez écrire un contenu ou partager une image</p>
          </form>
          <!--{{article}}-->
       </div>  
@@ -43,9 +43,8 @@
       },
 
       methods : { 
-         
          postArticle () {
-            if (this.article.content == '') {
+            if (this.article.content == '' && this.article.imageUrl == '') {
                this.errorArticle = true
                return
             }
@@ -63,28 +62,50 @@
                   this.errorArticle = true
                   });  
                } 
-               else {
-                  const formData = new FormData()
-                  formData.append('userId', this.article.userId);
-                  formData.append('content', this.article.content);
-                  formData.append('imageUrl', this.article.imageUrl);
-            
-                  axios.post ('http://localhost:3000/api/articles/', formData,
-                  {
-                     headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
-                  })
-                  .then(()=>{
-                     console.log('réussite!!');
-                     this.$emit('articleCree');
-                     this.clearData();
-                     this.errorComment = false
-                  })
-                  .catch(()=>{
-                     console.log('échec!!');
-                     this.errorComment = true
-                  });
-               }
-            } 
+               else { 
+                    if (this.article.content == '') {
+                     const formData = new FormData()
+                     formData.append('userId', this.article.userId);
+                     formData.append('imageUrl', this.article.imageUrl);
+               
+                     axios.post ('http://localhost:3000/api/articles/', formData,
+                     {
+                        headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
+                     })
+                     .then(()=>{
+                        console.log('réussite!!');
+                        this.$emit('articleCree');
+                        this.clearData();
+                        this.errorComment = false
+                     })
+                     .catch(()=>{
+                        console.log('échec!!');
+                        this.errorComment = true
+                     });
+                  }
+                  else {
+                     const formData = new FormData()
+                     formData.append('userId', this.article.userId);
+                     formData.append('content', this.article.content);
+                     formData.append('imageUrl', this.article.imageUrl);
+               
+                     axios.post ('http://localhost:3000/api/articles/', formData,
+                     {
+                        headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
+                     })
+                     .then(()=>{
+                        console.log('réussite!!');
+                        this.$emit('articleCree');
+                        this.clearData();
+                        this.errorComment = false
+                     })
+                     .catch(()=>{
+                        console.log('échec!!');
+                        this.errorComment = true
+                     });   
+                  }
+               } 
+           }
          },
          
          clearData() {

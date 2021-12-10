@@ -51,7 +51,7 @@
                         localStorage.setItem('Id', res.data.userId)
                         localStorage.setItem('Admin', res.data.userAdmin)
                         localStorage.setItem('Firstname', res.data.userFirstname)
-                        //localStorage.setItem('imageUrl', res.data.imageUrl)
+                        localStorage.setItem('ImageUrl', res.data.userImageUrl)
                         this.$router.push('/articles');
                         this.errorLogin = false
                     })

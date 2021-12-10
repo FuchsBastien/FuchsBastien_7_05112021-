@@ -76,14 +76,14 @@ exports.login = (req, res, next) => {
               userId: user.id,
               userAdmin: user.isAdmin,
               userFirstname : user.firstname,
-              UserImageUrl : user.imageUrl,
+              userImageUrl : user.imageUrl,
               // Création d'un token pour sécuriser le compte de l'utilisateur
               token: jwt.sign(
                 { 
                   userId: user.id,
                   userAdmin : user.isAdmin,
                   userFirstname : user.firstname,
-                  UserImageUrl : user.imageUrl
+                  userImageUrl : user.imageUrl
                 },
                 'RANDOM_TOKEN_SECRET',
                 { expiresIn: '1h' }

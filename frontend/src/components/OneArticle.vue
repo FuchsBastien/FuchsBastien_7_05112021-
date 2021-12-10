@@ -1,6 +1,7 @@
 <template>
    <div class ="article_detail">
       <div class="post_comment">
+         <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="userImageUrl" alt="">
          <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
          <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
          <br>
@@ -25,11 +26,11 @@
             
             <p class="comment_date">le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
 
-            <div v-if="userAdmin == 'true'">
+            <div class="comment_button" v-if="userAdmin == 'true'">
                <button class="btn-danger ms-2 rounded" v-on:click="deleteComment(comments.id)">Supprimer</button>
             </div>
 
-            <div v-else-if="comments.userId == userId" >
+            <div class="comment_button" v-else-if="comments.userId == userId" >
                <button class="btn-danger ms-2 rounded" v-on:click="deleteComment(comments.id)">Supprimer</button>
             </div>
          </div>    
@@ -62,12 +63,13 @@ export default {
 
          userAdmin: localStorage.getItem('Admin'),
 
+         userImageUrl: localStorage.getItem('ImageUrl'),
+
          // articleId : this.$route.params.id,
         
          articleId : this.idArticleTransfert,
 
          errorComment: false,
-
       } 
    },
 
@@ -184,7 +186,13 @@ export default {
 
    .comment_date {
       color: gray;
+      text-align: left;
    }
+
+   .comment_button
+    {
+      text-align: left; 
+    }
 
    h1 {
       text-align: center;

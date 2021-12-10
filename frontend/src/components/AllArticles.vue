@@ -19,7 +19,7 @@
                   <div>
                      <router-link v-bind:to ="`/accounts/${article.User.id}`"> 
                         <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
-                                    <p class="date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+                        <p class="date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                      </router-link>
                   </div>
                </div>
@@ -34,7 +34,7 @@
                </div>
 
                <div v-if="idArticleUpdate == article.id"> 
-                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "contenu..."></textarea>
+                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "Modifier votre contenu..."></textarea>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
                </div>
@@ -101,14 +101,7 @@
 
             idArticleUpdate: null,
 
-            idArticleStorage : null
-
-            /*user : {
-               Id: localStorage.getItem('Id'),
-               userPrenom: localStorage.getItem('userPrenom'),
-               userNom: localStorage.getItem('userNom'),
-               userPhoto: localStorage.getItem('userPhoto'),
-            }*/     
+            idArticleStorage : null 
 
             /*article : {
                token : localStorage.getItem('token'),
@@ -140,8 +133,9 @@
          .then(() => {
             console.log('article modifié');
             this.loadArticles();
-           this.idArticleUpdate = null
-             })
+            this.clearData();
+            this.idArticleUpdate = null
+         })
          .catch((error) => {
             console.log(error.message);
          })
@@ -165,6 +159,11 @@
 
          setToUpdate(article_id){
          this.idArticleStorage = article_id
+         },
+
+         clearData() {
+            this.updatearticle.content = '';
+           
          },
       },
    }
@@ -216,8 +215,15 @@
    .name {
       font-weight : bold;   
    }
+
+   
+
+    .date {
+      color: gray;
+   }
+
  
-   .article a:hover, .ok:hover {
+   .article_avatar a:hover, .ok:hover {
       color: orangered;
       cursor: pointer;  
     }
@@ -243,10 +249,6 @@
 
    a {
    text-decoration: none;
-   }
-
-   .date {
-      color: gray;
    }
 
    .image_article {
