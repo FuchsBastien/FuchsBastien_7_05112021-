@@ -50,8 +50,7 @@
                         localStorage.setItem('token', res.data.token)
                         localStorage.setItem('Id', res.data.userId)
                         localStorage.setItem('Admin', res.data.userAdmin)
-                        //localStorage.setItem('firstname', res.data.firstname)
-                        //localStorage.setItem('lastname', res.data.lastname)
+                        localStorage.setItem('Firstname', res.data.userFirstname)
                         //localStorage.setItem('imageUrl', res.data.imageUrl)
                         this.$router.push('/articles');
                         this.errorLogin = false

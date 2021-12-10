@@ -1,21 +1,32 @@
 <template>
    <div class ="all_articles">
+      <div class="titre">
+         <h1>Bienvenue {{userFirstname}}!</h1>
+      </div> 
       <CreateArticle v-on:articleCree="loadArticles()"></CreateArticle>
       <div class="container mt-5">
          <h1>Tous les Articles Publiés</h1>
          <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
-               <div>
-                  <router-link v-bind:to ="`/accounts/${article.User.id}`">
-                  <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
-                  <p class= "ok">{{article.User.firstname}} {{article.User.lastname}}</p>
-                  </router-link>
+
+               <div class ="article_avatar">
+                  <div>
+                     <router-link v-bind:to ="`/accounts/${article.User.id}`">
+                        <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
+                     </router-link>
+                  </div>
+
+                  <div>
+                     <router-link v-bind:to ="`/accounts/${article.User.id}`"> 
+                        <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
+                                    <p class="date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+                     </router-link>
+                  </div>
                </div>
               
                <h2>{{article.title}}</h2>
                <p>{{article.content}}</p>
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
-               <p class="date">Le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                
                <div v-if ="article.userId == userId">
                   <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id)">Modifier</button>
@@ -84,6 +95,10 @@
             userId: localStorage.getItem('Id'),
             
             userAdmin: localStorage.getItem('Admin'),
+
+            userFirstname: localStorage.getItem('Firstname'),
+
+            userLastname: localStorage.getItem('Lastname'),
 
             errorArticle : false,
 
@@ -164,6 +179,9 @@
       background-color: #dfe3ee;
    }
 
+   .titre {
+    margin-top : 180px;
+   }
    h1,h2 {
       text-align: center;
       margin: 20px 0px 20px 0px;
@@ -185,12 +203,23 @@
 
    .article {
       border : solid 2px #f3e9f1;
+      padding: 20px;
       overflow: hidden;
       margin-bottom: 50px;
       border-radius: 20px;
       background-color: white;
    }
 
+   .article_avatar{
+      display : flex; 
+      align-items: center;
+      justify-content: center;
+   }
+
+   .name {
+      font-weight : bold;   
+   }
+ 
    .article a:hover, .ok:hover {
       color: orangered;
       cursor: pointer;  
@@ -212,6 +241,7 @@
 
    p {
       color: black;
+      margin :0;
    }
 
    a {
@@ -226,6 +256,7 @@
       width: 800px;
       height : 500px;
       object-fit: contain;
+      margin: 20px 0px 20px 0px;
    }
 
    .container.mt-5{

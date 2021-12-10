@@ -1,37 +1,41 @@
 <template>
-<div class ="article_detail">
-   <div class="post_comment">
-      <!--<input v-model= "comment.userId" type="text" id="userId" placeholder="UserId" class= "form-control">
-      <input v-model= "comment.articleId" type="text" id="ArticleId" placeholder="ArticleId" class= "form-control">-->
-      <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
-      <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
-      <br>
-      <!--{{comment}}-->
-   </div>
-
-   <div class="comments" v-bind:key = "comments" v-for= "comments in commentsArray">
-      <div>
-         <router-link v-bind:to ="`/accounts/${comments.User.id}`">
-         <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="comments.User.imageUrl" alt="">
-         <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
-          </router-link>
-      </div>
-      <p>{{comments.content}}</p>
-      <p class="comment_date">Le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
-      
-      <div v-if="userAdmin == 'true'">
-         <button class="btn btn-primary" v-on:click="deleteComment(comments.id)">Supprimer</button>
+   <div class ="article_detail">
+      <div class="post_comment">
+         <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
+         <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
+         <br>
+         <!--{{comment}}-->
       </div>
 
-      <div v-else-if="comments.userId == userId" >
-         <button class="btn-danger ms-2 rounded" v-on:click="deleteComment(comments.id)">Supprimer</button>
-      </div>
-      <br>
-      <!--{{comments.id}}-->
-   </div>   
-</div>  
+      <div class="comment" v-bind:key = "comments" v-for= "comments in commentsArray">
+         <div class="comment_avatar">
+            <router-link v-bind:to ="`/accounts/${comments.User.id}`"> 
+               <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="comments.User.imageUrl" alt="">
+            </router-link>
+         </div>
 
+         <div class = "comment_content">
+            <div class="comment_bulle">
+               <router-link v-bind:to ="`/accounts/${comments.User.id}`"> 
+                  <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
+               </router-link>
+            
+               <p>{{comments.content}}</p>
+            </div>
+            
+            <p class="comment_date">le {{comments.createdAt [8]}}{{comments.createdAt [9]}}-{{comments.createdAt [5]}}{{comments.createdAt [6]}}-{{comments.createdAt [0]}}{{comments.createdAt [1]}}{{comments.createdAt [2]}}{{comments.createdAt [3]}} </p>
 
+            <div v-if="userAdmin == 'true'">
+               <button class="btn-danger ms-2 rounded" v-on:click="deleteComment(comments.id)">Supprimer</button>
+            </div>
+
+            <div v-else-if="comments.userId == userId" >
+               <button class="btn-danger ms-2 rounded" v-on:click="deleteComment(comments.id)">Supprimer</button>
+            </div>
+         </div>    
+         <!--{{comments.id}}-->
+      </div>   
+   </div>  
 </template>
 
 
@@ -48,7 +52,6 @@ export default {
          comment : {
             token : localStorage.getItem('token'),
             userId: localStorage.getItem('Id'),
-            //articleId : this.$route.params.id,
             articleId : this.idArticleTransfert,
             content : ''
          },
@@ -57,11 +60,11 @@ export default {
 
          userId: localStorage.getItem('Id'),
 
-        // articleId : this.$route.params.id,
+         userAdmin: localStorage.getItem('Admin'),
+
+         // articleId : this.$route.params.id,
         
          articleId : this.idArticleTransfert,
-
-         userAdmin: localStorage.getItem('Admin'),
 
          errorComment: false,
 
@@ -146,21 +149,37 @@ export default {
       background-color: #dfe3ee;
    }
 
-   .comments {
-      overflow: hidden;
-      margin: 40px;
+   .comment {
+      display: flex;
+      align-items: baseline;
+      margin: 15px 0px 30px 0px;
+   }
+
+   .iconUser.rounded-circle.mb-2.me-2 {
+      border: solid 1px gray;
+      height: 50px;
+      width: 50px;
+   }
+
+   .comment_content {
+      width: auto;
+      padding : 0px 0px 0px 20px;
+   }
+
+   .comment_bulle {
+      width: auto;
+      padding : 20px 20px 20px 20px;
       background-color: #dfe3ee;
-      border-radius: 20px;
+      border-radius: 25px;
+      text-align: left;
    }
 
-  .iconUser.rounded-circle.mb-2.me-2 {
-    border: solid 1px gray;
-    height: 50px;
-    width: 50px;
+   .comment_user  {
+      font-weight : bold;    
    }
 
-   .comment_user {
-      font-weight : bold;
+   .comment_user:hover {
+      color: orangered;
    }
 
    .comment_date {
@@ -180,6 +199,6 @@ export default {
    }
 
    a {
-   text-decoration: none;
+      text-decoration: none;
    }
 </style>
