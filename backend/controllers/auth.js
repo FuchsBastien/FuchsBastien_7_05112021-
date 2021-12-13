@@ -51,7 +51,7 @@ exports.signup = (req, res, next) => {
      return res.status(409).json({ message: "Adresse mail existe déjà !"})
      }
    })
-  .catch(error => res.status(500).json({message: 'requête échouée' }));
+  .catch(error => res.status(500).json({ message: 'requête échouée' }));
 }
 
 

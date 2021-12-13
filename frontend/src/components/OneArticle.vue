@@ -187,6 +187,7 @@ export default {
    .comment_date {
       color: gray;
       text-align: left;
+      margin-left: 10px ;
    }
 
    .comment_button

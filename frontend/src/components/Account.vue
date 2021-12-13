@@ -2,9 +2,9 @@
   <div class="account"> 
       <!--{{userArray}}-->
     <div class= "account_frame">
-      <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
+      <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" v-bind:alt="userArray.firstname">
 
-      <h2>{{userArray.firstname}} {{userArray.lastname}}</h2>  
+      <h1>{{userArray.firstname}} {{userArray.lastname}}</h1>  
 
       <div class="account_modify">
         <div v-if="idUserUpdate == userArray.id">
@@ -129,13 +129,6 @@
   }
 
   h1 {
-    text-align: center;
-    margin: 20px 0px 20px 0px;
-    color: orangered;
-    padding: 20px;
-  }
-
-  h2 {
       text-align: center;
       padding-top : 10px;
       margin-bottom : 10px;

@@ -1,6 +1,6 @@
 <template>
     <div v-if="user" id="nav" >
-        <img class = img_footer src='http://localhost:3000/images/logo-footer.png' alt="">
+        <img class = img_footer src='http://localhost:3000/images/logo-footer.png' alt="logo-footer">
     </div>
 
 </template>

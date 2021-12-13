@@ -12,19 +12,19 @@
                <div class ="article_avatar">
                   <div>
                      <router-link v-bind:to ="`/accounts/${article.User.id}`">
-                        <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" alt="">
+                        <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
                      </router-link>
                   </div>
 
                   <div>
                      <router-link v-bind:to ="`/accounts/${article.User.id}`"> 
                         <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
-                        <p class="date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+                        <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                      </router-link>
                   </div>
                </div>
               
-               <p>{{article.content}}</p>
+               <p class="article_content">{{article.content}}</p>
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                
                <div v-if ="article.userId == userId">
@@ -51,7 +51,7 @@
                  <!--{{article.userId}}{{userId}}-->
                <br>
             
-               <a v-on:click="setToUpdate(article.id)">Commentaires</a>
+               <a class="comments" v-on:click="setToUpdate(article.id)">Commentaires</a>
                <br>
                  <!--{{idArticleStorage}}-->
                <div v-if="idArticleStorage == article.id">
@@ -102,14 +102,6 @@
             idArticleUpdate: null,
 
             idArticleStorage : null 
-
-            /*article : {
-               token : localStorage.getItem('token'),
-               userId: localStorage.getItem('Id'),
-               title : '',
-               content : '',
-               imageUrl : ''
-            },*/
          } 
       },
 
@@ -154,16 +146,15 @@
          },
 
          setIdArticleToUpdate(article_id){
-         this.idArticleUpdate = article_id
+            this.idArticleUpdate = article_id
          },
 
          setToUpdate(article_id){
-         this.idArticleStorage = article_id
+            this.idArticleStorage = article_id
          },
 
          clearData() {
             this.updatearticle.content = '';
-           
          },
       },
    }
@@ -178,6 +169,7 @@
    .titre {
     margin-top : 180px;
    }
+   
    h1,h2 {
       text-align: center;
       margin: 20px 0px 20px 0px;
@@ -213,19 +205,31 @@
    }
 
    .name {
-      font-weight : bold;   
+      font-weight : bold;  
+      margin :0;
    }
 
-   
-
-    .date {
-      color: gray;
+   .article_content {
+      margin: 20px 0px 20px 0px;
+      word-wrap: break-word;
    }
 
- 
-   .article_avatar a:hover, .ok:hover {
+   .date {
+      color: #575757;
+   }
+
+   .article_avatar a:hover, .name:hover {
+      color: orangered;
+     
+    }
+
+   .comments:hover {
       color: orangered;
       cursor: pointer;  
+    }
+
+    .comments {
+      font-size: 25px;
     }
 
    .form-control {
@@ -244,11 +248,11 @@
 
    p {
       color: black;
-      margin :0;
    }
 
    a {
-   text-decoration: none;
+      color: black;
+      text-decoration: none;
    }
 
    .image_article {

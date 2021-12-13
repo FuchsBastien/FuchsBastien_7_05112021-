@@ -1,10 +1,10 @@
 <template>
    <div class="create_article">
       <div class="container">
-         <h1>Créer une publication</h1>
-          <!--{{article.userAdmin}}-->
          <form> 
             <div class="form-group mt-3">
+               <label for="content">Créer une publication</label>
+               <br><br>
                <textarea @keyup.enter="postArticle()" v-model= "article.content" id="content"  rows="3" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
             </div>
 
@@ -147,5 +147,12 @@
       margin-right : auto; 
       background-color: #dfe3ee;
       border-radius: 15px;
+   }
+
+   label
+   {
+    color: orangered;
+    font-size: 40px;  
+    margin-top: 20px;
    }
 </style>

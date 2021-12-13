@@ -1,22 +1,28 @@
 <template>
-    <div class="container">
+    <div class="container">   
         <form>
-            <h3 class="mt-5">Connexion</h3>
+            <h1 class="mt-5">Connexion</h1>
             <div class="form-group col-md mb-2">
-                <label class="mb-1">Adresse email</label>
-                <input class="form-control form-control-lg" v-model="user.email" type="email" title="Entrez votre addresse email" aria-describedby="aideEmail" required/>
+                <label for="email" class="mb-1">Adresse email</label>
+                <input class="form-control form-control-lg" v-model="user.email" type="email" id="email" title="Entrez votre adresse email" required/>
+                <p v-if="errorEmail" class="mt-2 text-danger">Ce champ est obligatoire</p>  
             </div>
 
             <div class="form-group col-md">
-                <label class="mb-1">Mot de passe</label>
-                <input class="form-control form-control-lg" v-model="user.password" type="password" name="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
-                <small v-if="errorLogin" class="form-text text-danger">Connexion impossible, veuillez remplir tous les champs</small>
+                <label for="mot de passe" class="mb-1">Mot de passe</label>
+                <input class="form-control form-control-lg" v-model="user.password" type="password" id="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
+                <p v-if="errorPassword" class="mt-2 text-danger">Ce champ est obligatoire</p>
             </div>
 
             <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
-
-            <p class="text-right mt-3">Vous n'avez pas de compte ? <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link></p>
         </form>
+        <br>
+
+         <router-link class="createAccount" v-bind:to="`/contact`">Mot de passe oublié?</router-link>
+      
+        <p class="text-right mt-3">Vous n'avez pas de compte ? <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link></p>   
+
+
     </div>
 </template>
 
@@ -33,17 +39,24 @@
                     email: '',
                     password: '',
                 },
-                errorLogin: false,
-                err : "email ou le mot de passe est incorrect!"
+                errorEmail: false,
+
+                errorPassword: false,
+
+                email : "groupomania@gmail.com",
             }
         },
 
         methods: {
             sendForm(){
-                if (this.user.email == ''|| this.user.password == '') {
-                    this.errorLogin = true
-                    return
+                if (this.user.email == '') {
+                    this.errorEmail = true
                 } 
+
+                if (this.user.password == '') {
+                    this.errorPassword = true
+                } 
+
                 else {
                     axios.post("http://localhost:3000/api/auth/login", this.user)
                     .then((res) => {
@@ -53,15 +66,17 @@
                         localStorage.setItem('Firstname', res.data.userFirstname)
                         localStorage.setItem('ImageUrl', res.data.userImageUrl)
                         this.$router.push('/articles');
-                        this.errorLogin = false
+                        this.errorEmail = false
+                        this.errorPassword = false
                     })
                     .catch(() =>{ 
                         console.log("L'email ou le mot de passe est incorrect");
                         window.alert("L'email ou le mot de passe est incorrect");
-                        this.errorLogin = true
+                        this.errorEmail = false
+                        this.errorPassword = false
                     })
                 }  
-            }
+            },
         }
     }
 </script>
@@ -86,11 +101,11 @@
         border:1px solid grey !important;
     } 
 
-    label, a, p, h3{
+    label, a, p, h1 {
         color: black;
     }
 
     a:hover {
-        color: white;
+        color: orangered;
     }
 </style>

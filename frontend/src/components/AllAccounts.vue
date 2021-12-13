@@ -59,17 +59,14 @@ export default {
     padding-top : 150px;
   }
 
-  h1 {
-    text-align: center;
-    margin: 20px 0px 20px 0px;
-    color: orangered;
-    padding: 20px;
-  }
-
-  h2 {
-    text-align: center;
-    padding-top : 10px;
-    margin-bottom : 10px;
+  .account_avatar
+  {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    background-color: white;
+    border-radius: 15px;
   }
 
   .iconUser.rounded-circle.mb-2.me-2 {
@@ -90,30 +87,11 @@ export default {
     margin-top : 5px;
   }
 
-  .account_frame {
-    border : solid 2px #f3e9f1;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .articles_frame {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: orangered;
-  }
-
-  .articles {
-    border : solid 2px #f3e9f1;
-    height: 150px;
-    width: 95%;
-    background-color: white;
-    margin-bottom: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    overflow: hidden;
-    padding: 10px;
+  h1 {
+    text-align: center;
+    margin: 20px 0px 20px 0px;
+    color: orangered;
+    padding: 20px;
   }
 
   p {

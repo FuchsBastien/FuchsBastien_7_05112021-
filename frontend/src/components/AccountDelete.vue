@@ -20,3 +20,19 @@ export default {
     name: 'SignupSuccess',
 }
 </script>
+
+<style scoped>
+    .container {
+        padding-top : 250px
+    }
+
+     label, a, p, h1 {
+        color: black;
+    }
+
+    a:hover {
+        color: orangered;
+    }
+</style>
+
+  
