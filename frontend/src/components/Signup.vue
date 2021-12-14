@@ -31,6 +31,10 @@
                 <label class="mb-1 mt-2">Avatar</label>
                 <br>
                 <input  aria-label="envoi image" accept="image/*" type="file" @change="onSelect" class="form-control-file" id="image">
+
+                <div class="preview_picture">
+                   <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
+                </div>
                 <p v-if="errorImageUrl" class="mt-2 text-danger">Veuillez choisir un avatar</p>
             </div>
 
@@ -58,6 +62,8 @@
                     password: '',
                     imageUrl: ''
                 },
+
+                picturePreview : "",
 
                 errorFirstname: false,
 
@@ -134,6 +140,7 @@
 
             onSelect(event) {
                 this.user.imageUrl = event.target.files[0];
+                this.picturePreview = URL.createObjectURL(this.user.imageUrl);
                 console.log(event);
             },
 
@@ -143,11 +150,19 @@
 
 
 <style scoped>
-   .container {
+    .container {
       padding-top : 250px; 
-   }
+    }
 
-   input.form-control {
+    .picture {
+        width: 400px;
+        height : 200px;
+        object-fit: contain;
+        margin: 20px 0px 20px 0px;
+    }
+
+
+    input.form-control {
         width : 50%;
         margin-left : auto;
         margin-right : auto;

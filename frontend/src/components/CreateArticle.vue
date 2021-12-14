@@ -12,11 +12,13 @@
                <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
             </div>
 
+            <div class="preview_picture">
+               <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
+            </div>
+
             <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez écrire un contenu ou partager une image</p>
 
             <button class ="btn btn-primary mt-4 mb-4" v-on:click.prevent="postArticle">Partager</button>
-
-         
          </form>
          <!--{{article}}-->
       </div>  
@@ -39,6 +41,8 @@
                content : '',
                imageUrl : ''
             },
+
+            picturePreview : "",
 
             errorArticle : false
          }
@@ -116,10 +120,12 @@
          clearData() {
             this.article.content = '';
             this.article.imageUrl = '';
+            this.picturePreview ='';
          },
 
          onSelect(event) {
             this.article.imageUrl = event.target.files[0];    
+            this.picturePreview = URL.createObjectURL(this.article.imageUrl);
          },
       },
    }
@@ -139,11 +145,11 @@
       background-color: white;
    }
 
-   h1 {
-      text-align: center;
+   .picture {
+      width: 400px;
+      height : 200px;
+      object-fit: contain;
       margin: 20px 0px 20px 0px;
-      color: orangered;
-      padding: 20px;
    }
 
    .form-control {
@@ -154,10 +160,16 @@
       border-radius: 15px;
    }
 
-   label
-   {
-    color: orangered;
-    font-size: 40px;  
-    margin-top: 20px;
+   label {
+      color: orangered;
+      font-size: 40px;  
+      margin-top: 20px;
+   }
+
+   h1 {
+      text-align: center;
+      margin: 20px 0px 20px 0px;
+      color: orangered;
+      padding: 20px;
    }
 </style>
