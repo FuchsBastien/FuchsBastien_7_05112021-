@@ -135,14 +135,14 @@
 
          deleteArticle(id) {
          axios.delete("http://localhost:3000/api/articles/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-         .then(() => {
-            console.log('article supprimé!');
-            this.articlesArray.splice(1)
-            this.loadArticles();
-         })
-         .catch((error) => {
-            console.log(error.message);
-         })
+            .then(() => {
+               console.log('article supprimé!');
+               this.articlesArray.splice(1)
+               this.loadArticles();
+            })
+            .catch((error) => {
+               console.log(error.message);
+            })
          },
 
          setIdArticleToUpdate(article_id){

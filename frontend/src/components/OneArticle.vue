@@ -65,8 +65,6 @@ export default {
 
          userImageUrl: localStorage.getItem('ImageUrl'),
 
-         // articleId : this.$route.params.id,
-        
          articleId : this.idArticleTransfert,
 
          errorComment: false,

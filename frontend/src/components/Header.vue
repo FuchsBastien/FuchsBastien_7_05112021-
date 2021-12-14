@@ -24,9 +24,9 @@
 
         methods : { 
             LocalstorageClear () {
-            localStorage.clear();
-            this.user= ''; 
-            this.$router.push('/');   
+                localStorage.clear();
+                this.user= ''; 
+                this.$router.push('/');   
             },
         }
     }

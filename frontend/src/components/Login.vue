@@ -18,11 +18,9 @@
         </form>
         <br>
 
-         <router-link class="createAccount" v-bind:to="`/contact`">Mot de passe oublié?</router-link>
+        <router-link class="createAccount" v-bind:to="`/contact`">Mot de passe oublié?</router-link>
       
         <p class="text-right mt-3">Vous n'avez pas de compte ? <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link></p>   
-
-
     </div>
 </template>
 
@@ -42,8 +40,6 @@
                 errorEmail: false,
 
                 errorPassword: false,
-
-                email : "groupomania@gmail.com",
             }
         },
 
@@ -65,18 +61,19 @@
                         localStorage.setItem('Admin', res.data.userAdmin)
                         localStorage.setItem('Firstname', res.data.userFirstname)
                         localStorage.setItem('ImageUrl', res.data.userImageUrl)
-                        this.$router.push('/articles');
+                        this.$router.push('/articles')
                         this.errorEmail = false
                         this.errorPassword = false
                     })
-                    .catch(() =>{ 
-                        console.log("L'email ou le mot de passe est incorrect");
-                        window.alert("L'email ou le mot de passe est incorrect");
+                    .catch((err) =>{ 
+                        console.log(err.response.data);
+                        window.alert(err.response.data);
                         this.errorEmail = false
                         this.errorPassword = false
                     })
                 }  
-            },
+                
+            },       
         }
     }
 </script>

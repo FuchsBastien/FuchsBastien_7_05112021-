@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 // Logique métier : création de nouveaux utilisateurs (signup)
 exports.signup = (req, res, next) => {
    // éléments de la requète
+   const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
    const firstname = req.body.firstname;
    const lastname =  req.body.lastname;
    const email = req.body.email;
@@ -18,6 +19,9 @@ exports.signup = (req, res, next) => {
   email === '' || password === null || password === '') {
   return res.status(400).json({'error': "Veuillez remplir l'ensemble des champs du formulaire"});
   }
+  if (!regex.test(req.body.password)) {
+  return res.status(400).json("Le mot de passe doit comporter au moins 6 caractères dont au moins un chiffre")}
+
   // vérification si l'user existe dans la DB
   User.findOne({ where: { email: req.body.email }})
     .then(userFound => {
@@ -48,7 +52,7 @@ exports.signup = (req, res, next) => {
        })   
      }
      else if (userFound) {
-     return res.status(409).json({ message: "Adresse mail existe déjà !"})
+     return res.status(409).json("Adresse mail existe déjà !")
      }
    })
   .catch(error => res.status(500).json({ message: 'requête échouée' }));
@@ -69,7 +73,7 @@ exports.login = (req, res, next) => {
           .then(valid => {
             //si mot de passe différent
             if (!valid) {
-              return res.status(400).json({ message: 'Mot de passe incorrect !' });
+              return res.status(400).json('Mot de passe incorrect !');
             }
             //si même mot de passe
             res.status(200).json({

@@ -119,9 +119,9 @@
                         this.errorimageUrl = false
                         this.errorSignup = false
                     })
-                    .catch(()=>{
-                        console.log("Adresse mail existe déjà !");
-                        window.alert('Adresse mail existe déjà !');
+                    .catch((err)=>{
+                        console.log(err.response.data);
+                        window.alert(err.response.data);
                         this.errorFirstname = false
                         this.errorLastname = false
                         this.errorEmail = false
