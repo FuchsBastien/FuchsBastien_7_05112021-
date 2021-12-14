@@ -35,6 +35,8 @@
 
                <div v-if="idArticleUpdate == article.id"> 
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "Modifier votre contenu..."></textarea>
+                  <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
+                  <br><br>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
                </div>
@@ -55,9 +57,7 @@
                <br>
                  <!--{{idArticleStorage}}-->
                <div v-if="idArticleStorage == article.id">
-                  <OneArticle 
-                   v-bind:idArticleTransfert = idArticleStorage 
-                  ></OneArticle>
+                  <OneArticle v-bind:idArticleTransfert = idArticleStorage ></OneArticle>
                </div>
             </div>      
          </div>
@@ -87,17 +87,13 @@
                //token : localStorage.getItem('token'),
                //userId: localStorage.getItem('Id'),
                content : '',  
+               imageUrl : ''
             },
 
             userId: localStorage.getItem('Id'),
-            
             userAdmin: localStorage.getItem('Admin'),
-
             userFirstname: localStorage.getItem('Firstname'),
-
             userLastname: localStorage.getItem('Lastname'),
-
-            errorArticle : false,
 
             idArticleUpdate: null,
 
@@ -112,16 +108,30 @@
 
       methods : { 
          loadArticles () {
-         axios.get ("http://localhost:3000/api/articles/", {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-         .then(articles => {
-            console.log(articles);
-            //this fait référence au tableau vide dans data
-            this.articlesArray = articles.data
-         })
+            axios.get ("http://localhost:3000/api/articles/", {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(articles => {
+               console.log(articles);
+               this.articlesArray = articles.data
+            })
          },
 
          modifyArticle(id) {
-         axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            const formData = new FormData()
+            formData.append('content', this.updatearticle.content);
+            formData.append('imageUrl', this.updatearticle.imageUrl); 
+
+            axios.put("http://localhost:3000/api/articles/"+id, formData, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+               .then(() => {
+                  console.log('article modifié');
+                  this.loadArticles();
+                  this.clearData();
+                  this.idArticleUpdate = null
+               })
+               .catch((error) => {
+                  console.log(error.message);
+               })
+
+         /*axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
          .then(() => {
             console.log('article modifié');
             this.loadArticles();
@@ -130,31 +140,38 @@
          })
          .catch((error) => {
             console.log(error.message);
-         })
-         },
-
-         deleteArticle(id) {
-         axios.delete("http://localhost:3000/api/articles/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-            .then(() => {
-               console.log('article supprimé!');
-               this.articlesArray.splice(1)
-               this.loadArticles();
-            })
-            .catch((error) => {
-               console.log(error.message);
-            })
+         })*/
+         
          },
 
          setIdArticleToUpdate(article_id){
             this.idArticleUpdate = article_id
          },
 
-         setToUpdate(article_id){
-            this.idArticleStorage = article_id
+         onSelect(event) {
+            this.updatearticle.imageUrl = event.target.files[0];    
+            //this.picturePreview = URL.createObjectURL(this.updatearticle.imageUrl);
          },
 
          clearData() {
             this.updatearticle.content = '';
+            this.updatearticle.imageUrl = '';
+         },
+
+         deleteArticle(id) {
+            axios.delete("http://localhost:3000/api/articles/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+               .then(() => {
+                  console.log('article supprimé!');
+                  this.articlesArray.splice(1)
+                  this.loadArticles();
+               })
+               .catch((error) => {
+                  console.log(error.message);
+            })
+         },
+
+         setToUpdate(article_id){
+            this.idArticleStorage = article_id
          },
       },
    }
@@ -167,7 +184,7 @@
    }
 
    .titre {
-    margin-top : 180px;
+      margin-top : 180px;
    }
    
    h1,h2 {

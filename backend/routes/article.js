@@ -13,7 +13,7 @@ const multer = require('../middleware/multer-config');
 router.get('/', auth, articleCtrl.findAllArticle);
 router.get('/:id', articleCtrl.findOneArticle); 
 router.post('/', multer, articleCtrl.createArticle);
-router.put('/:id', articleCtrl.modifyArticle);
+router.put('/:id', multer, articleCtrl.modifyArticle);
 router.delete('/:id', articleCtrl.deleteArticle);
 
 router.get('/:id/comments', commentCtrl.findCommentsByArticleId);

@@ -46,12 +46,12 @@ exports.createArticle = (req, res, next) => {
   const imageUrl =  req.body.imageUrl;
 
   // vérification que tous les champs sont remplis
-  if(content === null || content === '') {
-      return res.status(400).json({'error': "Veuillez remplir les champs 'titre' et 'contenu' pour créer un article"});
+  if (content === null || content === '') {
+      return res.status(400).json({'error': "Veuillez remplir le champ 'contenu' pour créer un article"});
   }
-  
-  if (imageUrl === null || imageUrl  === '' ) {
 
+  //si pas d'image dans la requête
+  if (imageUrl === null || imageUrl  === '' ) {
     //variable contenant les champs de la requête
     const articleObject = req.body;
     // Création d'un nouvel objet Article à partir du modèle Article créé
@@ -70,8 +70,8 @@ exports.createArticle = (req, res, next) => {
       //erreur si requête non envoyé au serveur
       .catch(error => res.status(400).json("article limité à 255 caractères"));
 
+  //si image dans la requête  
   } else {
-
     const articleObject = req.body;
     const article = new Article({
       ...articleObject,
@@ -81,7 +81,6 @@ exports.createArticle = (req, res, next) => {
       .then(() => res.status(201).json("article limité à 255 caractères"))
       .catch(error => res.status(400).json({ error }));
     }
-
 };
 
 
@@ -90,15 +89,16 @@ exports.modifyArticle = (req, res, next) => {
   // éléments de la requète
   const content =  req.body.content;
   // vérification que tous les champs sont remplis
-  if(content === null || content === '') {
-      return res.status(400).json({'error': "Veuillez remplir les champs 'Titre' et 'Contenu' pour modifier votre article"});
+  if (content === null || content === '') {
+      return res.status(400).json({'error': "Veuillez remplir le champ 'Contenu' pour modifier votre article"});
   }
+
   //variable contenant les champs de la requête
-  const articleObject = req.body;
+  const articleObject = req.file?
     // S'il existe déjà une image
-  /*{ ...req.body,
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  } : { ...req.body };*/
+  { ...req.body,
+    imageUrl: `http://localhost:3000/images/${req.file.filename}`
+  } : { ...req.body };
    // S'il n'existe pas d'image (ATTENTION : mettre userObject avant where)
    Article.update({ ...articleObject, id:  req.params.id},{ where: {id: req.params.id}})
     .then(() => res.status(200).json({ message: 'Article modifié !'}))
