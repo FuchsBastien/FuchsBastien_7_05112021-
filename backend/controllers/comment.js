@@ -55,7 +55,7 @@ exports.createComment = (req, res, next) => {
          })
       })
       //erreur si requête non envoyé au serveur
-      .catch(error => res.status(400).json({ error }));
+      .catch(error => res.status(400).json("article limité à 100 caractères"));
 };
 
 

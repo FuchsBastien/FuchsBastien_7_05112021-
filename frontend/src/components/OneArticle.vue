@@ -99,9 +99,10 @@ export default {
                this.clearData();
                this.errorComment = false
             })
-            .catch(()=>{
-               console.log('échec!!');
-               this.errorComment = true
+            .catch((err)=>{
+               console.log(err.response.data);
+               window.alert(err.response.data);
+               this.errorComment = false
             });
           }
       },
