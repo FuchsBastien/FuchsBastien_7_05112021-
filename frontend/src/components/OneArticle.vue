@@ -3,10 +3,10 @@
       <div class="post_comment">
          <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="userImageUrl" alt="">
          <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
-         <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
          <br>
          <!--{{comment}}-->
       </div>
+      <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
 
       <div class="comment" v-bind:key = "comments" v-for= "comments in commentsArray">
          <div class="comment_avatar">
@@ -138,10 +138,12 @@ export default {
    }
 
    .post_comment {
+      display: flex;
+      justify-content: space-between;
       width: 95%;
       margin-left: auto;
       margin-right: auto;
-      padding: 20px 20px 0px 20px;
+      
    }
 
    .form-control{
@@ -172,6 +174,7 @@ export default {
       background-color: #dfe3ee;
       border-radius: 25px;
       text-align: left;
+      word-wrap: break-word;
    }
 
    .comment_user  {

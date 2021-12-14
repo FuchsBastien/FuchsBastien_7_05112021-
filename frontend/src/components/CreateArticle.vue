@@ -12,9 +12,11 @@
                <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
             </div>
 
-            <button class ="btn btn-primary mt-5" v-on:click.prevent="postArticle">Partager</button>
-
             <p v-if="errorArticle" class="mt-2 text-danger"> Veuillez écrire un contenu ou partager une image</p>
+
+            <button class ="btn btn-primary mt-4 mb-4" v-on:click.prevent="postArticle">Partager</button>
+
+         
          </form>
          <!--{{article}}-->
       </div>  
@@ -57,9 +59,10 @@
                   this.clearData();
                   this.errorArticle = false
                   })
-                  .catch(()=>{
-                  console.log('échec!!');
-                  this.errorArticle = true
+                  .catch((err)=>{
+                     console.log(err.response.data);
+                     window.alert(err.response.data);
+                     this.errorArticle = false
                   });  
                } 
                else { 
@@ -76,11 +79,12 @@
                         console.log('réussite!!');
                         this.$emit('articleCree');
                         this.clearData();
-                        this.errorComment = false
+                        this.errorArticle = false
                      })
-                     .catch(()=>{
-                        console.log('échec!!');
-                        this.errorComment = true
+                     .catch((err)=>{
+                        console.log(err.response.data);
+                        window.alert(err.response.data);
+                        this.errorArticle = false
                      });
                   }
                   else {
@@ -97,11 +101,12 @@
                         console.log('réussite!!');
                         this.$emit('articleCree');
                         this.clearData();
-                        this.errorComment = false
+                        this.errorArticle = false
                      })
-                     .catch(()=>{
-                        console.log('échec!!');
-                        this.errorComment = true
+                     .catch((err)=>{
+                        console.log(err.response.data);
+                        window.alert(err.response.data);
+                        this.errorArticle = false
                      });   
                   }
                } 

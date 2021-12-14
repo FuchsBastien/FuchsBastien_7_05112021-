@@ -68,7 +68,7 @@ exports.createArticle = (req, res, next) => {
       //réponse obligatoire sinon expiration de la requête
       .then(() => res.status(201).json({ message: 'Article enregistré !'}))
       //erreur si requête non envoyé au serveur
-      .catch(error => res.status(400).json({ error }));
+      .catch(error => res.status(400).json("article limité à 255 caractères"));
 
   } else {
 
@@ -78,7 +78,7 @@ exports.createArticle = (req, res, next) => {
       imageUrl: `http://localhost:3000/images/${req.file.filename}`
     });
     article.save()
-      .then(() => res.status(201).json({ message: 'Article enregistré !'}))
+      .then(() => res.status(201).json("article limité à 255 caractères"))
       .catch(error => res.status(400).json({ error }));
     }
 
