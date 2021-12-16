@@ -1,5 +1,5 @@
 <template>
-  <div class="account"> 
+  <div v-if="Id" class="account"> 
       <!--{{userArray}}-->
     <div class= "account_frame">
       <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" v-bind:alt="userArray.firstname">
@@ -31,6 +31,11 @@
       </div>
     </div>
   </div>  
+
+  <div class ="no-connect" v-else>
+    <h1>Accès non autorisé</h1>
+    <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
+  </div>
 </template>
 
 
@@ -62,32 +67,32 @@
     methods : { 
       userLoad(){
         axios.get (`http://localhost:3000/api/users/${this.Id}`)
-        .then(user => {
-          console.log(user);
-          this.userArray = user.data
-        })
+          .then(user => {
+            console.log(user);
+            this.userArray = user.data
+          })
       },
 
       userModify () {
         axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
-        .then(() => {
-              console.log('compte modifié');
-              this.userLoad();
-              })
+          .then(() => {
+            console.log('compte modifié');
+            this.userLoad();
+          })
           .catch((error) => {
-              console.log(error.message);
+            console.log(error.message);
           })
       },
 
       userDelete () {
         axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
-        .then(() => {
-          this.$router.push('/delete');    
-        })
+          .then(() => {
+            this.$router.push('/delete');    
+          })
       },
 
       setIdUserToUpdate(userArray_id) {
-      this.idUserUpdate = userArray_id
+        this.idUserUpdate = userArray_id
       },
     },
   }
@@ -100,13 +105,30 @@
     padding-top : 150px;
   }
 
+  .no-connect {
+    margin-top : 250px;
+   }
+
+  .no-connect a {
+    text-decoration: underline;
+    color: black;
+   }
+
+  .no-connect a:hover {
+    color: orangered;
+  }
+
+  .no-connect h1 {
+    color: orangered;
+  }
+
   .account_frame {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50px;
-  background-color: white;
-  border-radius: 15px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    background-color: white;
+    border-radius: 15px;
   }
 
   .iconUser.rounded-circle.mb-2.me-2 {
@@ -121,17 +143,17 @@
   }
 
   .form-control {
-      width: 25%;
-      margin-left: auto;
-      margin-right: auto;  
-      background-color: #dfe3ee;
-      border-radius: 15px;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;  
+    background-color: #dfe3ee;
+    border-radius: 15px;
   }
 
   h1 {
-      text-align: center;
-      padding-top : 10px;
-      margin-bottom : 10px;
+    text-align: center;
+    padding-top : 10px;
+    margin-bottom : 10px;
   }
 
   p {

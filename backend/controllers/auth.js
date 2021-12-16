@@ -39,10 +39,10 @@ exports.signup = (req, res, next) => {
             //copie tous les champs de la requête de la variable user
             //...user,
             // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
-            //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             // imageUrl : req.body.imageUrl,
              //imageUrl : req.file != undefined ? req.file.filename : '',
-             imageUrl: `http://localhost:3000/images/${req.file.filename}`
+             //imageUrl: `http://localhost:3000/images/${req.file.filename}`
        
           });
           // Sauvegarde dans la base de données
@@ -52,7 +52,7 @@ exports.signup = (req, res, next) => {
        })   
      }
      else if (userFound) {
-     return res.status(409).json("Adresse mail existe déjà !")
+     return res.status(409).json("L'adresse mail existe déjà, veuillez en choisir un autre")
      }
    })
   .catch(error => res.status(500).json({ message: 'requête échouée' }));

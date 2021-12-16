@@ -152,6 +152,7 @@
 <style scoped>
     .container {
       padding-top : 250px; 
+      padding-bottom : 100px;
     }
 
     .picture {
@@ -160,7 +161,6 @@
         object-fit: contain;
         margin: 20px 0px 20px 0px;
     }
-
 
     input.form-control {
         width : 50%;

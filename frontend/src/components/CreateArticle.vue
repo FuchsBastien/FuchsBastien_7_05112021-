@@ -9,7 +9,7 @@
             </div>
 
             <div class="form-group mt-3">
-               <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
+               <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image" >
             </div>
 
             <div class="preview_picture">

@@ -29,11 +29,10 @@ const routes = [
   },
 
   {
-  path: '/contact',
-  name: 'passwordForgot',
-  component: PasswordForgot
+    path: '/contact',
+    name: 'passwordForgot',
+    component: PasswordForgot
   },
-
 
   {
     path: '/articles',

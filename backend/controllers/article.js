@@ -75,7 +75,8 @@ exports.createArticle = (req, res, next) => {
     const articleObject = req.body;
     const article = new Article({
       ...articleObject,
-      imageUrl: `http://localhost:3000/images/${req.file.filename}`
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      //imageUrl: `http://localhost:3000/images/${req.file.filename}`
     });
     article.save()
       .then(() => res.status(201).json("article limité à 255 caractères"))
@@ -87,11 +88,11 @@ exports.createArticle = (req, res, next) => {
 // logique métier : modifier un article
 exports.modifyArticle = (req, res, next) => {
   // éléments de la requète
-  const content =  req.body.content;
+ /* const content =  req.body.content;*/
   // vérification que tous les champs sont remplis
-  if (content === null || content === '') {
+  /*if (content === null || content === '') {
       return res.status(400).json({'error': "Veuillez remplir le champ 'Contenu' pour modifier votre article"});
-  }
+  }*/
 
   //variable contenant les champs de la requête
   const articleObject = req.file?

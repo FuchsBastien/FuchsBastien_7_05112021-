@@ -13,43 +13,42 @@
 
 
 <script>
-import axios from 'axios'
+  import axios from 'axios'
 
-export default {
-  name :'AllAccounts',
+  export default {
+    name :'AllAccounts',
 
-  data : function () {
-    return {
-      Id : this.$route.params.id,
+    data : function () {
+      return {
+        Id : this.$route.params.id,
 
-      userArray : [],
-      
-      userAdmin: localStorage.getItem('Admin'), 
-    } 
-  },
-
-  created(){
-    this.userLoad();
-  },  
-
-  methods : { 
-    userLoad(){
-      axios.get (`http://localhost:3000/api/users/${this.Id}`)
-      .then(user => {
-        console.log(user);
-        this.userArray = user.data
-      })
+        userArray : [],
+        
+        userAdmin: localStorage.getItem('Admin'), 
+      } 
     },
 
-    userDelete () {
-      axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
-      .then(() => {
-         this.$router.push('/delete');    
-      })
-    },
+    created(){
+      this.userLoad();
+    },  
 
-  },
-}
+    methods : { 
+      userLoad(){
+        axios.get (`http://localhost:3000/api/users/${this.Id}`)
+          .then(user => {
+            console.log(user);
+            this.userArray = user.data
+          })
+        },
+  
+      userDelete () {
+        axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
+          .then(() => {
+            this.$router.push('/delete');    
+          })
+        },
+    },
+  }
 </script>
 
 
@@ -59,8 +58,7 @@ export default {
     padding-top : 150px;
   }
 
-  .account_avatar
-  {
+  .account_avatar {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -76,29 +74,10 @@ export default {
     width: 100px;
   }
 
-  .form-control {
-    width: 25%;
-    margin-left: auto;
-    margin-right: auto;  
-    background-color: #dfe3ee;
-  }
-
-  .form-groupmt-5 {
-    margin-top : 5px;
-  }
-
   h1 {
     text-align: center;
     margin: 20px 0px 20px 0px;
     color: orangered;
     padding: 20px;
-  }
-
-  p {
-    color: black;
-  } 
-
-  a {
-    text-decoration: none;  
   }
 </style>

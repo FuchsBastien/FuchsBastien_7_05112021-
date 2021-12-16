@@ -1,5 +1,5 @@
 <template>
-   <div class ="all_articles">
+   <div v-if="userId" class ="all_articles">
       <div class="titre">
          <h1>Bienvenue {{userFirstname}}!</h1>
       </div> 
@@ -36,6 +36,7 @@
                <div v-if="idArticleUpdate == article.id"> 
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "Modifier votre contenu..."></textarea>
                   <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
+                  <p v-if="errorUpdateArticle" class="mt-2 text-danger"> Veuillez modifier le contenu ou l'image</p>
                   <br><br>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
                   <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
@@ -62,6 +63,11 @@
             </div>      
          </div>
       </div>    
+   </div>
+
+   <div class ="no-connect" v-else>
+      <h1>Accès non autorisé</h1>
+      <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
    </div>
 </template>
 
@@ -97,7 +103,9 @@
 
             idArticleUpdate: null,
 
-            idArticleStorage : null 
+            idArticleStorage : null,
+
+            errorUpdateArticle : null
          } 
       },
 
@@ -116,33 +124,63 @@
          },
 
          modifyArticle(id) {
-            const formData = new FormData()
-            formData.append('content', this.updatearticle.content);
-            formData.append('imageUrl', this.updatearticle.imageUrl); 
+            if (this.updatearticle.content == '' && this.updatearticle.imageUrl == '') {
+               this.errorUpdateArticle = true
+               return
+            }
 
-            axios.put("http://localhost:3000/api/articles/"+id, formData, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-               .then(() => {
-                  console.log('article modifié');
-                  this.loadArticles();
-                  this.clearData();
-                  this.idArticleUpdate = null
-               })
-               .catch((error) => {
-                  console.log(error.message);
-               })
+            else {
+               if (this.updatearticle.imageUrl == '') {
+                   axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                     .then(() => {
+                        console.log('article modifié');
+                        this.loadArticles();
+                        this.clearData();
+                        this.idArticleUpdate = null
+                     })
+                     .catch((error) => {
+                        console.log(error.message);
+                     })
+               }
+               else {
+                  if (this.updatearticle.content == '') {
+                     const formData = new FormData()
+                     formData.append('imageUrl', this.updatearticle.imageUrl); 
 
-         /*axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-         .then(() => {
-            console.log('article modifié');
-            this.loadArticles();
-            this.clearData();
-            this.idArticleUpdate = null
-         })
-         .catch((error) => {
-            console.log(error.message);
-         })*/
-         
+                     axios.put("http://localhost:3000/api/articles/"+id, formData, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                        .then(() => {
+                           console.log('article modifié');
+                           this.loadArticles();
+                           this.clearData();
+                           this.idArticleUpdate = null;
+                           this.errorUpdateArticle = false;
+                        })
+                        .catch((error) => {
+                           console.log(error.message);
+                        })        
+                  }
+                  else {
+                     const formData = new FormData()
+                     formData.append('content', this.updatearticle.content);
+                     formData.append('imageUrl', this.updatearticle.imageUrl); 
+
+                     axios.put("http://localhost:3000/api/articles/"+id, formData, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                        .then(() => {
+                           console.log('article modifié');
+                           this.loadArticles();
+                           this.clearData();
+                           this.idArticleUpdate = null;
+                           this.errorUpdateArticle = false;
+                        })
+                        .catch((error) => {
+                           console.log(error.message);
+                        })        
+                  }
+               }
+            }
          },
+
+
 
          setIdArticleToUpdate(article_id){
             this.idArticleUpdate = article_id
@@ -186,6 +224,18 @@
    .titre {
       margin-top : 180px;
    }
+
+   .no-connect {
+      margin-top : 250px;
+   }
+
+   .no-connect a {
+      text-decoration: underline;
+   }
+
+   .no-connect a:hover {
+      color: orangered;
+   }  
    
    h1,h2 {
       text-align: center;
