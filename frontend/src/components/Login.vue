@@ -84,6 +84,13 @@
         padding-top : 250px; 
    }
 
+     @media screen and (max-width: 640px) {
+    .container {
+       padding-top : 100px;
+       padding-bottom : 100px;
+    }
+    }
+
     input.form-control {
         width : 50%;
         margin-left : auto;

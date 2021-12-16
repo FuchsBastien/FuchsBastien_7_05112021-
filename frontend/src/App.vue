@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header v-on="forceRerender()" v-bind:key="headerKey"></Header>
+    {{headerKey}}
     <router-view/>
     <Footer></Footer>
   </div>
@@ -12,10 +13,24 @@
   import Footer from './components/Footer.vue'
 
   export default {
-    components: {
-      Header,
-      Footer
+      name:'App',
+
+      data : function () {
+      return {
+        headerKey: 0
+      }
     },
+
+      components: {
+        Header,
+        Footer
+      },
+
+      methods: {
+        forceRerender() {
+        this.headerKey += 1;
+        }
+      }
   }
 </script>
 

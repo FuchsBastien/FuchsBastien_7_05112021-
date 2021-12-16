@@ -57,6 +57,13 @@
         cursor: pointer;   
     }
 
+    
+    @media screen and (max-width: 640px) {
+        #nav a {
+        font-size: 0.6em;
+        }
+    }
+
     #nav a:hover, #nav a.router-link-exact-active {
         color: pink;
     }
@@ -66,15 +73,22 @@
         width: 75px;
     }
 
+       @media screen and (max-width: 640px) {
+        .img_header_online {
+            height: 60px;
+            width: 60px;
+        }
+    }
+
     .img_header_offline {
         height: 200px;
         width: 450px;
     }
 
-     @media screen and (max-width: 640px) {
+    @media screen and (max-width: 640px) {
         .img_header_offline {
             height: 120px;
             width: 300px;
-      }
+        }
     }
  </style>

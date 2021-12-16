@@ -131,6 +131,12 @@
     border-radius: 15px;
   }
 
+  @media screen and (max-width: 640px) {
+    .account_frame {
+      width: 90%;
+    }
+  }
+
   .iconUser.rounded-circle.mb-2.me-2 {
     border: solid 1px gray;
     margin : 10px;
@@ -149,6 +155,12 @@
     background-color: #dfe3ee;
     border-radius: 15px;
   }
+
+  @media screen and (max-width: 640px) {
+    .form-control {
+    width: 80%;
+  }
+}
 
   h1 {
     text-align: center;

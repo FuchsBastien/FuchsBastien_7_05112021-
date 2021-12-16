@@ -129,13 +129,19 @@ export default {
 
 
 <style scoped>
-   .article_detail{
+   .article_detail {
       width: 80%;
       margin-left: auto;
       margin-right: auto;
       background: white;
       padding-bottom: 10px;
       border-radius: 20px;
+   }
+
+    @media screen and (max-width: 640px) {
+      .article_detail {
+         width: 100%; 
+      }
    }
 
    .post_comment {
@@ -150,6 +156,12 @@ export default {
    .form-control{
       border-radius: 20px;
       background-color: #dfe3ee;
+   }
+
+   @media screen and (max-width: 640px) {
+      .form-control {
+         width: 90%; 
+      }
    }
 
    .comment {

@@ -3,7 +3,9 @@
       <div class="titre">
          <h1>Bienvenue {{userFirstname}}!</h1>
       </div> 
+
       <CreateArticle v-on:articleCree="loadArticles()"></CreateArticle>
+
       <div class="container mt-5">
          <h1>Tous les Articles Publiés</h1>
          <div class="articles_frame">
@@ -25,6 +27,7 @@
                </div>
               
                <p class="article_content">{{article.content}}</p>
+               
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
                
                <div v-if ="article.userId == userId">
@@ -219,29 +222,13 @@
 <style scoped>
    .all_articles{
       background-color: #dfe3ee;
-   }
-
-   .titre {
       margin-top : 180px;
    }
 
-   .no-connect {
-      margin-top : 250px;
-   }
-
-   .no-connect a {
-      text-decoration: underline;
-   }
-
-   .no-connect a:hover {
-      color: orangered;
-   }  
-   
-   h1,h2 {
-      text-align: center;
-      margin: 20px 0px 20px 0px;
-      color: orangered;
-      padding: 20px;
+   @media screen and (max-width: 640px) {
+      .all_articles {
+         margin-top : 100px; 
+      }
    }
 
    .article_publish {
@@ -254,6 +241,12 @@
       width: 80%;
       margin-left: auto;
       margin-right: auto;
+   }
+
+   @media screen and (max-width: 640px) {
+      .articles_frame {
+          width: 95%; 
+      }
    }
 
    .article {
@@ -307,10 +300,35 @@
       border-radius: 15px;
    }
 
+     @media screen and (max-width: 640px) {
+      .form-control {
+         width: 90%; 
+      }
+   }
+
    .iconUser.rounded-circle.mb-2.me-2 {
       border: solid 1px gray;
       height: 100px;
       width: 100px;
+   }
+
+   .no-connect {
+      margin-top : 250px;
+   }
+
+   .no-connect a {
+      text-decoration: underline;
+   }
+
+   .no-connect a:hover {
+      color: orangered;
+   } 
+   
+   h1,h2 {
+      text-align: center;
+      margin: 20px 0px 20px 0px;
+      color: orangered;
+      padding: 20px;
    }
 
    p {
@@ -324,9 +342,16 @@
 
    .image_article {
       width: 800px;
-      height : 500px;
+      height : 700px max-content;
       object-fit: contain;
       margin: 20px 0px 20px 0px;
+   }
+
+    @media screen and (max-width: 640px) {
+      .image_article {
+         width: 300px;
+         height : 160px max-content;
+      }
    }
 
    .container.mt-5{

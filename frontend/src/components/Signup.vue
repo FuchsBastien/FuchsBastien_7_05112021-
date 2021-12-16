@@ -155,6 +155,12 @@
       padding-bottom : 100px;
     }
 
+    @media screen and (max-width: 640px) {
+    .container {
+       padding-top : 100px; ;
+    }
+    }
+
     .picture {
         width: 400px;
         height : 200px;
