@@ -89,6 +89,12 @@
         margin-left : auto;
         margin-right : auto;
     }
+
+    @media screen and (max-width: 640px) {
+        input.form-control {
+            width: 100%;
+      }
+    }
     
     input.form-control:valid {
         border:3px solid #0a0 !important;

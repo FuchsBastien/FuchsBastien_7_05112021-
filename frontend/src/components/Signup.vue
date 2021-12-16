@@ -162,10 +162,23 @@
         margin: 20px 0px 20px 0px;
     }
 
+    @media screen and (max-width: 640px) {
+        .picture {
+            width: 320px;
+            height : 150px;
+        }
+    }
+
     input.form-control {
         width : 50%;
         margin-left : auto;
         margin-right : auto;
+    }
+
+    @media screen and (max-width: 640px) {
+        input.form-control {
+            width: 100%;
+      }
     }
 
     input.form-control:valid {

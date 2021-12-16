@@ -25,7 +25,7 @@
         methods : { 
             LocalstorageClear () {
                 localStorage.clear();
-                this.user= ''; 
+                this.user= null; 
                 this.$router.push('/');   
             },
         }
@@ -69,5 +69,12 @@
     .img_header_offline {
         height: 200px;
         width: 450px;
+    }
+
+     @media screen and (max-width: 640px) {
+        .img_header_offline {
+            height: 120px;
+            width: 300px;
+      }
     }
  </style>

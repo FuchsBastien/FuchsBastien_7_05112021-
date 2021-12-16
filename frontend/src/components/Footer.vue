@@ -30,4 +30,11 @@
         height: 70px;
         width: 400px;
     }
+
+      @media screen and (max-width: 640px) {
+        .img_footer {
+            height: 50px;
+            width: 250px;
+        }
+    }
  </style>
