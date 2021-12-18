@@ -9,16 +9,18 @@
       <div class="account_modify">
         <div v-if="idUserUpdate == userArray.id">
           <div class="form-group mt-5">
-            <input v-model= "formData.firstname" type="text" id="firstname" placeholder="Prénom" class= "form-control">  
+            <input v-model= "userUpdate.firstname" type="text" id="firstname" placeholder="Prénom" class= "form-control">  
           </div>
 
           <div class="form-group mt-5">
-            <input v-model= "formData.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
+            <input v-model= "userUpdate.lastname" type="text" id="lastname" placeholder="Nom" class= "form-control">  
           </div>
 
           <button class="btn-success rounded mt-3" v-on:click="userModify(userArray.id)">Valider</button>
 
           <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdUserToUpdate(null)">
+
+          <p v-if="errorUpdateUser" class="mt-2 text-danger"> Veuillez modifier le nom et prénom</p>
         </div>
 
         <button class ="btn-success rounded mt-5" v-on:click ="setIdUserToUpdate(userArray.id)">Modifier</button>         
@@ -53,7 +55,9 @@
 
         idUserUpdate: null,
 
-        formData : {
+        errorUpdateUser : false,
+
+        userUpdate : {
           firstname : '',
           lastname : '', 
         },
@@ -74,15 +78,29 @@
       },
 
       userModify () {
-        axios.put (`http://localhost:3000/api/users/${this.Id}`,this.formData) 
+        if (this.userUpdate.firstname == '' && this.userUpdate.lastname == '') {
+              this.errorUpdateUser = true
+              return
+        }
+
+        else {
+        axios.put (`http://localhost:3000/api/users/${this.Id}`,this.userUpdate) 
           .then(() => {
             console.log('compte modifié');
             this.userLoad();
+            this.clearData();
+            this.errorUpdateUser = false;
           })
           .catch((error) => {
             console.log(error.message);
           })
+        }
       },
+
+      clearData() {
+      this.userUpdate.firstname = '';
+      this.userUpdate.lastname = '';
+    },
 
       userDelete () {
         axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
@@ -158,9 +176,9 @@
 
   @media screen and (max-width: 640px) {
     .form-control {
-    width: 80%;
+     width: 80%;
+    }
   }
-}
 
   h1 {
     text-align: center;

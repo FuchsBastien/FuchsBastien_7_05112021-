@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
   Article.init({
     //ajout userId
     userId: DataTypes.INTEGER,
-    title: DataTypes.STRING,
     content: DataTypes.STRING,
     imageUrl: DataTypes.STRING
   }, {

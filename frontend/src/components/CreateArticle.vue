@@ -142,7 +142,7 @@
    @media screen and (max-width: 640px) {
       .container {
          width: 90%;
-   }
+      }
    }
 
    .picture {

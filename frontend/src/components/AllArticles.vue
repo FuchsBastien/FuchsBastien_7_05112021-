@@ -39,6 +39,9 @@
                <div v-if="idArticleUpdate == article.id"> 
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "Modifier votre contenu..."></textarea>
                   <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
+                  <div class="preview_picture">
+            <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
+         </div>
                   <p v-if="errorUpdateArticle" class="mt-2 text-danger"> Veuillez modifier le contenu ou l'image</p>
                   <br><br>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
@@ -65,7 +68,8 @@
                </div>
             </div>      
          </div>
-      </div>    
+      </div> 
+         <a class="bloc-button btn btn-d scrollToTop showScrollTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
    </div>
 
    <div class ="no-connect" v-else>
@@ -104,11 +108,13 @@
             userFirstname: localStorage.getItem('Firstname'),
             userLastname: localStorage.getItem('Lastname'),
 
+            picturePreview : "",
+
             idArticleUpdate: null,
 
             idArticleStorage : null,
 
-            errorUpdateArticle : null
+            errorUpdateArticle : false
          } 
       },
 
@@ -139,7 +145,8 @@
                         console.log('article modifié');
                         this.loadArticles();
                         this.clearData();
-                        this.idArticleUpdate = null
+                        this.idArticleUpdate = null;
+                        this.errorUpdateArticle = false;
                      })
                      .catch((error) => {
                         console.log(error.message);
@@ -184,19 +191,19 @@
          },
 
 
-
          setIdArticleToUpdate(article_id){
             this.idArticleUpdate = article_id
          },
 
          onSelect(event) {
             this.updatearticle.imageUrl = event.target.files[0];    
-            //this.picturePreview = URL.createObjectURL(this.updatearticle.imageUrl);
+            this.picturePreview = URL.createObjectURL(this.updatearticle.imageUrl);
          },
 
          clearData() {
             this.updatearticle.content = '';
             this.updatearticle.imageUrl = '';
+            this.picturePreview ='';
          },
 
          deleteArticle(id) {
@@ -300,6 +307,14 @@
       border-radius: 15px;
    }
 
+   
+   .picture {
+      width: 400px;
+      height : 200px;
+      object-fit: contain;
+      margin: 20px 0px 20px 0px;
+   }
+
      @media screen and (max-width: 640px) {
       .form-control {
          width: 90%; 
@@ -310,6 +325,13 @@
       border: solid 1px gray;
       height: 100px;
       width: 100px;
+   }
+
+      @media screen and (max-width: 640px) {
+      .iconUser.rounded-circle.mb-2.me-2 {
+         height: 50px;
+         width: 50px;; 
+      }
    }
 
    .no-connect {
@@ -342,7 +364,7 @@
 
    .image_article {
       width: 800px;
-      height : 700px max-content;
+      height : 500px max-content;
       object-fit: contain;
       margin: 20px 0px 20px 0px;
    }
