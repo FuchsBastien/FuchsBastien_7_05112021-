@@ -3,7 +3,7 @@ import Signup from '../components/Signup.vue'
 import PasswordForgot from '../components/PasswordForgot.vue'
 import SignupSuccess from '../components/SignupSuccess.vue'
 import Login from '../components/Login.vue'
-import AllArticles from '../views/AllArticles.vue'
+import AllArticles from '../components/AllArticles.vue'
 import CreateComment from '../components/CreateComment.vue'
 import Account from '../components/Account.vue'
 import AccountDelete from '../components/AccountDelete.vue'
@@ -63,9 +63,6 @@ const routes = [
     name: 'accounts',
     component: AllAccounts
   },
-
-
-
 ]
 
 const router = createRouter({

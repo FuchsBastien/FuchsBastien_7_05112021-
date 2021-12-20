@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Id" class="account"> 
+  <div v-if="userToken" class="account"> 
       <!--{{userArray}}-->
     <div class= "account_frame">
       <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" v-bind:alt="userArray.firstname">
@@ -38,6 +38,7 @@
     <h1>Accès non autorisé</h1>
     <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
   </div>
+  
 </template>
 
 
@@ -49,6 +50,7 @@
 
     data : function () {
       return {
+        userToken: localStorage.getItem('token'),
         Id: localStorage.getItem('Id'),
 
         userArray : [],

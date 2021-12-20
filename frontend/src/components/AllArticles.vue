@@ -1,5 +1,5 @@
 <template>
-   <div v-if="userId" class ="all_articles">
+   <div v-if="userToken" class ="all_articles">
       <h1>Bienvenue {{userFirstname}}!</h1> 
 
       <CreateArticle v-on:articleCree="loadArticles()"></CreateArticle>
@@ -26,7 +26,7 @@
               
                <p class="article_content">{{article.content}}</p>
                
-               <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="">
+               <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="image article">
                
                <div v-if ="article.userId == userId">
                   <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id)">Modifier</button>
@@ -66,11 +66,14 @@
                   <CreateComment v-bind:idArticleTransfert = idArticleStorage ></CreateComment>
                </div>
             </div>      
-         </div>
+         </div>   
       </div> 
-         <a class="bloc-button btn btn-d scrollToTop showScrollTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
+      
+      <div id="pagetop" v-show="scY > 300" v-on:click="toTop">
+         <a class="bloc-button btn btn-d scrollToTop showScrollTop"><span class="fa fa-chevron-up"></span></a>
+      </div>   
    </div>
-
+  
    <div class ="no-connect" v-else>
       <h1>Accès non autorisé</h1>
       <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
@@ -99,7 +102,8 @@
                content : '',  
                imageUrl : ''
             },
-
+            
+            userToken: localStorage.getItem('token'),
             userId: localStorage.getItem('Id'),
             userAdmin: localStorage.getItem('Admin'),
             userFirstname: localStorage.getItem('Firstname'),
@@ -111,10 +115,16 @@
 
             idArticleStorage : null,
 
-            errorUpdateArticle : false
+            errorUpdateArticle : false,
+
+            scTimer: 0,
+            scY: 0,
          } 
       },
 
+      mounted() {
+      window.addEventListener('scroll', this.handleScroll);
+      },
 
       created(){
       this.loadArticles ()
@@ -217,6 +227,22 @@
          setToUpdate(article_id){
             this.idArticleStorage = article_id
          },
+
+         handleScroll() {
+            if (this.scTimer) return;
+               this.scTimer = setTimeout(() => {
+               this.scY = window.scrollY;
+               clearTimeout(this.scTimer);
+               this.scTimer = 0;
+            }, 100);
+         },
+
+         toTop () {
+            window.scrollTo({
+               top: 0,
+               behavior: "smooth"
+            });
+         },
       },
    }
 </script>
@@ -232,6 +258,36 @@
       .all_articles {
          margin-top : 100px; 
       }
+   }
+
+   .bloc-button.btn.btn-d.scrollToTop.showScrollTop {
+     margin-bottom: 100px; 
+   }
+
+   .btn-d, .btn-d:focus, .btn-d:hover {
+      background: rgba(0,0,0,.3);
+   }
+
+   .scrollToTop{
+      width: 40px;
+      height: 40px;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      opacity: 1;
+      z-index: 500;
+      transition: all .3s ease-in-out;
+   }
+
+   @media screen and (max-width: 640px) {
+      .scrollToTop {
+         right: 10px; 
+      }
+   }
+
+   .showScrollTop{
+      font-size: 14px;
+      opacity: 1;
    }
 
    .article_publish {

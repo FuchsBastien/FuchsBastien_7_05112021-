@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userId" class="account">
+  <div v-if="userToken" class="account">
     <div class = "account_avatar">
       <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
       <h1>{{userArray.firstname}} {{userArray.lastname}}</h1> 
@@ -26,8 +26,8 @@
 
     data : function () {
       return {
+        userToken: localStorage.getItem('token'),
         userId: localStorage.getItem('Id'),
-        
         userAdmin: localStorage.getItem('Admin'),
 
         Id : this.$route.params.id,
