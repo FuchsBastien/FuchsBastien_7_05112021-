@@ -41,90 +41,86 @@
 
 
 <script>
-import axios from 'axios'
+   import axios from 'axios'
 
-export default {
-   name :'OneArticle',
+   export default {
+      name :'CreateComment',
 
-   data : function () {
-      return {
-         commentsArray : [],
+      data : function () {
+         return {
+            commentsArray : [],
 
-         comment : {
-            token : localStorage.getItem('token'),
+            comment : {
+               articleId : this.idArticleTransfert,
+               userId: localStorage.getItem('Id'),
+               content : ''
+            },
+            
+            Id: localStorage.getItem('Id'),
             userId: localStorage.getItem('Id'),
+            userAdmin: localStorage.getItem('Admin'),
+            userImageUrl: localStorage.getItem('ImageUrl'),
+
             articleId : this.idArticleTransfert,
-            content : ''
-         },
-         
-         Id: localStorage.getItem('Id'),
 
-         userId: localStorage.getItem('Id'),
-
-         userAdmin: localStorage.getItem('Admin'),
-
-         userImageUrl: localStorage.getItem('ImageUrl'),
-
-         articleId : this.idArticleTransfert,
-
-         errorComment: false,
-      } 
-   },
-
-   props: ['idArticleTransfert'],
-
-   created(){
-      this.loadComments();
-   },  
-
-   methods : { 
-      loadComments () { 
-         axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-            .then(response => {
-               console.log(response);
-               this.commentsArray = response.data
-         })
-       },
-
-      postComment () {  
-         if (this.comment.content == '' || this.comment.content == '') {
-            this.errorComment = true
-            return
+            errorComment: false,
          } 
-         else {
-         axios.post ("http://localhost:3000/api/comments/",this.comment, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-            .then(()=>{
-               console.log('réussite!!');
-               this.loadComments();
-               this.clearData();
-               this.errorComment = false
+      },
+
+      props: ['idArticleTransfert'],
+
+      created(){
+         this.loadComments();
+      },  
+
+      methods : { 
+         loadComments () { 
+            axios.get (`http://localhost:3000/api/articles/${this.articleId}/comments`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+               .then(response => {
+                  console.log(response);
+                  this.commentsArray = response.data
             })
-            .catch((err)=>{
-               console.log(err.response.data);
-               window.alert(err.response.data);
-               this.errorComment = false
-            });
-          }
-      },
+         },
 
-      clearData() {
-         this.comment.content = '';
-      },
+         postComment () {  
+            if (this.comment.content == '' || this.comment.content == '') {
+               this.errorComment = true
+               return
+            } 
+            else {
+            axios.post ("http://localhost:3000/api/comments/",this.comment, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+               .then(()=>{
+                  console.log('réussite!!');
+                  this.loadComments();
+                  this.clearData();
+                  this.errorComment = false
+               })
+               .catch((err)=>{
+                  console.log(err.response.data);
+                  window.alert(err.response.data);
+                  this.errorComment = false
+               });
+            }
+         },
 
-      deleteComment(id) {
-         axios.delete("http://localhost:3000/api/comments/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-         .then(() => {
-            console.log('commentaire supprimé!');
-            this.commentsArray.splice(1)
-            this.loadComments();
-         })
-         .catch((error) => {
-            console.log(error.message);
-         })
-      },
+         clearData() {
+            this.comment.content = '';
+         },
 
-   },
-}
+         deleteComment(id) {
+            axios.delete("http://localhost:3000/api/comments/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(() => {
+               console.log('commentaire supprimé!');
+               this.commentsArray.splice(1)
+               this.loadComments();
+            })
+            .catch((error) => {
+               console.log(error.message);
+            })
+         },
+
+      },
+   }
 </script>
 
 
@@ -149,8 +145,7 @@ export default {
       justify-content: space-between;
       width: 95%;
       margin-left: auto;
-      margin-right: auto;
-      
+      margin-right: auto;    
    }
 
    .form-control{
@@ -204,10 +199,9 @@ export default {
       margin-left: 10px ;
    }
 
-   .comment_button
-    {
+   .comment_button {
       text-align: left; 
-    }
+   }
 
    h1 {
       text-align: center;

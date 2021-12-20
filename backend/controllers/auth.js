@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 exports.signup = (req, res, next) => {
    // éléments de la requète
    const regexFirstnameLastname = /^[A-Z-a-z\s]{3,40}$/;
-   //const regexEmail = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+   const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/;
    const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
    const firstname = req.body.firstname;
    const lastname =  req.body.lastname;
@@ -19,7 +19,7 @@ exports.signup = (req, res, next) => {
 
   // champs et regex obligatoires
   if (firstname === null || firstname === '' || lastname === null || lastname === '' || email === null || email === '' || password === null || password === ''
-  || (!regexFirstnameLastname.test(req.body.firstname)) || (!regexFirstnameLastname.test(req.body.lastname)) /*|| (!regexEmail.test(req.body.email))*/ || (!regexPassword.test(req.body.password))) {
+  || (!regexFirstnameLastname.test(req.body.firstname)) || (!regexFirstnameLastname.test(req.body.lastname)) || (!regexEmail.test(req.body.email)) || (!regexPassword.test(req.body.password))) {
   return res.status(400).json("Inscription non valide!")
   }
   else {

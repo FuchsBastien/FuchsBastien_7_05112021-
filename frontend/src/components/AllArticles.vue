@@ -1,16 +1,14 @@
 <template>
    <div v-if="userId" class ="all_articles">
-      <div class="titre">
-         <h1>Bienvenue {{userFirstname}}!</h1>
-      </div> 
+      <h1>Bienvenue {{userFirstname}}!</h1> 
 
       <CreateArticle v-on:articleCree="loadArticles()"></CreateArticle>
 
       <div class="container mt-5">
          <h1>Tous les Articles Publiés</h1>
+
          <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
-
                <div class ="article_avatar">
                   <div>
                      <router-link v-bind:to ="`/accounts/${article.User.id}`">
@@ -40,8 +38,9 @@
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "Modifier votre contenu..."></textarea>
                   <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
                   <div class="preview_picture">
-            <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
-         </div>
+                  <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
+               </div>
+               
                   <p v-if="errorUpdateArticle" class="mt-2 text-danger"> Veuillez modifier le contenu ou l'image</p>
                   <br><br>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
@@ -64,7 +63,7 @@
                <br>
                  <!--{{idArticleStorage}}-->
                <div v-if="idArticleStorage == article.id">
-                  <OneArticle v-bind:idArticleTransfert = idArticleStorage ></OneArticle>
+                  <CreateComment v-bind:idArticleTransfert = idArticleStorage ></CreateComment>
                </div>
             </div>      
          </div>
@@ -82,14 +81,14 @@
 <script>
    import axios from 'axios'
    import CreateArticle from "./CreateArticle.vue"
-   import OneArticle from "./OneArticle.vue"
+   import CreateComment from "./CreateComment.vue"
 
    export default {
       name: 'AllArticles',
 
       components: {
          CreateArticle,
-         OneArticle
+         CreateComment
       },
 
       data : function () {
@@ -97,8 +96,6 @@
             articlesArray : [],
 
             updatearticle : {
-               //token : localStorage.getItem('token'),
-               //userId: localStorage.getItem('Id'),
                content : '',  
                imageUrl : ''
             },
@@ -189,7 +186,6 @@
                }
             }
          },
-
 
          setIdArticleToUpdate(article_id){
             this.idArticleUpdate = article_id

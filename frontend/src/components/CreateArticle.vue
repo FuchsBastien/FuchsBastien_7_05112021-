@@ -3,12 +3,11 @@
       <form> 
          <div class="form-group mt-3">
             <label for="content">Créer une publication</label>
-            <br><br>
-            <textarea @keyup.enter="postArticle()" v-model= "article.content" id="content"  rows="3" placeholder="Quoi de neuf?" class= "form-control" required></textarea>
+            <textarea class="form-control mt-4" v-model= "article.content" id="content" rows="3" placeholder="Quoi de neuf?" required></textarea>
          </div>
 
          <div class="form-group mt-3">
-            <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
+            <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file" id="image">
          </div>
 
          <div class="preview_picture">
@@ -33,16 +32,14 @@
       data : function () {
          return {
             article : {
-               token : localStorage.getItem('token'),
                userId: localStorage.getItem('Id'),
-               userAdmin: localStorage.getItem('Admin'),
                content : '',
                imageUrl : ''
             },
 
-            picturePreview : "",
+            errorArticle : false,
 
-            errorArticle : false
+            picturePreview : "",
          }
       },
 
@@ -73,10 +70,7 @@
                      formData.append('userId', this.article.userId);
                      formData.append('imageUrl', this.article.imageUrl);
                
-                     axios.post ('http://localhost:3000/api/articles/', formData,
-                     {
-                        headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
-                     })
+                     axios.post ('http://localhost:3000/api/articles/', formData, {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                      .then(()=>{
                         console.log('réussite!!');
                         this.$emit('articleCree');
@@ -95,10 +89,7 @@
                      formData.append('content', this.article.content);
                      formData.append('imageUrl', this.article.imageUrl);
                
-                     axios.post ('http://localhost:3000/api/articles/', formData,
-                     {
-                        headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
-                     })
+                     axios.post ('http://localhost:3000/api/articles/', formData, {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                      .then(()=>{
                         console.log('réussite!!');
                         this.$emit('articleCree');
@@ -124,6 +115,7 @@
          onSelect(event) {
             this.article.imageUrl = event.target.files[0];    
             this.picturePreview = URL.createObjectURL(this.article.imageUrl);
+            console.log(event);
          },
       },
    }

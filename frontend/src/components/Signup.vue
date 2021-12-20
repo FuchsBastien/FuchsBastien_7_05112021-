@@ -1,17 +1,17 @@
 <template>
     <div class="container">
-        <form class="form-inline justify-content-center" @submit="checkForm" method="post" >
+        <form class="form-inline justify-content-center">
             <h1 class="mt-5">Inscription</h1>
 
             <div class="form-group">
-                <label for="Votre prénom" class="mb-2">Prénom</label>
-                <input class="form-control" v-model="user.firstname" type="text" id="Votre prénom" placeholder="Marc"  required/>
+                <label class="mb-1 mt-2" for="Votre prénom">Prénom</label>
+                <input class="form-control" v-model="user.firstname" type="text" id="Votre prénom" placeholder="Marc" required/>
                 <p v-if="errorFirstnameEmpty" class="mt-2 text-danger">Ce champ est obligatoire</p>
                 <p v-if="errorFirstnameRegex" class="mt-2 text-danger">Aucun chiffre ou symbole n'est autorisé</p>
             </div>
 
             <div class="form-group">
-                <label for="Votre nom" class="mb-1 mt-2">Nom</label>
+                <label class="mb-1 mt-2" for="Votre nom">Nom</label>
                 <input class="form-control" v-model="user.lastname" type="text" id="Votre nom" placeholder="Dupont" required/>
                 <p v-if="errorLastnameEmpty" class="mt-2 text-danger">Ce champ est obligatoire</p>
                 <p v-if="errorLastnameRegex" class="mt-2 text-danger">Aucun chiffre ou symbole n'est autorisé</p>
@@ -19,34 +19,34 @@
             </div>
 
             <div class="form-group">
-                <label  for="Votre adresse email" class="mb-1 mt-2">Adresse mail</label>
+                <label class="mb-1 mt-2" for="Votre adresse email">Adresse mail</label>
                 <input class="form-control" v-model="user.email" type="email" id="Votre adresse email" placeholder="dupontmarc@gmail.com" required/>
                 <p v-if="errorEmailEmpty" class="mt-2 text-danger">Ce champ est obligatoire</p>
                 <p v-if="errorEmailRegex" class="mt-2 text-danger">Email invalide, voici un exemple de format : votre.nom@domaine.fr </p>
             </div>
 
             <div class="form-group ">
-                <label for="Votre mot de passe" class="mb-1 mt-2">Mot de passe</label>
+                <label class="mb-1 mt-2" for="Votre mot de passe">Mot de passe</label>
                 <input class="form-control"  v-model="user.password" type="password" id="Votre mot de passe" placeholder="Au moins 6 caractères dont un chiffre" autocomplete="on" required/>
                 <p v-if="errorPasswordEmpty" class="mt-2 text-danger">Ce champ est obligatoire</p>
                 <p v-if="errorPasswordRegex" class="mt-2 text-danger">Le mot de passe doit comporter au moins 6 caractères dont au moins un chiffre</p>
             </div>
 
             <div class="form-group "> 
-                <label class="mb-1 mt-2">Avatar</label>
+                <label class="mb-1 mt-2" for="Votre avatar">Avatar</label>
                 <br>
-                <input  aria-label="envoi image" accept="image/*" type="file" @change="onSelect" class="form-control-file" id="image">
+                <input class="form-control-file" aria-label="envoi image" accept="image/*" type="file" id="Votre avatar" @change="onSelect">
+                <p v-if="errorImageUrlEmpty" class="mt-2 text-danger">Veuillez choisir un avatar</p>
 
                 <div class="preview_picture">
                    <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
                 </div>
-                <p v-if="errorImageUrlEmpty" class="mt-2 text-danger">Veuillez choisir un avatar</p>
             </div>
 
             <button class="submit btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">S'inscrire</button>
-
-            <p class="createAcc text-right mt-3">Déjà inscrit ? <router-link class="createAccount" v-bind:to="`/`">Se connecter</router-link></p>
         </form>
+
+        <p class="text-right mt-3">Déjà inscrit ? <router-link class="createAccount" v-bind:to="`/`">Se connecter</router-link></p>
     </div>
 </template>
 
@@ -67,8 +67,6 @@
                     imageUrl: ''
                 },
 
-                picturePreview : "",
-
                 errorFirstnameEmpty: false,
                 errorLastnameEmpty: false,
                 errorEmailEmpty: false,
@@ -78,7 +76,9 @@
                 errorFirstnameRegex: false,
                 errorLastnameRegex: false,
                 errorPasswordRegex: false,
-                errorEmailRegex: false
+                errorEmailRegex: false,
+
+                picturePreview : "",
             }   
         },
 
@@ -120,7 +120,7 @@
             },
 
             emailValidation() {
-                 //const regexEmail = /^[A-Z-a-z\s]{3,40}$/;
+                const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/;
 
                 if (this.user.email == '') {
                     this.errorEmailEmpty = true
@@ -129,12 +129,12 @@
                     this.errorEmailEmpty = false
                 )
 
-               /* if (this.user.email && !regexEmail.test(this.user.email)){
+                if (this.user.email && !regexEmail.test(this.user.email)){
                     this.errorEmailRegex = true
                 } 
                 else (
                     this.errorEmailRegex = false
-                )*/
+                )
             },
 
             passwordValidation() {
@@ -189,9 +189,9 @@
             },
 
             onSelect(event) {
-            this.user.imageUrl = event.target.files[0];
-            this.picturePreview = URL.createObjectURL(this.user.imageUrl);
-            console.log(event);
+                this.user.imageUrl = event.target.files[0];
+                this.picturePreview = URL.createObjectURL(this.user.imageUrl);
+                console.log(event);
             },
         },
     }
@@ -233,7 +233,7 @@
     @media screen and (max-width: 640px) {
         input.form-control {
             width: 100%;
-      }
+        }
     }
 
     input.form-control:valid {

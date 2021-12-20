@@ -2,23 +2,24 @@
     <div class="container">   
         <form>
             <h1 class="mt-5">Connexion</h1>
+            
             <div class="form-group col-md mb-2">
-                <label for="email" class="mb-1">Adresse email</label>
+                <label class="mb-1" for="email">Adresse email</label>
                 <input class="form-control form-control-lg" v-model="user.email" type="email" id="email" title="Entrez votre adresse email" required/>
                 <p v-if="errorEmail" class="mt-2 text-danger">Ce champ est obligatoire</p>  
             </div>
 
             <div class="form-group col-md">
-                <label for="mot de passe" class="mb-1">Mot de passe</label>
+                <label class="mb-1" for="mot de passe">Mot de passe</label>
                 <input class="form-control form-control-lg" v-model="user.password" type="password" id="mot de passe" title="Entrez votre mot de passe" autocomplete="on" required/>
                 <p v-if="errorPassword" class="mt-2 text-danger">Ce champ est obligatoire</p>
             </div>
 
-            <button v-on:click.prevent="sendForm" type="submit" class="btn btn-info btn-lg btn-block mt-3">Se connecter</button>
+            <button class="btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">Se connecter</button>
         </form>
         <br>
 
-        <router-link class="createAccount" v-bind:to="`/contact`">Mot de passe oublié?</router-link>
+        <router-link class="PasswordForgot" v-bind:to="`/contact`">Mot de passe oublié?</router-link>
       
         <p class="text-right mt-3">Vous n'avez pas de compte ? <router-link class="createAccount" v-bind:to="`/signup`">Créez-en un</router-link></p>   
     </div>
@@ -37,6 +38,7 @@
                     email: '',
                     password: '',
                 },
+                
                 errorEmail: false,
 
                 errorPassword: false,

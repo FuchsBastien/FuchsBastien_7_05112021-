@@ -4,7 +4,7 @@ import PasswordForgot from '../components/PasswordForgot.vue'
 import SignupSuccess from '../components/SignupSuccess.vue'
 import Login from '../components/Login.vue'
 import AllArticles from '../views/AllArticles.vue'
-import OneArticle from '../components/OneArticle.vue'
+import CreateComment from '../components/CreateComment.vue'
 import Account from '../components/Account.vue'
 import AccountDelete from '../components/AccountDelete.vue'
 import AllAccounts from '../components/AllAccounts.vue'
@@ -42,8 +42,8 @@ const routes = [
 
   {
     path: '/articles/:id',
-    name: 'oneArticle',
-    component: OneArticle
+    name: 'createComment',
+    component: CreateComment
   },
 
   {
