@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user" id="nav" >
+    <div v-if="userToken" id="nav" >
         <img class = img_header_online src='http://localhost:3000/images/logo-online.ico' alt="logo-online">
         <router-link to="/articles">Tous les Articles</router-link> 
         <router-link to="/account">Mon compte</router-link> 
@@ -18,14 +18,14 @@
 
         data : function () {
             return {
-                user: localStorage.getItem('Id'),
+                userToken: localStorage.getItem('token'),
             }
         }, 
 
         methods : { 
             LocalstorageClear () {
                 localStorage.clear();
-                this.user= null; 
+                this.userToken= null; 
                 this.$router.push('/');   
             },
         }

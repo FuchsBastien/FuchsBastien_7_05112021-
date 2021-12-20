@@ -37,14 +37,13 @@
                <div v-if="idArticleUpdate == article.id"> 
                   <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "Modifier votre contenu..."></textarea>
                   <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
-                  <div class="preview_picture">
+                  <br>
                   <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
-               </div>
                
                   <p v-if="errorUpdateArticle" class="mt-2 text-danger"> Veuillez modifier le contenu ou l'image</p>
                   <br><br>
                   <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
-                  <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null)">
+                  <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null), clearData()">
                </div>
 
                <div v-else-if="userAdmin == 'true'">
@@ -273,7 +272,7 @@
       height: 40px;
       position: fixed;
       bottom: 20px;
-      right: 20px;
+      right: 50px;
       opacity: 1;
       z-index: 500;
       transition: all .3s ease-in-out;

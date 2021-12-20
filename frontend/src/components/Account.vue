@@ -38,7 +38,6 @@
     <h1>Accès non autorisé</h1>
     <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
   </div>
-  
 </template>
 
 
@@ -107,8 +106,14 @@
       userDelete () {
         axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
           .then(() => {
+            this.LocalstorageClear ()
             this.$router.push('/delete');    
           })
+      },
+
+      LocalstorageClear () {
+        localStorage.clear();
+        this.userToken= null;    
       },
 
       setIdUserToUpdate(userArray_id) {
