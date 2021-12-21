@@ -179,13 +179,16 @@
                 })
                 .catch((err)=>{
                     console.log(err.response.data);
-                    window.alert(err.response.data);
                     this.firstnameValidation()
                     this.lastnameValidation()
                     this.emailValidation()
                     this.passwordValidation()
                     this.imageUrl()
                 })
+            },
+
+            fichier () {
+            
             },
 
             onSelect(event) {

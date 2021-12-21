@@ -63,6 +63,7 @@
                         localStorage.setItem('Admin', res.data.userAdmin)
                         localStorage.setItem('Firstname', res.data.userFirstname)
                         localStorage.setItem('ImageUrl', res.data.userImageUrl)
+                        this.$emit('connexion');
                         this.$router.push('/articles')
                         this.errorEmail = false
                         this.errorPassword = false

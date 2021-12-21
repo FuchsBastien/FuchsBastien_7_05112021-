@@ -14,17 +14,27 @@
 
       <div class="comment" v-bind:key = "comments" v-for= "comments in commentsArray">
          <div class="comment_avatar">
-            <router-link v-bind:to ="`/accounts/${comments.User.id}`"> 
+            <div v-if="userAdmin == 'true'">
+               <router-link v-bind:to ="`/accounts/${comments.User.id}`"> 
+                  <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="comments.User.imageUrl" alt="">
+               </router-link>
+            </div>   
+            <div v-else>
                <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="comments.User.imageUrl" alt="">
-            </router-link>
+            </div>
          </div>
 
          <div class = "comment_content">
             <div class="comment_bulle">
-               <router-link v-bind:to ="`/accounts/${comments.User.id}`"> 
+               <div v-if="userAdmin == 'true'">
+                  <router-link v-bind:to ="`/accounts/${comments.User.id}`"> 
+                     <p class="comment_user" :style="{cursor: 'pointer'}">{{comments.User.firstname}} {{comments.User.lastname}}</p>
+                  </router-link>
+               </div>
+               <div v-else>
                   <p class="comment_user">{{comments.User.firstname}} {{comments.User.lastname}}</p>
-               </router-link>
-            
+               </div>
+              
                <p>{{comments.content}}</p>
             </div>
             
@@ -190,11 +200,7 @@
    }
 
    .comment_user  {
-      font-weight : bold;    
-   }
-
-   .comment_user:hover {
-      color: orangered;
+      font-weight : bold; 
    }
 
    .comment_date {

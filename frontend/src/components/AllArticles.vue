@@ -15,18 +15,16 @@
                         <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
                      </router-link>
                   </div>
-                  
                   <div v-else>
                         <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
                   </div>
 
                   <div v-if="userAdmin == 'true'">
                      <router-link v-bind:to ="`/accounts/${article.User.id}`"> 
-                        <p class= "name" :style="{color: 'black'}">{{article.User.firstname}} {{article.User.lastname}}</p>
+                        <p class= "name" :style="{cursor: 'pointer'}">{{article.User.firstname}} {{article.User.lastname}}</p>
                         <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                      </router-link>
                   </div>
-
                   <div v-else>
                         <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
                         <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
@@ -69,7 +67,7 @@
             
                <a class="comments" v-on:click="setToUpdate(article.id)">Commenter</a>
                <br>
-                 <!--{{idArticleStorage}}-->
+                 
                <div v-if="idArticleStorage == article.id">
                   <CreateComment v-bind:idArticleTransfert = idArticleStorage ></CreateComment>
                </div>
@@ -334,7 +332,6 @@
    .name {
       font-weight : bold;  
       margin :0;
-      color: orangered;
    }
 
    .article_content {
@@ -346,9 +343,8 @@
       color: #575757;
    }
 
-   .article_avatar a:hover, .name:hover {
+   .article_avatar a:hover {
       color: orangered;
-     
     }
 
    .comments:hover {

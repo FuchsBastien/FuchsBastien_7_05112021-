@@ -1,8 +1,7 @@
 <template>
-  <div id="app">
-    <Header></Header>
-    {{headerKey}}
-    <router-view/>
+  <div id="app" >
+    <Header :key="headerKey"></Header>
+    <router-view v-on:connexion="forceRerender()"></router-view>
     <Footer></Footer>
   </div>
 </template>
@@ -15,9 +14,9 @@
   export default {
     name:'App',
 
-    data : function () {
+    data () {
       return {
-        headerKey: 0
+        headerKey: 0,
       }
     },
 
