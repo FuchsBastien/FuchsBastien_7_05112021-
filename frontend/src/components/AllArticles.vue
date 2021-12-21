@@ -10,17 +10,26 @@
          <div class="articles_frame">
             <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
                <div class ="article_avatar">
-                  <div>
+                  <div v-if="userAdmin == 'true'">
                      <router-link v-bind:to ="`/accounts/${article.User.id}`">
                         <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
                      </router-link>
                   </div>
+                  
+                  <div v-else>
+                        <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
+                  </div>
 
-                  <div>
+                  <div v-if="userAdmin == 'true'">
                      <router-link v-bind:to ="`/accounts/${article.User.id}`"> 
                         <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
                         <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                      </router-link>
+                  </div>
+
+                  <div v-else>
+                        <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
+                        <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
                   </div>
                </div>
               
