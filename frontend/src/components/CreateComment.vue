@@ -8,6 +8,10 @@
       </div>
       <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
 
+      <h1 v-if= "commentsArray.length == 0"> Aucun commentaire !</h1>
+      <h1 v-else-if= "commentsArray.length == 1"> {{commentsArray.length}} commentaire</h1>
+      <h1 v-else>{{commentsArray.length}} commentaires</h1>
+
       <div class="comment" v-bind:key = "comments" v-for= "comments in commentsArray">
          <div class="comment_avatar">
             <router-link v-bind:to ="`/accounts/${comments.User.id}`"> 
@@ -206,8 +210,9 @@
    h1 {
       text-align: center;
       margin: 20px 0px 20px 0px;
-      color: pink;
       padding: 20px;
+      font-size : 25px;
+      color: orangered;
    }
 
    p {

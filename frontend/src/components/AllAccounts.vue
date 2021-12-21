@@ -2,11 +2,12 @@
   <div v-if="userToken" class="account">
     <div class = "account_avatar">
       <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" alt="">
+
       <h1>{{userArray.firstname}} {{userArray.lastname}}</h1> 
-    </div>
-    
-    <div class="account_delete" v-if="userAdmin == 'true'">
-      <button class ="btn-danger mt-2 rounded" v-on:click ="userDelete">Supprimer</button>
+
+      <div class="account_delete" v-if="userAdmin == 'true'">
+        <button class ="btn-danger mt-1 mb-2 rounded" v-on:click ="userDelete">Supprimer</button>
+      </div>
     </div>
   </div> 
 
@@ -15,7 +16,6 @@
     <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
   </div>
 </template>
-
 
 
 <script>
@@ -91,6 +91,12 @@
     background-color: white;
     border-radius: 15px;
   }
+
+   @media screen and (max-width: 640px) {
+      .account_avatar {
+         width: 90%;
+      }
+   }
 
   .iconUser.rounded-circle.mb-2.me-2 {
     border: solid 1px gray;
