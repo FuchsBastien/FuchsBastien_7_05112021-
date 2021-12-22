@@ -153,7 +153,10 @@
 
             else {
                if (this.updatearticle.imageUrl == '') {
-                   axios.put("http://localhost:3000/api/articles/"+id, this.updatearticle, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                  const formData = new FormData()
+                  formData.append('content', this.updatearticle.content);
+
+                  axios.put("http://localhost:3000/api/articles/"+id, formData, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                      .then(() => {
                         console.log('article modifié');
                         this.loadArticles();
