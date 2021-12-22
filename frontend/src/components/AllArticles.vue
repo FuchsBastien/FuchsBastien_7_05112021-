@@ -367,12 +367,17 @@
       border-radius: 15px;
    }
 
-   
    .picture {
       width: 400px;
       height : 200px;
       object-fit: contain;
       margin: 20px 0px 20px 0px;
+   }
+
+    @media screen and (min-width : 320px) and (max-width : 414px) {
+      .picture {
+         width: 200px;
+      }
    }
 
      @media screen and (max-width: 640px) {
@@ -429,9 +434,23 @@
       margin: 20px 0px 20px 0px;
    }
 
-    @media screen and (max-width: 640px) {
+    @media screen and (min-width : 320px) and (max-width : 375px) {
+      .image_article {
+         width: 240px;
+         height : 160px max-content;
+      }
+   }
+
+       @media screen and (min-width : 376px) and (max-width : 414px) {
       .image_article {
          width: 300px;
+         height : 160px max-content;
+      }
+   }
+
+     @media screen and (min-width : 415px) and (max-width : 768px) {
+      .image_article {
+         width: 500px;
          height : 160px max-content;
       }
    }

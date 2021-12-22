@@ -171,8 +171,8 @@
                 const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/;
                 const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
-                if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == ''|| this.user.email == ''|| this.user.password == ''|| this.user.imageUrl == ''
-                || (this.user.firstname && !regexFirstnameLastname.test(this.user.firstname)) || (this.user.lastname && !regexFirstnameLastname.test(this.user.lastname)) ||
+                if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == ''|| this.user.email == ''|| this.user.password == ''|| this.user.imageUrl == ''||
+                (this.user.firstname && !regexFirstnameLastname.test(this.user.firstname)) || (this.user.lastname && !regexFirstnameLastname.test(this.user.lastname)) ||
                 (this.user.email && !regexEmail.test(this.user.email)) || (this.user.password && !regexPassword.test(this.user.password))) {
                     this.firstnameValidation()
                     this.lastnameValidation()
@@ -206,13 +206,13 @@
                }
             },
 
-            errorMessageSignup () {
+            /*errorMessageSignup () {
                 const errDiv = document.getElementById('err')
                 const message = document.createElement('p');
                 errDiv.appendChild(message);
                 message.className = "mt-2 text-danger";
                 message.textContent = "L'adresse mail existe déjà, veuillez en choisir une autre";
-            },
+            },*/
 
             onSelect(event) {
                 this.user.imageUrl = event.target.files[0];
