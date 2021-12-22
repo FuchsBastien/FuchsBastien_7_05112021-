@@ -22,7 +22,8 @@
                 <label class="mb-1 mt-2" for="Votre adresse email">Adresse mail</label>
                 <input class="form-control" v-model="user.email" type="email" id="Votre adresse email" placeholder="dupontmarc@gmail.com" required/>
                 <p v-if="errorEmailEmpty" class="mt-2 text-danger">Ce champ est obligatoire</p>
-                <p v-if="errorEmailRegex" class="mt-2 text-danger">Email invalide, voici un exemple de format : votre.nom@domaine.fr </p>
+                <p v-if="errorEmailRegex" class="mt-2 text-danger">Email invalide, voici un exemple de format : votre.nom@domaine.fr</p>
+                <div id="err"></div>
             </div>
 
             <div class="form-group ">
@@ -163,32 +164,54 @@
                     this.errorImageUrlEmpty = false
                 )
             },
-                
-            sendForm(){
-                const formData = new FormData()
-                formData.append('firstname', this.user.firstname);
-                formData.append('lastname', this.user.lastname);
-                formData.append('email', this.user.email);
-                formData.append('password', this.user.password);
-                formData.append('imageUrl', this.user.imageUrl);
 
-                axios.post("http://localhost:3000/api/auth/signup", formData)
-                .then(()=>{
-                    console.log("Le compte a été créé !")
-                    this.$router.push('/success');
-                })
-                .catch((err)=>{
-                    console.log(err.response.data);
+               
+            sendForm(){
+                const regexFirstnameLastname = /^[A-Z-a-z\s]{3,40}$/;
+                const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/;
+                const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+                if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == ''|| this.user.email == ''|| this.user.password == ''|| this.user.imageUrl == ''
+                || (this.user.firstname && !regexFirstnameLastname.test(this.user.firstname)) || (this.user.lastname && !regexFirstnameLastname.test(this.user.lastname)) ||
+                (this.user.email && !regexEmail.test(this.user.email)) || (this.user.password && !regexPassword.test(this.user.password))) {
                     this.firstnameValidation()
                     this.lastnameValidation()
                     this.emailValidation()
                     this.passwordValidation()
-                    this.imageUrl()
-                })
+                    this.imageUrl()   
+                } 
+                else {
+                    const formData = new FormData()
+                    formData.append('firstname', this.user.firstname);
+                    formData.append('lastname', this.user.lastname);
+                    formData.append('email', this.user.email);
+                    formData.append('password', this.user.password);
+                    formData.append('imageUrl', this.user.imageUrl);
+
+                    axios.post("http://localhost:3000/api/auth/signup", formData)
+                    .then(()=>{
+                        console.log("Le compte a été créé !")
+                        this.$router.push('/success');
+                    })
+                    .catch((err)=>{
+                        console.log(err.response.data);
+                        alert(err.response.data);
+                        //this.errorMessageSignup ()
+                        this.firstnameValidation()
+                        this.lastnameValidation()
+                        this.emailValidation()
+                        this.passwordValidation()
+                        this.imageUrl()   
+                    })
+               }
             },
 
-            fichier () {
-            
+            errorMessageSignup () {
+                const errDiv = document.getElementById('err')
+                const message = document.createElement('p');
+                errDiv.appendChild(message);
+                message.className = "mt-2 text-danger";
+                message.textContent = "L'adresse mail existe déjà, veuillez en choisir une autre";
             },
 
             onSelect(event) {
