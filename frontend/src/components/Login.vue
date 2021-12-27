@@ -80,16 +80,12 @@
                         localStorage.setItem('ImageUrl', res.data.userImageUrl)
                         this.$emit('connexion');
                         this.$router.push('/articles')
-                       // this.errorEmail = false
-                       // this.errorPassword = false
                     })
                     .catch((err) =>{ 
                         console.log(err.response.data);
                         window.alert(err.response.data);
                         this.emailValidation()
                         this.passwordValidation()
-                       // this.errorEmail = false
-                       // this.errorPassword = false
                     })
                 }  
                 

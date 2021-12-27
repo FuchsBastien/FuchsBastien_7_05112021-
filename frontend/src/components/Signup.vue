@@ -196,7 +196,6 @@
                     .catch((err)=>{
                         console.log(err.response.data);
                         alert(err.response.data);
-                        //this.errorMessageSignup ()
                         this.firstnameValidation()
                         this.lastnameValidation()
                         this.emailValidation()
@@ -205,14 +204,6 @@
                     })
                }
             },
-
-            /*errorMessageSignup () {
-                const errDiv = document.getElementById('err')
-                const message = document.createElement('p');
-                errDiv.appendChild(message);
-                message.className = "mt-2 text-danger";
-                message.textContent = "L'adresse mail existe déjà, veuillez en choisir une autre";
-            },*/
 
             onSelect(event) {
                 this.user.imageUrl = event.target.files[0];

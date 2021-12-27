@@ -4,7 +4,6 @@
          <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="userImageUrl" alt="">
          <input class= "form-control" v-model.trim= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
          <br>
-         <!--{{comment}}-->
       </div>
 
       <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
@@ -48,7 +47,6 @@
                <button class="btn-danger ms-2 rounded" v-on:click="deleteComment(comments.id)">Supprimer</button>
             </div>
          </div>    
-         <!--{{comments.id}}-->
       </div>   
    </div>  
 </template>

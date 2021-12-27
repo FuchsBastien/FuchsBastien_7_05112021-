@@ -18,7 +18,6 @@
 
          <button class ="btn btn-primary mt-4 mb-4" v-on:click.prevent="postArticle">Partager</button>
       </form>
-      <!--{{article}}-->
    </div>  
 </template>
 

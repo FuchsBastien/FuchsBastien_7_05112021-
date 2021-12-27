@@ -1,6 +1,5 @@
 <template>
   <div v-if="userToken" class="account"> 
-      <!--{{userArray}}-->
     <div class= "account_frame">
       <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="userArray.imageUrl" v-bind:alt="userArray.firstname">
 

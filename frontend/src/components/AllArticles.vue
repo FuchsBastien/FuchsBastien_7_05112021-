@@ -62,7 +62,6 @@
                   <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
                   <br>
                </div>
-                 <!--{{article.userId}}{{userId}}-->
                <br>
             
                <a class="comments" v-on:click="setToUpdate(article.id)">Commenter</a>
