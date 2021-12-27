@@ -46,13 +46,28 @@
         },
 
         methods: {
-            sendForm(){
+             emailValidation() {
                 if (this.user.email == '') {
                     this.errorEmail = true
                 } 
+                else (
+                    this.errorEmail = false
+                )
+            },
 
+            passwordValidation() {
                 if (this.user.password == '') {
                     this.errorPassword = true
+                } 
+                else (
+                    this.errorPassword = false
+                )
+            },
+
+            sendForm(){
+                if (this.user.email == '' || this.user.password == ''){
+                    this.emailValidation()
+                    this.passwordValidation()
                 } 
 
                 else {
@@ -65,14 +80,14 @@
                         localStorage.setItem('ImageUrl', res.data.userImageUrl)
                         this.$emit('connexion');
                         this.$router.push('/articles')
-                        this.errorEmail = false
-                        this.errorPassword = false
+                       // this.errorEmail = false
+                       // this.errorPassword = false
                     })
                     .catch((err) =>{ 
                         console.log(err.response.data);
                         window.alert(err.response.data);
-                        this.errorEmail = false
-                        this.errorPassword = false
+                       // this.errorEmail = false
+                       // this.errorPassword = false
                     })
                 }  
                 
