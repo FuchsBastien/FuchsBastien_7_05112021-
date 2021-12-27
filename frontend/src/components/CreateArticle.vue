@@ -3,7 +3,7 @@
       <form> 
          <div class="form-group mt-3">
             <label for="content">Créer une publication</label>
-            <textarea class="form-control mt-4" v-model= "article.content" id="content" rows="3" placeholder="Quoi de neuf?" required></textarea>
+            <textarea class="form-control mt-4" v-model.trim= "article.content" id="content" rows="3" placeholder="Quoi de neuf?" required></textarea>
          </div>
 
          <div class="form-group mt-3">

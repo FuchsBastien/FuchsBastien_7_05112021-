@@ -2,7 +2,7 @@
    <div class ="article_detail">
       <div class="post_comment">
          <img class="iconUser rounded-circle mb-2 me-2" width="50" v-bind:src="userImageUrl" alt="">
-         <input class= "form-control" v-model= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
+         <input class= "form-control" v-model.trim= "comment.content" @keyup.enter="postComment()" type="text" id="content" placeholder="Ecrivez un commentaire...">
          <br>
          <!--{{comment}}-->
       </div>

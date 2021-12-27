@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 exports.signup = (req, res, next) => {
    // éléments de la requète
    const regexFirstnameLastname = /^[A-Z-a-z\s]{3,40}$/;
-   const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/;
+   const regexEmail = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/g;
    const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
    const firstname = req.body.firstname;
    const lastname =  req.body.lastname;

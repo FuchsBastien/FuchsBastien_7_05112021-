@@ -121,7 +121,7 @@
             },
 
             emailValidation() {
-                const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/;
+                const regexEmail = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/g
 
                 if (this.user.email == '') {
                     this.errorEmailEmpty = true
@@ -130,7 +130,7 @@
                     this.errorEmailEmpty = false
                 )
 
-                if (this.user.email && !regexEmail.test(this.user.email)){
+                if (this.user.email && !regexEmail.test(this.user.email)) {
                     this.errorEmailRegex = true
                 } 
                 else (
@@ -148,7 +148,7 @@
                     this.errorPasswordEmpty = false
                 )
 
-                if (this.user.password && !regexPassword.test(this.user.password)){
+                if (this.user.password && !regexPassword.test(this.user.password)) {
                     this.errorPasswordRegex = true
                 } 
                 else (
@@ -168,7 +168,7 @@
                
             sendForm(){
                 const regexFirstnameLastname = /^[A-Z-a-z\s]{3,40}$/;
-                const regexEmail = /^(([^<>()[\].,;:s@"]+(.[^<>()[\].,;:s@"]+)*)|(".+"))@(([^<>()[\].,;:s@"]+.)+[^<>()[\].,;:s@"]{2,})$/;
+                const regexEmail = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/g;
                 const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
                 if (this.user.nom == '' || this.user.prenom == '' || this.user.email == ''|| this.user.password == ''|| this.user.email == ''|| this.user.password == ''|| this.user.imageUrl == ''||
