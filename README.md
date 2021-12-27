@@ -11,7 +11,7 @@ Telechargez et ouvrez Node.js.
 Tapez la commande suivante : "npm start". Puis lancez le serveur en tapant la commande : "nodemon server".
 Le serveur doit fonctionner sur "localhost" avec le port par défaut "3000".
 Vous trouverez un dump de la base de donnée Groupomnia à importer au format SQL ainsi qu'un tableaux des routes de l'API
-Veuillez modifier le fichier config.json en mettant votre mot de passe de connexion à la base de données
+Veuillez modifier le fichier .env en mettant votre mot de passe de connexion à la base de données 
 
 
 ## Groupomania - Frontend

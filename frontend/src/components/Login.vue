@@ -86,6 +86,8 @@
                     .catch((err) =>{ 
                         console.log(err.response.data);
                         window.alert(err.response.data);
+                        this.emailValidation()
+                        this.passwordValidation()
                        // this.errorEmail = false
                        // this.errorPassword = false
                     })
