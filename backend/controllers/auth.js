@@ -68,7 +68,7 @@ exports.login = (req, res, next) => {
       .then(user => {
         // Si on ne trouve pas l'utilisateur
         if (!user) {
-          return res.status(401).json('Utilisateur non trouvé !');
+          return res.status(401).json('Identifiant incorrect!');
         }
         // On compare le mot de passe de la requête avec celui de la base de données
         bcrypt.compare(req.body.password, user.password)
@@ -77,24 +77,31 @@ exports.login = (req, res, next) => {
             if (!valid) {
               return res.status(400).json('Mot de passe incorrect !');
             }
-            //si même mot de passe
-            res.status(200).json({
-              userId: user.id,
-              userAdmin: user.isAdmin,
-              userFirstname : user.firstname,
-              userImageUrl : user.imageUrl,
-              // Création d'un token pour sécuriser le compte de l'utilisateur
-              token: jwt.sign(
-                { 
-                  userId: user.id,
-                  userAdmin : user.isAdmin,
-                  userFirstname : user.firstname,
-                  userImageUrl : user.imageUrl
-                },
-                'RANDOM_TOKEN_SECRET',
-                { expiresIn: '1h' }
-              )
-            });
+            //si même mot de passe et compte actif
+            if (user.activate == true) {
+              res.status(200).json({
+                userId: user.id,
+                userAdmin: user.isAdmin,
+                userFirstname : user.firstname,
+                userImageUrl : user.imageUrl,
+                userActivate : user.activate,
+                // Création d'un token pour sécuriser le compte de l'utilisateur
+                token: jwt.sign(
+                  { 
+                    userId: user.id,
+                    userAdmin : user.isAdmin,
+                    userFirstname : user.firstname,
+                    userImageUrl : user.imageUrl,
+                    userActivate : user.activate,
+                  },
+                  'RANDOM_TOKEN_SECRET',
+                  { expiresIn: '1h' }
+                )
+              });
+              //si même mot de passe et compte inactif
+            } else {
+              return res.status(400).json("Votre compte a été suspendu temporairement pour non respect d'utilisation du site");
+            }
           })
           .catch(error => res.status(500).json({ error }));
       })

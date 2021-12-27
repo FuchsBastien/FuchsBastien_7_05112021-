@@ -78,6 +78,7 @@
                         localStorage.setItem('Admin', res.data.userAdmin)
                         localStorage.setItem('Firstname', res.data.userFirstname)
                         localStorage.setItem('ImageUrl', res.data.userImageUrl)
+                        localStorage.setItem('Activate', res.data.userActivate)
                         this.$emit('connexion');
                         this.$router.push('/articles')
                     })

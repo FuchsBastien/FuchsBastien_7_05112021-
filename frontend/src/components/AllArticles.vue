@@ -113,6 +113,7 @@
             userAdmin: localStorage.getItem('Admin'),
             userFirstname: localStorage.getItem('Firstname'),
             userLastname: localStorage.getItem('Lastname'),
+            userActivate: localStorage.getItem('Activate'),
 
             picturePreview : "",
 

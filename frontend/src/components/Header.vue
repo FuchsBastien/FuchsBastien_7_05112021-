@@ -1,5 +1,9 @@
 <template>
-    <div v-if="userToken" id="nav" >
+    <div v-if="userActivate == 'false'" id="nav">
+      <img class = img_header_offline src='http://localhost:3000/images/logo-offline.png' alt="logo-offline">
+   </div>
+
+    <div v-else-if="userToken" id="nav" >
         <img class = img_header_online src='http://localhost:3000/images/logo-online.ico' alt="logo-online">
         <router-link to="/articles">Tous les Articles</router-link> 
         <router-link to="/account">Mon compte</router-link> 
@@ -19,6 +23,7 @@
         data : function () {
             return {
                 userToken: localStorage.getItem('token'),
+                userActivate: localStorage.getItem('Activate'),
             }
         }, 
 

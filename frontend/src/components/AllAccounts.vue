@@ -5,8 +5,16 @@
 
       <h1>{{userArray.firstname}} {{userArray.lastname}}</h1> 
 
+      <h2 v-if="userArray.activate == true" class="messageActive">Ce compte est actif</h2>
+      <h2 v-if="userArray.activate == false" class="messageInactive">Ce compte est inactif</h2>
+      
+      <div class="account_update_statut" v-if="userAdmin == 'true'">
+        <button class ="btn-danger m-4 rounded" v-on:click ="storageFalseActivate(),userUpdateStatut()">Bloquer</button>
+        <button class ="btn-success m-4 rounded" v-on:click ="storageTrueActivate(),userUpdateStatut()">Débloquer</button>
+      </div>
+
       <div class="account_delete" v-if="userAdmin == 'true'">
-        <button class ="btn-danger mt-1 mb-2 rounded" v-on:click ="userDelete">Supprimer</button>
+        <button class ="btn-danger mt-1 mb-5 rounded" v-on:click ="userDelete">Supprimer</button>
       </div>
     </div>
   </div> 
@@ -27,12 +35,16 @@
     data : function () {
       return {
         userToken: localStorage.getItem('token'),
-        userId: localStorage.getItem('Id'),
+        //userId: localStorage.getItem('Id'),
         userAdmin: localStorage.getItem('Admin'),
 
         Id : this.$route.params.id,
 
         userArray : [],
+
+        userUpdate : {
+          activate : ''
+        },
       } 
     },
 
@@ -47,12 +59,37 @@
             console.log(user);
             this.userArray = user.data
           })
-        },
+          .catch((error) => {
+            console.log(error.message);
+          })
+      },
+
+      userUpdateStatut(){
+        axios.put (`http://localhost:3000/api/users/${this.Id}`,this.userUpdate)
+          .then(() => {
+            console.log('statut du compte mis à jour');
+            this.userLoad();
+          })
+          .catch((error) => {
+            console.log(error.message);
+          })
+      },  
+
+      storageFalseActivate(){
+        this.userUpdate.activate = 'false';
+      },
+
+      storageTrueActivate(){
+        this.userUpdate.activate = 'true';
+      },
   
       userDelete () {
         axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
           .then(() => {
             this.$router.push('/delete');    
+          })
+          .catch((error) => {
+            console.log(error.message);
           })
         },
     },
@@ -64,6 +101,14 @@
   .account {
     background-color: #dfe3ee;
     padding-top : 150px;
+  }
+
+  .messageActive {
+    color: green;
+  }
+
+    .messageInactive {
+    color: red;
   }
 
   .no-connect {
