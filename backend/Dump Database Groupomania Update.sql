@@ -32,7 +32,7 @@ CREATE TABLE `articles` (
   PRIMARY KEY (`id`),
   KEY `fk_articles_users_idx` (`userId`),
   CONSTRAINT `fk_articles_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=727 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=783 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `articles` (
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
-INSERT INTO `articles` VALUES (646,101,'Bonjour à tous! J\'ai trouvé cet article très intéressant sur le bien être au travail j\'espère qu\'il vous plaira ! https://blog.monportailrh.com/bien-etre-au-travail','http://localhost:3000/images/avec-la-propagation-du-variant-delta-les-adeptes-du-teletravail-sont-confortes-dans-l-idee-que-ce-mode-de-vie-s-impose-desormais-naturellement_6318986.jpg1639749249945.jpg','2021-12-17 13:48:38','2021-12-17 13:54:09'),(649,97,NULL,'http://localhost:3000/images/870x489_vacances.jpg1639749777384.jpg','2021-12-17 14:02:57','2021-12-17 14:02:57'),(652,102,'Bonjour à tous! Je cherche à déménager en région Parisienne. Des infos sur les postes à pourvoir dans la région?','','2021-12-17 14:15:30','2021-12-17 14:15:30'),(653,82,'Je vous souhaite la bienvenue à tous sur le réseau social de Groupomania! Ceci est un espace d\'échange entre collègues dans le respect et la bonne humeur. Je compte sur vous! A très vite !','','2021-12-17 14:44:36','2021-12-17 14:44:36');
+INSERT INTO `articles` VALUES (649,97,NULL,'http://localhost:3000/images/870x489_vacances.jpg1639749777384.jpg','2021-12-17 14:02:57','2021-12-17 14:02:57'),(652,102,'Bonjour à tous! Je cherche à déménager en région Parisienne. Des infos sur les postes à pourvoir dans la région?','','2021-12-17 14:15:30','2021-12-17 14:15:30'),(653,82,'Je vous souhaite la bienvenue à tous sur le réseau social de Groupomania! Ceci est un espace d\'échange entre collègues dans le respect et la bonne humeur. Je compte sur vous! A très vite !','','2021-12-17 14:44:36','2021-12-17 14:44:36'),(782,151,'Bonjour à tous! J\\\'ai trouvé cet article très intéressant sur le bien être au travail j\\\'espère qu\'\'il vous plaira ! https://blog.monportailrh.com/bien-etre-au-travail\'','http://localhost:3000/images/avec-la-propagation-du-variant-delta-les-adeptes-du-teletravail-sont-confortes-dans-l-idee-que-ce-mode-de-vie-s-impose-desormais-naturellement_6318986.jpg1639749249945.jpg1640642872418.jpg','2021-12-27 22:03:57','2021-12-27 22:07:52');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `comments` (
   KEY `fk_comments_users1_idx` (`userId`),
   CONSTRAINT `fk_comments_articles1` FOREIGN KEY (`articleId`) REFERENCES `articles` (`id`),
   CONSTRAINT `fk_comments_users1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=328 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=340 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (298,649,102,'Profites bien!','2021-12-17 14:27:51','2021-12-17 14:27:51'),(300,649,97,'Merci!','2021-12-17 14:29:05','2021-12-17 14:29:05'),(303,652,82,'Bonne chance dans tes recherches !','2021-12-17 14:46:11','2021-12-17 14:46:11');
+INSERT INTO `comments` VALUES (298,649,102,'Profites bien!','2021-12-17 14:27:51','2021-12-17 14:27:51'),(300,649,97,'Merci!','2021-12-17 14:29:05','2021-12-17 14:29:05'),(303,652,82,'Bonne chance dans tes recherches !','2021-12-17 14:46:11','2021-12-17 14:46:11'),(339,782,97,'très interessant!','2021-12-27 22:04:24','2021-12-27 22:04:24');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,9 +94,10 @@ CREATE TABLE `users` (
   `isAdmin` tinyint NOT NULL DEFAULT '0',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
+  `activate` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=152 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +106,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (82,'Admin','1','admin@gmail.com','$2b$10$dyf6zUzWoYDIki040Kuyk.XdlBgmyp0/M9vlYl08xAChnArfmSawi','http://localhost:3000/images/360_F_7324855_mx4CEBWTr81XLOrlQccCROtP2uNR7xbk.jpg1638871505887.jpg',1,'2021-12-07 10:05:05','2021-12-07 15:09:40'),(97,'Virginie','Bernard','boutilliervirginie@gmail.com','$2b$10$/5B18i4XVLCwL7Pjw.PjVeF2D4aKQ5jDOglgET53OwRN0FlXzUWOO','http://localhost:3000/images/x.jpg1639488417417.jpg',0,'2021-12-14 13:26:57','2021-12-17 14:05:17'),(101,'Bastien','FUCHS','bastienfuchs@gmail.com','$2b$10$UYrX.C8zoHz.5K2e5D.vLu9YHeRqGPwyZyC8V.Ycvh88Wtb9LK3wq','http://localhost:3000/images/c9cc594e44dfda2fde77c83b4fdee210.png1639742522854.png',0,'2021-12-17 12:02:02','2021-12-17 12:02:02'),(102,'Tony','Top','tonytop@gmail.com','$2b$10$fRW8HoZwEudwxMD0iAiDbO4gMPNqP0zTpXfkwGPiB8ML8hIws0CC.','http://localhost:3000/images/sticker-hublot-mario.jpg1639750009462.jpg',0,'2021-12-17 14:06:49','2021-12-17 14:06:49');
+INSERT INTO `users` VALUES (82,'admin','1','admin@gmail.com','$2b$10$dyf6zUzWoYDIki040Kuyk.XdlBgmyp0/M9vlYl08xAChnArfmSawi','http://localhost:3000/images/360_F_7324855_mx4CEBWTr81XLOrlQccCROtP2uNR7xbk.jpg1638871505887.jpg',1,'2021-12-07 10:05:05','2021-12-27 20:46:16',1),(97,'Virginie','Bernard','boutilliervirginie@gmail.com','$2b$10$/5B18i4XVLCwL7Pjw.PjVeF2D4aKQ5jDOglgET53OwRN0FlXzUWOO','http://localhost:3000/images/x.jpg1639488417417.jpg',0,'2021-12-14 13:26:57','2021-12-17 14:05:17',1),(102,'Tony','Top','tonytop@gmail.com','$2b$10$fRW8HoZwEudwxMD0iAiDbO4gMPNqP0zTpXfkwGPiB8ML8hIws0CC.','http://localhost:3000/images/sticker-hublot-mario.jpg1639750009462.jpg',0,'2021-12-17 14:06:49','2021-12-27 21:35:27',0),(151,'Bastien','FUCHS','bastienfuchs@gmail.com','$2b$10$rnAPm6Ice4nv9ug7SVe5ju1.YN38Pdd5ASiLiaY4LunQu00WixuC6','http://localhost:3000/images/c9cc594e44dfda2fde77c83b4fdee210.png1639742522854.png1640642445715.png',0,'2021-12-27 22:00:45','2021-12-27 22:00:45',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -118,4 +119,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-22 16:45:43
+-- Dump completed on 2021-12-27 23:11:53
