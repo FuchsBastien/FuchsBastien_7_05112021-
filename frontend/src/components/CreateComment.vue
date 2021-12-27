@@ -6,8 +6,8 @@
          <br>
          <!--{{comment}}-->
       </div>
-      <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
 
+      <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
       <h1 v-if= "commentsArray.length == 0"> Aucun commentaire !</h1>
       <h1 v-else-if= "commentsArray.length == 1"> {{commentsArray.length}} commentaire</h1>
       <h1 v-else>{{commentsArray.length}} commentaires</h1>

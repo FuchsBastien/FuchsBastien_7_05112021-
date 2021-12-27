@@ -106,7 +106,8 @@
       userDelete () {
         axios.delete (`http://localhost:3000/api/users/${this.Id}`) 
           .then(() => {
-            this.LocalstorageClear ()
+            this.LocalstorageClear ();
+            this.$emit('connexion');
             this.$router.push('/delete');    
           })
       },
