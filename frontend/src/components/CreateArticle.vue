@@ -3,7 +3,8 @@
       <form> 
          <div class="form-group mt-3">
             <label for="content">Créer une publication</label>
-            <textarea class="form-control mt-4" v-model.trim= "article.content" id="content" rows="3" placeholder="Quoi de neuf?" required></textarea>
+            <!--v-on:keyup = évènement click de la touche enter-->
+            <textarea class="form-control mt-4" v-model.trim= "article.content" v-on:keyup.enter="postArticle" id="content" rows="3" placeholder="Quoi de neuf?" required></textarea>
          </div>
 
          <div class="form-group mt-3">
@@ -53,6 +54,7 @@
                   axios.post ('http://localhost:3000/api/articles/', this.article, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                   .then(()=>{
                   console.log('réussite!!');
+                  //crée un lien avec le composant allArticle pour faire une action
                   this.$emit('articleCree');
                   this.clearData();
                   this.errorArticle = false
@@ -104,7 +106,8 @@
                } 
            }
          },
-         
+
+         //vide les valeurs de data
          clearData() {
             this.article.content = '';
             this.article.imageUrl = '';

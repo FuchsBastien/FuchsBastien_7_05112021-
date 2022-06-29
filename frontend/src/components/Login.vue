@@ -5,7 +5,7 @@
             
             <div class="form-group col-md mb-2">
                 <label class="mb-1" for="email">Adresse email</label>
-                <input class="form-control form-control-lg" v-model="user.email" type="email" id="email" title="Entrez votre adresse email" required/>
+                <input class="form-control form-control-lg" v-model= "user.email" type="email" id="email" title="Entrez votre adresse email" required/>
                 <p v-if="errorEmail" class="mt-2 text-danger">Ce champ est obligatoire</p>  
             </div>
 
@@ -40,7 +40,6 @@
                 },
                 
                 errorEmail: false,
-
                 errorPassword: false,
             }
         },

@@ -3,7 +3,7 @@
         <img class = img_header_online src='http://localhost:3000/images/logo-online.ico' alt="logo-online">
         <router-link to="/articles">Tous les Articles</router-link> 
         <router-link to="/account">Mon compte</router-link> 
-        <a class = deconnexion v-on:click ="LocalstorageClear">Déconnexion</a>
+        <a v-on:click ="LocalstorageClear" class = deconnexion >Déconnexion</a>
     </div>
 
     <div v-else id="nav" >

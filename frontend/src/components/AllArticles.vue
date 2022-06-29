@@ -8,65 +8,119 @@
          <h1>Tous les Articles Publiés</h1>
 
          <div class="articles_frame">
-            <div class="article" v-bind:key = "article" v-for= "article in articlesArray"> 
+            <!--crée une boucle du tableau articlesArray (v-for= "article in articlesArray") pour créer des const article (v-bind:key = "article")-->
+            <div class="article" v-bind:key = "article" v-for= "article of articlesArray"> 
                <div class ="article_avatar">
-                  <div v-if="userAdmin == 'true'">
-                     <router-link v-bind:to ="`/accounts/${article.User.id}`">
-                        <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
-                     </router-link>
-                  </div>
-                  <div v-else>
-                        <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
+                  <div class ="article_avatar1">
+                     <div v-if="userAdmin == 'true'">
+                        <router-link v-bind:to ="`/accounts/${article.User.id}`">
+                           <!--article.user = objet (élèment du tableau articlesArray)-->
+                           <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
+                        </router-link>
+                     </div>
+                     <div v-else>
+                           <img class="iconUser rounded-circle mb-2 me-2" width="100" v-bind:src="article.User.imageUrl" v-bind:alt="article.User.firstname">
+                     </div>
+
+                     <div v-if="userAdmin == 'true'">
+                        <router-link v-bind:to ="`/accounts/${article.User.id}`"> 
+                           <p class= "name" :style="{cursor: 'pointer'}">{{article.User.firstname}} {{article.User.lastname}}</p>
+                           <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+                        </router-link>
+                     </div>
+                     <div v-else>
+                           <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
+                           <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+                     </div>
                   </div>
 
-                  <div v-if="userAdmin == 'true'">
-                     <router-link v-bind:to ="`/accounts/${article.User.id}`"> 
-                        <p class= "name" :style="{cursor: 'pointer'}">{{article.User.firstname}} {{article.User.lastname}}</p>
-                        <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
-                     </router-link>
-                  </div>
-                  <div v-else>
-                        <p class= "name">{{article.User.firstname}} {{article.User.lastname}}</p>
-                        <p class= "date">le {{article.createdAt [8]}}{{article.createdAt [9]}}-{{article.createdAt [5]}}{{article.createdAt [6]}}-{{article.createdAt [0]}}{{article.createdAt [1]}}{{article.createdAt [2]}}{{article.createdAt [3]}}</p>
+                  <div class ="article_avatar2">
+                     <button class="modifyOrDelete" title="Modifier ou supprimer votre article" v-if ="article.userId == userId" v-on:click ="displayModifyOrDelete(article.id)" >
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                     </button>
+
+                     <button class="modifyOrDelete" title="Modifier ou supprimer votre article" v-else-if="userAdmin == 'true'" v-on:click ="displayModifyOrDelete(article.id)" >
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                     </button>
                   </div>
                </div>
+
               
+            
+
+               <div v-if ="article.userId == userId && article.id == displayModifyOrDeleteButton">
+                   <!--v-on:keyup = évènement click du bouton modifier lance la fonction setIdArticleToUpdate avec comme paramètre article.id (élèment tableau articlesArray)-->
+                  <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id), contentArticleTextarea(article.content)">Modifier</button>
+                  <br><br>
+                  <br>
+               </div>
+
+
+               <div class="container-modify" v-if="idArticleUpdate == article.id"  > 
+                  <div class="div-modify">
+                     <div class="titre">
+                        <p>Modifier votre publication</p>
+                        <button class="cancelModify" v-on:click="setIdArticleToUpdate(null), clearData()">
+                           <i class="fa-solid fa-xmark"></i>
+                        </button>
+                     </div>
+
+                     <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="1" placeholder= "Modifier votre contenu..."></textarea>
+                     
+                     <div>
+                        <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
+                        <p class = "noPicture" v-else-if="deletePictureData == true"></p>
+                        <img class = image-article-modify v-else-if="article.imageUrl " v-bind:src="article.imageUrl" alt="image article">
+                     </div>
+      
+                     <div>
+                        <button class="cancelPicture" v-if="picturePreview" v-on:click="clearPicturePrewiew()">
+                           <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <p class = "noPicture" v-else-if="deletePictureData == true">Aucune image</p>
+                        <button class="deletePicture" v-else-if="article.imageUrl" v-on:click="deletePicture(article.imageUrl)">
+                           <i class="fa-solid fa-xmark"></i>
+                        </button>
+                     </div>
+
+                     <div>
+                        <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
+                        <br>
+                       
+                       
+                     
+                        <p v-if="errorUpdateArticle" class="mt-2 text-danger"> Veuillez modifier le contenu ou l'image</p>
+                        <br><br>
+                        <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Enregistrer</button> 
+                     </div>
+                  </div>  
+               </div>
+
+               
+
+               <div v-else-if="userAdmin == 'true' && article.id == displayModifyOrDeleteButton">
+                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
+                  <br>
+               </div>
+
+               <div v-else-if ="article.userId == userId && article.id == displayModifyOrDeleteButton">
+                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
+                  <br>
+               </div>
+
                <p class="article_content">{{article.content}}</p>
                
+
+                <!--article.imageUrl = élèment du tableau articlesArray-->
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="image article">
                
-               <div v-if ="article.userId == userId">
-                  <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id)">Modifier</button>
-                  <br><br>
-                  <br>
-               </div>
 
-               <div v-if="idArticleUpdate == article.id"> 
-                  <textarea class= "form-control mb-2" v-model= "updatearticle.content" id="content"  rows="3" placeholder= "Modifier votre contenu..."></textarea>
-                  <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
-                  <br>
-                  <img class = "picture" v-if="picturePreview" :src="picturePreview"/>
-               
-                  <p v-if="errorUpdateArticle" class="mt-2 text-danger"> Veuillez modifier le contenu ou l'image</p>
-                  <br><br>
-                  <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Valider</button>
-                  <input class="btn-danger ms-2 rounded" type="submit" value="Annuler" v-on:click="setIdArticleToUpdate(null), clearData()">
-               </div>
-
-               <div v-else-if="userAdmin == 'true'">
-                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
-                  <br>
-               </div>
-
-               <div v-else-if ="article.userId == userId">
-                  <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
-                  <br>
-               </div>
                <br>
-            
+               <!--Au click on stocke l'ID de l'article choisi-->
                <a class="comments" v-on:click="setToUpdate(article.id)">Commenter</a>
                <br>
-                 
+               <!--Si l'ID de l'article = ID stocké on fait apparaitre le composant CreateComment en y transférant
+               l'ID stocké-->
                <div v-if="idArticleStorage == article.id">
                   <CreateComment v-bind:idArticleTransfert = idArticleStorage ></CreateComment>
                </div>
@@ -115,7 +169,7 @@
             userLastname: localStorage.getItem('Lastname'),
             userActivate: localStorage.getItem('Activate'),
 
-            picturePreview : "",
+            picturePreview : null,
 
             idArticleUpdate: null,
 
@@ -125,6 +179,10 @@
 
             scTimer: 0,
             scY: 0,
+
+            displayModifyOrDeleteButton : "",
+
+            deletePictureData : false,
          } 
       },
 
@@ -142,7 +200,48 @@
             .then(articles => {
                console.log(articles);
                this.articlesArray = articles.data
+               console.log(this.articlesArray);
             })
+         },
+
+
+         //enregistre l'id de l'article à modifier au clic des ...
+         displayModifyOrDelete(article_id){
+            this.displayModifyOrDeleteButton = article_id;
+            console.log(this.displayModifyOrDeleteButton);
+         },
+
+         //enregistre le contenu de l'article à afficher dans la fenêtre de modification au clic de "modifier"
+         contentArticleTextarea(article_content){
+            this.updatearticle.content = article_content;
+         },
+
+         //enregistre l'id de l'article à modifier au clic de "modifier"
+         setIdArticleToUpdate(article_id){
+            this.idArticleUpdate = article_id
+            console.log(this.idArticleUpdate);
+         },
+
+         //supprime la miniature de l'image de l'article dans la fenêtre de modification
+         deletePicture(imageUrl) {
+            console.log(imageUrl)
+            this.imageUrl == this.updatearticle.imageUrl;
+            this.updatearticle.imageUrl == '';
+            console.log(this.updatearticle);
+            this.deletePictureData = true;
+            console.log(this.deletePictureData);
+         },
+
+         //affiche la miniature de l'image telechargée
+         onSelect(event) {
+            this.updatearticle.imageUrl = event.target.files[0];    
+            this.picturePreview = URL.createObjectURL(this.updatearticle.imageUrl);
+         },
+
+         //supprime la miniature de l'image telechargée
+         clearPicturePrewiew() {
+            this.picturePreview ='';
+            this.updatearticle.imageUrl = '';
          },
 
          modifyArticle(id) {
@@ -152,6 +251,27 @@
             }
 
             else {
+
+            if (this.deletePictureData == true) {
+               const formData = new FormData()
+               formData.append('content', this.updatearticle.content);
+               formData.append('imageUrl', this.updatearticle.imageUrl); 
+
+               axios.put("http://localhost:3000/api/articles/"+id, formData, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+                  .then(() => {
+                     console.log('article modifié');
+                     this.loadArticles();
+                     this.clearData();
+                     this.idArticleUpdate = null;
+                     this.errorUpdateArticle = false;
+                     this.deletePictureData = false
+                  })
+                  .catch((error) => {
+                     console.log(error.message);
+                  })    
+               }
+
+
                if (this.updatearticle.imageUrl == '') {
                   const formData = new FormData()
                   formData.append('content', this.updatearticle.content);
@@ -206,21 +326,7 @@
             }
          },
 
-         setIdArticleToUpdate(article_id){
-            this.idArticleUpdate = article_id
-         },
-
-         onSelect(event) {
-            this.updatearticle.imageUrl = event.target.files[0];    
-            this.picturePreview = URL.createObjectURL(this.updatearticle.imageUrl);
-         },
-
-         clearData() {
-            this.updatearticle.content = '';
-            this.updatearticle.imageUrl = '';
-            this.picturePreview ='';
-         },
-
+      
          deleteArticle(id) {
             axios.delete("http://localhost:3000/api/articles/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                .then(() => {
@@ -233,9 +339,17 @@
             })
          },
 
+         clearData() {
+            this.updatearticle.content = '';
+            this.updatearticle.imageUrl = '';
+            this.picturePreview ='';
+         },
+
+         //enregistre l'id de l'article au clic de "commenter"
          setToUpdate(article_id){
             this.idArticleStorage = article_id
          },
+
 
          handleScroll() {
             if (this.scTimer) return;
@@ -329,9 +443,22 @@
    .article_avatar{
       display : flex; 
       align-items: center;
-      justify-content: center;
+      justify-content: space-around;
    }
 
+   .article_avatar1{
+     display : flex; 
+     align-items: center;
+     margin-left: 15%;
+   }
+
+   .modifyOrDelete{
+      border: none;
+      font-size: 1.2em;
+      background-color: white;
+      transform: translateX(-160%);
+   }
+   
    .name {
       font-weight : bold;  
       margin :0;
@@ -367,12 +494,7 @@
       border-radius: 15px;
    }
 
-   .picture {
-      width: 400px;
-      height : 200px;
-      object-fit: contain;
-      margin: 20px 0px 20px 0px;
-   }
+
 
     @media screen and (min-width : 320px) and (max-width : 414px) {
       .picture {
@@ -428,34 +550,79 @@
    }
 
    .image_article {
-      width: 800px;
+      width: 70%;
       height : 500px max-content;
       object-fit: contain;
       margin: 20px 0px 20px 0px;
    }
 
-    @media screen and (min-width : 320px) and (max-width : 375px) {
+
+    /*@media screen and (min-width : 320px) and (max-width : 375px) {
       .image_article {
          width: 240px;
          height : 160px max-content;
       }
-   }
+   }*/
 
-       @media screen and (min-width : 376px) and (max-width : 414px) {
+       /*@media screen and (min-width : 376px) and (max-width : 414px) {
       .image_article {
          width: 300px;
          height : 160px max-content;
       }
-   }
+   }*/
 
-     @media screen and (min-width : 415px) and (max-width : 768px) {
+     /*@media screen and (min-width : 415px) and (max-width : 768px) {
       .image_article {
          width: 500px;
          height : 160px max-content;
       }
-   }
+   }*/
 
    .container.mt-5{
       padding-bottom: 100px;
    }
+
+   .container-modify {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.6);
+      
+      z-index: 1;
+            
+   }
+
+   .div-modify {
+      width: 50%;
+      margin-top: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 30px;
+      height: auto;
+      background-color: white;
+      box-shadow: rgb(122, 44, 44);
+      border-radius: 20px;
+   }
+
+   .titre {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+   }
+
+   .image-article-modify, .picture {
+      width: 70%;
+      height : 500px max-content;
+      object-fit: contain;
+      margin: 20px 0px 0px 0px;
+   }
+
+   .cancelModify, .cancelPicture, .deletePicture {
+      background-color: white;
+      border: none;
+      border-radius: 50%;
+   }   
+
 </style>

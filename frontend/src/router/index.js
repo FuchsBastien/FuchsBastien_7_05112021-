@@ -8,6 +8,7 @@ import CreateComment from '../components/CreateComment.vue'
 import Account from '../components/Account.vue'
 import AccountDelete from '../components/AccountDelete.vue'
 import AllAccounts from '../components/AllAccounts.vue'
+import Error from '../components/Error.vue'
 
 const routes = [
   {
@@ -62,6 +63,12 @@ const routes = [
     path: '/accounts/:id',
     name: 'accounts',
     component: AllAccounts
+  },
+
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'error',
+    component: Error
   },
 ]
 
