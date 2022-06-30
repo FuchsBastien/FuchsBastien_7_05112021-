@@ -6,6 +6,8 @@
 
       <div class="container mt-5">
          <h1>Tous les Articles Publiés</h1>
+              
+         <!--{{articlesArray}}-->
 
          <div class="articles_frame">
             <!--crée une boucle du tableau articlesArray (v-for= "article in articlesArray") pour créer des const article (v-bind:key = "article")-->
@@ -46,8 +48,7 @@
                </div>
 
               
-            
-
+               <!--bouton modifier (user de l'article)-->
                <div v-if ="article.userId == userId && article.id == displayModifyOrDeleteButton">
                    <!--v-on:keyup = évènement click du bouton modifier lance la fonction setIdArticleToUpdate avec comme paramètre article.id (élèment tableau articlesArray)-->
                   <button class="btn-success rounded" v-on:click="setIdArticleToUpdate(article.id), contentArticleTextarea(article.content)">Modifier</button>
@@ -56,6 +57,7 @@
                </div>
 
 
+               <!--carte modification article-->
                <div class="container-modify" v-if="idArticleUpdate == article.id"  > 
                   <div class="div-modify">
                      <div class="titre">
@@ -87,8 +89,6 @@
                         <input class="form-control-file" aria-label="envoi image" @change="onSelect" accept="image/*" type="file"  id="image">
                         <br>
                        
-                       
-                     
                         <p v-if="errorUpdateArticle" class="mt-2 text-danger"> Veuillez modifier le contenu ou l'image</p>
                         <br><br>
                         <button class="btn-success rounded" v-on:click="modifyArticle(article.id)">Enregistrer</button> 
@@ -97,32 +97,37 @@
                </div>
 
                
-
+               <!--bouton supprimer (admin)-->
                <div v-else-if="userAdmin == 'true' && article.id == displayModifyOrDeleteButton">
                   <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
                   <br>
                </div>
 
+               <!--bouton supprimer (user de l'article)-->
                <div v-else-if ="article.userId == userId && article.id == displayModifyOrDeleteButton">
                   <button class="btn-danger ms-2 rounded" v-on:click="deleteArticle(article.id)">Supprimer</button>
                   <br>
                </div>
 
+               <!--contenu article-->
                <p class="article_content">{{article.content}}</p>
                
 
-                <!--article.imageUrl = élèment du tableau articlesArray-->
+               <!--image article-->
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="image article">
                
 
                <br>
-               <!--Au click on stocke l'ID de l'article choisi-->
-               <a class="comments" v-on:click="setToUpdate(article.id)">Commenter</a>
+               <!--Au clic on stocke l'ID de l'article choisi-->
+               <a v-if= "article.nbComment == 0" class="comments" v-on:click="setToUpdate(article.id)"> Aucun commentaire !</a>
+               <a v-else-if= "article.nbComment == 1" class="comments" v-on:click="setToUpdate(article.id)"> {{article.nbComment}} commentaire</a>
+               <a v-else class="comments" v-on:click="setToUpdate(article.id)">{{article.nbComment}} commentaires</a>
+
                <br>
                <!--Si l'ID de l'article = ID stocké on fait apparaitre le composant CreateComment en y transférant
                l'ID stocké-->
                <div v-if="idArticleStorage == article.id">
-                  <CreateComment v-bind:idArticleTransfert = idArticleStorage ></CreateComment>
+                  <CreateComment v-on:commentCree="loadArticles()" v-bind:idArticleTransfert = idArticleStorage ></CreateComment>
                </div>
             </div>      
          </div>   
@@ -138,6 +143,7 @@
       <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
    </div>
 </template>
+
 
 
 <script>
@@ -183,6 +189,8 @@
             displayModifyOrDeleteButton : "",
 
             deletePictureData : false,
+
+            lenghtCommentsArray : [],
          } 
       },
 
@@ -194,16 +202,43 @@
       this.loadArticles ()
       },  
 
+
       methods : { 
          loadArticles () {
             axios.get ("http://localhost:3000/api/articles/", {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(articles => {
-               console.log(articles);
+               //console.log(articles);
                this.articlesArray = articles.data
-               console.log(this.articlesArray);
+               console.log(this.articlesArray)
+               this.idForEachArticle (this.articlesArray)
+            }) 
+         },
+
+
+         idForEachArticle (articlesArray) {
+            //console.log(articlesArray); 
+            articlesArray.forEach ((article) => {
+               console.log(article);
+               this.loadComments (article.id, article)
             })
          },
 
+        /* <p>{{articlesArray [0].id}}</p>*/
+
+         loadComments (article_id, article) { 
+         axios.get (`http://localhost:3000/api/articles/${article_id}/comments`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(response => {
+               console.log(response.data);
+               article.nbComment = response.data.length
+               console.log(article.nbComment);
+
+            })
+         },
+
+         /*storageIdEachArticle (article_id){
+            this.arrayIdEachArticle.push(article_id)
+            console.log(this.arrayIdEachArticle);
+         },*/
 
          //enregistre l'id de l'article à modifier au clic des ...
          displayModifyOrDelete(article_id){
@@ -244,6 +279,7 @@
             this.updatearticle.imageUrl = '';
          },
 
+         //modifie l'article
          modifyArticle(id) {
             if (this.updatearticle.content == '' && this.updatearticle.imageUrl == '') {
                this.errorUpdateArticle = true
@@ -326,7 +362,7 @@
             }
          },
 
-      
+         //supprime l'article
          deleteArticle(id) {
             axios.delete("http://localhost:3000/api/articles/"+id, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                .then(() => {
@@ -339,18 +375,19 @@
             })
          },
 
+         //supprime les nouvelles données enregistrées 
          clearData() {
             this.updatearticle.content = '';
             this.updatearticle.imageUrl = '';
             this.picturePreview ='';
          },
 
-         //enregistre l'id de l'article au clic de "commenter"
+         //enregistre l'id de l'article au clic de "commenter" pour l'envoyer au composant "createComment"
          setToUpdate(article_id){
             this.idArticleStorage = article_id
          },
 
-
+         //bouton scroll
          handleScroll() {
             if (this.scTimer) return;
                this.scTimer = setTimeout(() => {
@@ -360,6 +397,7 @@
             }, 100);
          },
 
+         //remonter la page
          toTop () {
             window.scrollTo({
                top: 0,
@@ -617,6 +655,18 @@
       height : 500px max-content;
       object-fit: contain;
       margin: 20px 0px 0px 0px;
+   }
+
+       @media screen and (min-width : 320px) and (max-width : 414px) {
+      .image-article-modify, .picture {
+         height : 160px max-content;
+      }
+   }
+
+     @media screen and (min-width : 415px) and (max-width : 768px) {
+      .image-article-modify, .picture {
+         height : 360px max-content;
+      }
    }
 
    .cancelModify, .cancelPicture, .deletePicture {

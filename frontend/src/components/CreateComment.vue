@@ -7,9 +7,6 @@
       </div>
 
       <p v-if="errorComment" class="mt-2 text-danger">Veuillez ajouter un contenu</p>
-      <h1 v-if= "commentsArray.length == 0"> Aucun commentaire !</h1>
-      <h1 v-else-if= "commentsArray.length == 1"> {{commentsArray.length}} commentaire</h1>
-      <h1 v-else>{{commentsArray.length}} commentaires</h1>
 
       <div class="comment" v-bind:key = "comments" v-for= "comments in commentsArray">
          <div class="comment_avatar">
@@ -103,6 +100,7 @@
             axios.post ("http://localhost:3000/api/comments/",this.comment, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
                .then(()=>{
                   console.log('réussite!!');
+                  this.$emit('commentCree');
                   this.loadComments();
                   this.clearData();
                   this.errorComment = false
@@ -124,6 +122,7 @@
             .then(() => {
                console.log('commentaire supprimé!');
                this.commentsArray.splice(1)
+               this.$emit('commentCree');
                this.loadComments();
             })
             .catch((error) => {
