@@ -13,12 +13,11 @@ const fs = require('fs');
 
 // logique métier : lire tous les articles avec leur utilisateurs
 exports.findAllArticle = (req, res, next) => {
-  Article.findAll ({ include: { model: User}, order: [['createdAt', 'DESC']]
+  Article.findAll ({include: { model: User}, order: [['createdAt', 'DESC']]
 })
     .then(article => res.status(200).json(article))
     .catch(error => res.status(400).json({ error }));
 };
-
 
 
 // logique métier : lire tous les articles de l'utilisateur
@@ -42,26 +41,27 @@ exports.findOneArticle = (req, res, next) => {
 // logique métier : créer un article
 exports.createArticle = (req, res, next) => {
   // éléments de la requète
-  const content =  req.body.content;
+  //const content =  req.body.content;
   const imageUrl =  req.body.imageUrl;
 
   // vérification que tous les champs sont remplis
-  if (content === null || content === '') {
+  /*if (content === null || content === '') {
       return res.status(400).json({'error': "Veuillez remplir le champ 'contenu' pour créer un article"});
-  }
+  }*/
 
   //si pas d'image dans la requête
   if (imageUrl === null || imageUrl  === '' ) {
     //variable contenant les champs de la requête
-    const articleObject = req.body;
+    //const articleObject = req.body;
     // Création d'un nouvel objet Article à partir du modèle Article créé
     const article = new Article({
       //copie tous les champs de la requête de la variable articleObject
-      ...articleObject,
+      ...req.body,
+      imageUrl : req.file != undefined ? req.file.filename : '',
       // Création de l'URL de l'image : http://localhost:3000/images/nomdufichier 
       //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
       //imageUrl: `http://localhost:3000/images/${req.file.filename}`
-      imageUrl : req.file != undefined ? req.file.filename : '',
+      
     });
     // Enregistrement de l'objet article dans la base de données
     article.save()
@@ -72,9 +72,9 @@ exports.createArticle = (req, res, next) => {
 
   //si image dans la requête  
   } else {
-    const articleObject = req.body;
+    //const articleObject = req.body;
     const article = new Article({
-      ...articleObject,
+      ...req.body,
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
       //imageUrl: `http://localhost:3000/images/${req.file.filename}`
     });
@@ -94,27 +94,61 @@ exports.modifyArticle = (req, res, next) => {
       return res.status(400).json({'error': "Veuillez remplir le champ 'Contenu' pour modifier votre article"});
   }*/
 
-  //variable contenant les champs de la requête
-  const articleObject = req.file?
-    // S'il existe déjà une image
-  { ...req.body,
-    imageUrl: `http://localhost:3000/images/${req.file.filename}`
-  } : { ...req.body };
-   // S'il n'existe pas d'image (ATTENTION : mettre userObject avant where)
-   Article.update({ ...articleObject, id:  req.params.id},{ where: {id: req.params.id}})
+  //trouver l'article dans la base de données
+  Article.findOne({ where: {id: req.params.id} })
+      .then(article => {
+      //Récupération du nom de l'image
+        const filename = article.imageUrl.split('/images/')[1]; 
+        //On efface l'image en appliquant une fonction callback qui modifie l'article
+        fs.unlink(`images/${filename}`, () => {
+          //S'il existe déjà une image (req.file)
+          if (req.file) {
+            //on reprend req.body en modifiant imageUrl
+            const articleObject = {...req.body,
+              imageUrl: `http://localhost:3000/images/${req.file.filename}`,
+            } 
+            //on update articleObject (ATTENTION : mettre userObject avant where)
+            Article.update({ ...articleObject, id:  req.params.id},{ where: {id: req.params.id}})
+            .then(() => res.status(200).json({ message: 'Article modifié !'}))
+            .catch(error => res.status(400).json({ error }));
+          }
+          //sinon
+          else {
+            //on reprend req.body 
+            const articleObject = {...req.body}
+            Article.update({ ...articleObject, id:  req.params.id},{ where: {id: req.params.id}})
+            .then(() => res.status(200).json({ message: 'Article modifié !'}))
+            .catch(error => res.status(400).json({ error }));
+          }
+        })
+      })
+
+
+  // S'il existe déjà une image (req.file)
+  //const articleObject = req.file?
+  // on reprend req.body en modifiant imageUrl
+  /*{ ...req.body,
+    imageUrl: `http://localhost:3000/images/${req.file.filename}`,
+
+  } 
+   // sinon on reprend req.body 
+  : { ...req.body };*/
+
+   // on update articleObject (ATTENTION : mettre userObject avant where)
+   /*Article.update({ ...articleObject, id:  req.params.id},{ where: {id: req.params.id}})
     .then(() => res.status(200).json({ message: 'Article modifié !'}))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(400).json({ error }));*/
 };
   
 
-  // logique métier : supprimer un article
+  //logique métier : supprimer un article
   exports.deleteArticle = (req, res, next) => {
     //trouver l'article dans la base de données
     Article.findOne({ where: {id: req.params.id} })
       .then(article => {
-        // Récupération du nom du fichier
+        //Récupération du nom du fichier
         const filename = article.imageUrl.split('/images/')[1];
-        // On efface le fichier (unlink)
+        //On efface le fichier (unlink)
         fs.unlink(`images/${filename}`, () => {
           //supprime chaque commentaire qui contient l'Id de l'article
           Comment.destroy({where: {articleId: req.params.id}})
@@ -129,3 +163,4 @@ exports.modifyArticle = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
 
+ 
