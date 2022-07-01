@@ -2,7 +2,8 @@
     <div v-if="userToken" id="nav" >
         <img class = img_header_online src='http://localhost:3000/images/logo-online.ico' alt="logo-online">
         <router-link to="/articles">Tous les Articles</router-link> 
-        <router-link to="/account">Mon compte</router-link> 
+        <router-link v-if="userAdmin == 'true'" to="/account">Mon Compte Admin</router-link>
+        <router-link v-else to="/account">Mon Compte</router-link>
         <a v-on:click ="LocalstorageClear" class = deconnexion >Déconnexion</a>
     </div>
 
@@ -19,6 +20,7 @@
         data : function () {
             return {
                 userToken: localStorage.getItem('token'),
+                userAdmin: localStorage.getItem('Admin'),
             }
         }, 
 

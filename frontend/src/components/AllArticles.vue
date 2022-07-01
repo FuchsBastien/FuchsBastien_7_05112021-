@@ -651,7 +651,7 @@
    }
 
    .image-article-modify, .picture {
-      width: 70%;
+      width: 50%;
       height : 500px max-content;
       object-fit: contain;
       margin: 20px 0px 0px 0px;
