@@ -15,6 +15,8 @@
                 <p v-if="errorPassword" class="mt-2 text-danger">Ce champ est obligatoire</p>
             </div>
 
+            <p class="mt-2 text-danger">{{responseError}}</p>
+
             <button class="btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">Se connecter</button>
         </form>
         <br>
@@ -41,6 +43,8 @@
                 
                 errorEmail: false,
                 errorPassword: false,
+
+                responseError : '',
             }
         },
 
@@ -83,7 +87,7 @@
                     })
                     .catch((err) =>{ 
                         console.log(err.response.data);
-                        window.alert(err.response.data);
+                        this.responseError = err.response.data;
                         this.emailValidation()
                         this.passwordValidation()
                     })
@@ -126,6 +130,10 @@
     input.form-control:invalid {
         border:1px solid grey !important;
     } 
+
+    .responseError {
+        color: red;
+    }
 
     label, a, p, h1 {
         color: black;

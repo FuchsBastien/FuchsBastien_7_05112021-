@@ -22,7 +22,7 @@
                 <label class="mb-1 mt-2" for="Votre adresse email">Adresse mail</label>
                 <input class="form-control" v-model="user.email" type="email" id="Votre adresse email" placeholder="dupontmarc@gmail.com" required/>
                 <p v-if="errorEmailEmpty" class="mt-2 text-danger">Ce champ est obligatoire</p>
-                <p v-if="errorEmailRegex" class="mt-2 text-danger">Email invalide, voici un exemple de format : votre.nom@domaine.fr</p>
+                <p v-if="errorEmailRegex" class="mt-2 text-danger">Email invalide, voici un exemple de format : nom.prenom@domaine.fr</p>
                 <div id="err"></div>
             </div>
 
@@ -44,8 +44,12 @@
                 </div>
             </div>
 
+            <p class="mt-2 text-danger">{{responseError}}</p>
+
             <button class="submit btn btn-info btn-lg btn-block mt-3" v-on:click.prevent="sendForm" type="submit">S'inscrire</button>
         </form>
+
+       
 
         <p class="text-right mt-3">Déjà inscrit ? <router-link class="createAccount" v-bind:to="`/`">Se connecter</router-link></p>
     </div>
@@ -80,6 +84,8 @@
                 errorEmailRegex: false,
 
                 picturePreview : "",
+
+                responseError : '',
             }   
         },
 
@@ -195,7 +201,8 @@
                     })
                     .catch((err)=>{
                         console.log(err.response.data);
-                        alert(err.response.data);
+                        //alert(err.response.data);
+                        this.responseError = err.response.data;
                         this.firstnameValidation()
                         this.lastnameValidation()
                         this.emailValidation()

@@ -53,7 +53,7 @@ exports.signup = (req, res, next) => {
         })   
       }
       else if (userFound) {
-      return res.status(409).json("L'adresse mail existe déjà, veuillez en choisir un autre")
+      return res.status(409).json("L'adresse mail existe déjà, veuillez en choisir une autre")
       }
     })
     .catch(error => res.status(500).json({ message: 'requête échouée' }));
