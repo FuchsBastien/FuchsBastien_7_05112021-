@@ -12,6 +12,7 @@ const multer = require('../middleware/multer-config');
 //ici '/' pour /api/users/ 
 router.get('/', userCtrl.findAllUser);
 router.get('/:id', userCtrl.findOneUser);
+router.get('/selection/:lastname/:firstname', userCtrl.findOneUserByFirstname);
 router.put('/:id', userCtrl.modifyUser);
 router.delete('/:id', userCtrl.deleteUser);
 

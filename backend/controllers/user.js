@@ -24,6 +24,16 @@ exports.findOneUser = (req, res, next) => {
 };
 
 
+// logique métier : lire tous les utilisateurs selon un lastname et un firstname donné
+exports.findOneUserByFirstname = (req, res, next) => {
+  //afficher l'utilisateur par son ID récupéré dans l'url
+  User.findAll ({ where: {lastname: req.params.lastname, firstname: req.params.firstname,}})
+    .then(user => res.status(200).json(user))
+    .catch(error => res.status(404).json({ error }));
+};
+
+
+
 // logique métier : modifier un utilisateur
 exports.modifyUser = (req, res, next) => {
    // éléments de la requète

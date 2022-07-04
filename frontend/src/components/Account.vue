@@ -31,8 +31,35 @@
         <button class ="btn-danger mt-2 mb-3 rounded" v-on:click ="userDelete">Supprimer</button>
       </div>
     </div>
-  </div>  
 
+    <div v-if="userAdmin == 'true'">
+      <div class="search_account_admin" >
+        <h1>Recherche compte</h1>
+          <input type="text" placeholder="nom" v-model.trim= "lastnameAccount" >
+          <br>
+          <br>
+          <input type="text" placeholder="prénom" v-model.trim= "firstnameAccount">
+          <br>
+          <br>
+          <button v-on:click.prevent="search_account()">Rechercher</button>
+      </div>
+
+      <br>
+
+      <div class="result_search_account"> 
+        <h1 v-if="nameAccountArray == null"  >Aucun résultat</h1>
+        <div v-else-if ="nameAccountArray"  class="users" v-bind:key = "user" v-for= "user of nameAccountArray">  
+          <router-link  v-bind:to ="`/accounts/${user.id}`">
+            <img class="iconUser rounded-circle mb-1 me-1" width="100" v-bind:src="user.imageUrl" v-bind:alt="nameAccountArray.imageUrl">            
+            <p>{{user.lastname}} {{user.firstname}}</p>
+            <p>{{user.email}}</p>
+          </router-link>
+        </div>
+      </div> 
+    </div> 
+  </div> 
+
+    
   <div class ="no-connect" v-else>
     <h1>Accès non autorisé</h1>
     <p >Veuillez vous <router-link class="createAccount" v-bind:to="`/`">connecter</router-link> ou vous <router-link class="createAccount" v-bind:to="`/signup`">inscrire</router-link></p>
@@ -50,6 +77,7 @@
       return {
         userToken: localStorage.getItem('token'),
         Id: localStorage.getItem('Id'),
+        userAdmin: localStorage.getItem('Admin'),
 
         userArray : [],
 
@@ -61,6 +89,11 @@
           firstname : '',
           lastname : '', 
         },
+
+        lastnameAccount : '',
+        firstnameAccount : '',
+        nameAccountArray :[]
+
       } 
     },
 
@@ -119,6 +152,18 @@
       setIdUserToUpdate(userArray_id) {
         this.idUserUpdate = userArray_id
       },
+
+      search_account() {
+        axios.get (`http://localhost:3000/api/users/selection/${this.lastnameAccount}/${this.firstnameAccount}`)
+        .then(user => {
+          this.nameAccountArray = user.data
+          if (this.nameAccountArray.length==0) {
+            this.nameAccountArray = null;
+          }
+          console.log(this.nameAccountArray);
+        })
+      },
+      
     },
   }
 </script>
@@ -128,6 +173,7 @@
   .account {
     background-color: #dfe3ee;
     padding-top : 150px;
+    padding-bottom : 100px;
   }
 
   .no-connect {
@@ -169,6 +215,13 @@
     width: 100px;
   }
 
+   .iconUser.rounded-circle.mb-1.me-1 {
+    border: solid 1px gray;
+    margin : 10px;
+    height: 50px;
+    width: 50px;
+  }
+
   .form-groupmt-5 {
     margin-top : 5px;
   }
@@ -187,6 +240,12 @@
     }
   }
 
+  .users{
+    /*display: flex;
+    align-items: center;*/
+    margin-bottom: 10px;
+  }
+
   h1 {
     text-align: center;
     padding-top : 10px;
@@ -194,10 +253,14 @@
   }
 
   p {
+    margin: 0;
     color: black;
-  } 
+  }
+
+ 
 
   a {
+    color: black;
     text-decoration: none;  
   }
 </style>
