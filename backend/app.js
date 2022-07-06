@@ -7,7 +7,7 @@ const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const articleRoutes = require('./routes/article')
 const commentRoutes = require('./routes/comment')
-
+const likeRoutes = require('./routes/like')
 
 const app = express ();
 
@@ -36,8 +36,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/comments', commentRoutes);
-
-
+app.use('/api/likes', likeRoutes);
 
 // export de notre app
 module.exports = app;

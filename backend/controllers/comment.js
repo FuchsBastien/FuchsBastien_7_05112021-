@@ -7,7 +7,6 @@ const User = db.users;
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-const fs = require('fs');
 
 
 // logique métier : lire tous les commentaires 

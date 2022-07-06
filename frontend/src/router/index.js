@@ -10,6 +10,7 @@ import AccountDelete from '../components/AccountDelete.vue'
 import AllAccounts from '../components/AllAccounts.vue'
 import Error from '../components/Error.vue'
 
+
 const routes = [
   {
     path: '/',
@@ -72,6 +73,7 @@ const routes = [
   },
 ]
 
+//on crée le router avec toutes les routes qui correspondra à router-view
 const router = createRouter({
   history: createWebHashHistory(),
   routes

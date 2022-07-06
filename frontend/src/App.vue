@@ -14,15 +14,15 @@
   export default {
     name:'App',
 
+    components: {
+      Header,
+      Footer
+    },
+
     data () {
       return {
         headerKey: 0,
       }
-    },
-
-    components: {
-      Header,
-      Footer
     },
 
     methods: {

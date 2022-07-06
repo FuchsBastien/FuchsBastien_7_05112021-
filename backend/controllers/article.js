@@ -96,7 +96,8 @@ exports.modifyArticle = (req, res, next) => {
 
   //trouver l'article dans la base de données
   Article.findOne({ where: {id: req.params.id} })
-      .then(article => {
+      //paramètre article pour retrouver article.imageUrl
+      .then((article) => {
       //Récupération du nom de l'image
         const filename = article.imageUrl.split('/images/')[1]; 
         //On efface l'image en appliquant une fonction callback qui modifie l'article
@@ -138,6 +139,7 @@ exports.modifyArticle = (req, res, next) => {
    /*Article.update({ ...articleObject, id:  req.params.id},{ where: {id: req.params.id}})
     .then(() => res.status(200).json({ message: 'Article modifié !'}))
     .catch(error => res.status(400).json({ error }));*/
+    
 };
   
 
@@ -145,6 +147,7 @@ exports.modifyArticle = (req, res, next) => {
   exports.deleteArticle = (req, res, next) => {
     //trouver l'article dans la base de données
     Article.findOne({ where: {id: req.params.id} })
+      //paramètre article pour retrouver article.imageUrl
       .then(article => {
         //Récupération du nom du fichier
         const filename = article.imageUrl.split('/images/')[1];

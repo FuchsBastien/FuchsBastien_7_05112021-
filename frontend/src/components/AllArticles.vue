@@ -116,6 +116,11 @@
                <!--image article-->
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="image article">
                
+               <br>
+               <div class="like">
+                  <i class="fa-solid fa-thumbs-up"></i>
+                  <span>{{article.nbLike}}</span>
+               </div>
 
                <br>
                <!--Au clic on stocke l'ID de l'article choisi-->
@@ -190,7 +195,6 @@
 
             deletePictureData : false,
 
-            lenghtCommentsArray : [],
          } 
       },
 
@@ -204,6 +208,7 @@
 
 
       methods : { 
+         //charge les articles
          loadArticles () {
             axios.get ("http://localhost:3000/api/articles/", {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(articles => {
@@ -220,11 +225,12 @@
             articlesArray.forEach ((article) => {
                console.log(article);
                this.loadComments (article.id, article)
+               this.loadLikes (article.id, article)
             })
          },
 
-        /* <p>{{articlesArray [0].id}}</p>*/
 
+         //charge le nombre de commentaire par article
          loadComments (article_id, article) { 
          axios.get (`http://localhost:3000/api/articles/${article_id}/comments`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => {
@@ -235,10 +241,15 @@
             })
          },
 
-         /*storageIdEachArticle (article_id){
-            this.arrayIdEachArticle.push(article_id)
-            console.log(this.arrayIdEachArticle);
-         },*/
+         //charge le nombre de like par article
+         loadLikes (article_id, article) {
+            axios.get (`http://localhost:3000/api/likes/${article_id}`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(response => {
+               console.log(response.data);
+               article.nbLike = response.data.length
+               console.log(article.nbLike);
+            })
+         },
 
          //enregistre l'id de l'article à modifier au clic des ...
          displayModifyOrDelete(article_id){
@@ -374,6 +385,7 @@
                   console.log(error.message);
             })
          },
+
 
          //supprime les nouvelles données enregistrées 
          clearData() {
@@ -513,16 +525,24 @@
 
    .article_avatar a:hover {
       color: orangered;
-    }
+   }
+
+
+   .like {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+   }
 
    .comments:hover {
       color: orangered;
       cursor: pointer;  
     }
 
-    .comments {
+   .comments {
       font-size: 25px;
-    }
+   }
 
    .form-control {
       width: 65%;
