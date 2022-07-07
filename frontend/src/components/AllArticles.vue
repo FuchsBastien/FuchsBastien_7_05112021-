@@ -117,8 +117,10 @@
                <img class="image_article" v-if="article.imageUrl" v-bind:src="article.imageUrl" alt="image article">
                
                <br>
-               <div class="like">
+               <!-- poster/supprimer like -->
+               <div class="like"  v-on:click="setIdArticleToLike(article.id), loadLikeByArticleByUser()">
                   <i class="fa-solid fa-thumbs-up"></i>
+                  <!--nombre likes-->
                   <span>{{article.nbLike}}</span>
                </div>
 
@@ -172,6 +174,7 @@
                content : '',  
                imageUrl : ''
             },
+
             
             userToken: localStorage.getItem('token'),
             userId: localStorage.getItem('Id'),
@@ -183,6 +186,15 @@
             picturePreview : null,
 
             idArticleUpdate: null,
+
+
+            likeArray : [],
+            
+            like : {
+               articleId : '',
+               userId: localStorage.getItem('Id'),
+            },
+
 
             idArticleStorage : null,
 
@@ -219,29 +231,28 @@
             }) 
          },
 
-
+         //pour chaque article on applique les fonction loadComments et loadLikes avec en paramètre l"id de l'article
          idForEachArticle (articlesArray) {
             //console.log(articlesArray); 
             articlesArray.forEach ((article) => {
                console.log(article);
-               this.loadComments (article.id, article)
-               this.loadLikes (article.id, article)
+               this.loadComments (article.id, article);
+               this.loadLikes (article.id, article);
             })
          },
 
-
-         //charge le nombre de commentaire par article
+         //charge le nombre de commentaires par article
          loadComments (article_id, article) { 
          axios.get (`http://localhost:3000/api/articles/${article_id}/comments`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => {
                console.log(response.data);
                article.nbComment = response.data.length
                console.log(article.nbComment);
-
             })
          },
 
-         //charge le nombre de like par article
+
+         //charge le nombre de likes par article
          loadLikes (article_id, article) {
             axios.get (`http://localhost:3000/api/likes/${article_id}`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
             .then(response => {
@@ -250,6 +261,10 @@
                console.log(article.nbLike);
             })
          },
+
+
+        
+   
 
          //enregistre l'id de l'article à modifier au clic des ...
          displayModifyOrDelete(article_id){
@@ -268,6 +283,8 @@
             console.log(this.idArticleUpdate);
          },
 
+        
+      
          //supprime la miniature de l'image de l'article dans la fenêtre de modification
          deletePicture(imageUrl) {
             console.log(imageUrl)
@@ -387,11 +404,63 @@
          },
 
 
+          //enregistre l'id de l'article au clic de l'image like
+         setIdArticleToLike(article_id){
+            this.like.articleId = article_id
+            console.log(this.like);
+         },
+
+         
+         //charge le like de l'article selon l'utilisateur au clic de l'image like
+         loadLikeByArticleByUser ()  {
+            axios.get (`http://localhost:3000/api/likes/${this.like.articleId}/${this.like.userId}`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+            .then(response => {
+               this.likeArray = response.data
+               console.log(this.likeArray.length)
+               const likeArrayLength = this.likeArray.length
+               this.likes(likeArrayLength)
+            })      
+         },
+
+         
+         //créer ou supprimer le like unique de l'utilisateur
+         likes (likeArrayLength) {
+            if (likeArrayLength == 0) {
+               console.log(this.likeArray.length);
+               axios.post ("http://localhost:3000/api/likes",this.like, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+               .then(()=>{
+                  console.log('like créé!');
+                  this.loadArticles();
+                  this.clearData();
+               })
+               .catch((err)=>{
+                  console.log(err.response.data);
+               })   
+            }
+            else {
+               console.log(this.likeArray);
+               console.log(this.likeArray[0].id);
+               axios.delete(`http://localhost:3000/api/likes/${this.likeArray[0].id}`, {headers : {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+               .then(() => {
+                  console.log('like supprimé!');
+                  this.loadArticles();
+                  this.clearData();
+               })
+               .catch((error) => {
+                  console.log(error.message);
+               })
+            }          
+         },
+         
+
+
          //supprime les nouvelles données enregistrées 
          clearData() {
             this.updatearticle.content = '';
             this.updatearticle.imageUrl = '';
             this.picturePreview ='';
+            this.like.articleId = '';
+            this.likeArray = [];
          },
 
          //enregistre l'id de l'article au clic de "commenter" pour l'envoyer au composant "createComment"

@@ -6,7 +6,8 @@ const likeCtrl = require('../controllers/like');
 
 // Routes
 //ici '/' pour /api/likes/ 
-router.get('/:id', likeCtrl.findLikeByArticle);
+router.get('/:articleId', likeCtrl.findLikeByArticle);
+router.get('/:articleId/:userId', likeCtrl.findLikeByUserByArticle );
 router.post('/', likeCtrl.createLikeByArticle);
 router.delete('/:id', likeCtrl.deleteLikeByArticle);
 
