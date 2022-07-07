@@ -3,6 +3,7 @@ const db = require("../models");
 const Article = db.articles;
 const Comment = db.comments;
 const User = db.users;
+const Like = db.likes;
 
 User.hasMany(Article);
 Article.belongsTo(User);
@@ -155,6 +156,7 @@ exports.modifyArticle = (req, res, next) => {
         fs.unlink(`images/${filename}`, () => {
           //supprime chaque commentaire qui contient l'Id de l'article
           Comment.destroy({where: {articleId: req.params.id}})
+          Like.destroy({where: {articleId: req.params.id}})
           .then(() =>
           //supprime l'article de la base de données
           Article.destroy({ where: {id: req.params.id} })
